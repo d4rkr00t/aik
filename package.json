@@ -1,7 +1,7 @@
 {
   "name": "aik",
   "version": "0.0.0",
-  "description": "Frontend Dev REPL",
+  "description": "Frontend Playground",
   "bin": "cli.js",
   "main": "lib/index.js",
   "files": [
@@ -9,7 +9,18 @@
     "cli.js"
   ],
   "keywords": [
-    "node","frontend","repl","react","babel","webpack","playground","experiments","boostrap","boilerplate", "postcss", "cssmodules"
+    "node",
+    "frontend",
+    "repl",
+    "react",
+    "babel",
+    "webpack",
+    "playground",
+    "experiments",
+    "boostrap",
+    "boilerplate",
+    "postcss",
+    "cssmodules"
   ],
   "license": "MIT",
   "repository": {
@@ -42,8 +53,20 @@
     "validate"
   ],
   "dependencies": {
+    "babel-core": "^6.5.2",
+    "babel-loader": "^6.2.3",
+    "babel-preset-es2015": "^6.5.0",
+    "babel-preset-react": "^6.5.0",
+    "chalk": "^1.1.1",
+    "css-loader": "^0.23.1",
+    "html-webpack-plugin": "^2.9.0",
     "meow": "^3.7.0",
-    "chalk": "^1.1.1"
+    "ngrok": "0.1.99",
+    "npm-install-webpack-plugin": "git://github.com/d4rkr00t/npm-install-webpack-plugin.git#search-in-nodemodules",
+    "react-hot-loader": "^1.3.0",
+    "style-loader": "^0.13.0",
+    "webpack": "^1.12.14",
+    "webpack-dev-server": "^1.14.1"
   },
   "devDependencies": {
     "ava": "^0.11.0",

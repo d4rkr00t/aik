@@ -13,27 +13,27 @@
     <img src="https://img.shields.io/github/issues/d4rkr00t/aik.svg" alt="Github Issues">
   </a>
 
-  
+
   <a href="https://travis-ci.org/d4rkr00t/aik">
     <img src="https://img.shields.io/travis/d4rkr00t/aik.svg" alt="Travis Status">
   </a>
-  
 
-  
+
+
   <a href="https://coveralls.io/github/d4rkr00t/aik">
     <img src="https://img.shields.io/coveralls/d4rkr00t/aik.svg" alt="Coveralls">
   </a>
-  
 
-  
+
+
   <a href="http://commitizen.github.io/cz-cli/">
     <img src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg" alt="Commitizen Friendly">
   </a>
-  
+
 </p>
 
 <p align="center"><big>
-Frontend Dev REPL
+Frontend Playground
 </big></p>
 
 
@@ -43,7 +43,7 @@ Frontend Dev REPL
 ## Install
 
 ```sh
-npm install aik
+npm install -g aik
 ```
 
 ## Usage
