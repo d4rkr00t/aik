@@ -1,5 +1,10 @@
-<big><h1 align="center">aik</h1></big>
-
+<div align="center">
+  <img src="/d4rkr00t/aik/raw/master/assets/aik.png" alt="aik" width="300">
+</div>
+<big><h1 align="center">Aik</h1></big>
+<p align="center"><big>
+Frontend Playground
+</big></p>
 <p align="center">
   <a href="https://npmjs.org/package/aik">
     <img src="https://img.shields.io/npm/v/aik.svg" alt="NPM Version">
@@ -26,10 +31,6 @@
   </a>
 
 </p>
-
-<p align="center"><big>
-Frontend Playground
-</big></p>
 
 
 ## Features
