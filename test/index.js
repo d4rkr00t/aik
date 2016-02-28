@@ -1,8 +1,8 @@
 import test from 'ava';
 import 'babel-core/register';
 
-import aik from '../src/lib/';
+import aik from '../lib/';
 
-test('aik', (t) => {
-  t.ok(aik());
+test('aik', () => {
+  return aik('cli.js', { host: 'localhost', port: 1234, ngrok: true, cssmodules: true });
 });
