@@ -1,23 +1,24 @@
 #! /usr/bin/env node
 import meow from 'meow';
+import chalk from 'chalk';
 import aik from './lib/';
 import isEmpty from 'lodash/lang/isEmpty';
 
 const cli = meow({
   help: [
-    'Usage',
+    chalk.green('Usage'),
     '  $ aik filename.js',
     '',
-    'Options',
-    '  -p, --port  Web server port. [Default: 8080]',
-    '  -h, --host  Web server host. [Default: localhost]',
-    '  -n, --ngrok  Exposes server to real world by ngrok.',
-    '  -c, --cssmodules  Enables css modules.',
-    '  --help  Shows help.',
+    chalk.green('Options'),
+    `  ${chalk.yellow('-p, --port')}        Web server port. ${chalk.dim('[Default: 8080]')}`,
+    `  ${chalk.yellow('-h, --host')}        Web server host. ${chalk.dim('[Default: localhost]')}`,
+    `  ${chalk.yellow('-n, --ngrok')}       Exposes server to real world by ngrok.`,
+    `  ${chalk.yellow('-c, --cssmodules')}  Enables css modules.`,
+    `  ${chalk.yellow('--help')}            Shows help.`,
     '',
-    'Examples',
+    chalk.green('Examples'),
     '  $ aik filename.js --port 3000 -n -cm',
-    '  Runs aik web server on 3000 port with ngrok and css modules support'
+    chalk.dim('  Runs aik web server on 3000 port with ngrok and css modules support')
   ]
 }, {
   alias: {
