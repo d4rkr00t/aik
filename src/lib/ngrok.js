@@ -14,7 +14,7 @@ export default function createNgrokTunnel(flags) {
         return reject(err);
       }
 
-      resolve(url);
+      resolve(url.replace('https:', 'http:'));
     });
   });
 }
