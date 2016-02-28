@@ -3,6 +3,15 @@ import chalk from 'chalk';
 import createWebpackDevServer from './webpack';
 import createNgrokTunnel from './ngrok';
 
+/**
+ * Generates banner for aik.
+ *
+ * @param {String} filename
+ * @param {Flags} flags
+ * @param {String} ngrokUrl
+ *
+ * @return {String}
+ */
 export function banner(filename, flags, ngrokUrl) {
   return `
   /$$$$$$  /$$$$$$ /$$   /$$
@@ -26,11 +35,7 @@ ${chalk.magenta('Ngrok:')}        ${flags.ngrok ? chalk.green(ngrokUrl) : chalk.
  * Aik dev server
  *
  * @param {String[]} input
- * @param {Object} flags
- * @param {String} flags.port
- * @param {String} flags.host
- * @param {Boolean} flags.ngrok
- * @param {Boolean} flags.cssmodules
+ * @param {Flags} flags
  *
  * @return {Type}
  */
@@ -52,3 +57,12 @@ export default function aikDevServer(input, flags) {
       throw err;
     });
 }
+
+/**
+ * CLI Flags
+ * @typedef {Object} Flags
+ * @property {String} port
+ * @property {String} host
+ * @property {Boolean} ngrok
+ * @property {Boolean} cssmodules
+ */

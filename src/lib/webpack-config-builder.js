@@ -7,10 +7,26 @@ import autoprefixer from 'autoprefixer';
 import precss from 'precss';
 import postcssImport from 'postcss-import';
 
+/**
+ * Makes absolute path to node_modules for webpack plugins and loaders.
+ *
+ * @param {String} relativePath
+ *
+ * @return {String}
+ */
 export function makeAbsolutePathToNodeModules(relativePath) {
   return path.join(__dirname, '..', 'node_modules', relativePath);
 }
 
+/**
+ * Setups entry part of webpack config.
+ *
+ * @param {String} filename
+ * @param {String} host
+ * @param {String} port
+ *
+ * @return {Object}
+ */
 export function setupEntry(filename, host, port) {
   host = host === '::' ? 'localhost' : host;
 
@@ -23,6 +39,13 @@ export function setupEntry(filename, host, port) {
   };
 }
 
+/**
+ * Setups output section of webpack config.
+ *
+ * @param {String} filename
+ *
+ * @return {Object}
+ */
 export function setupOutput(filename) {
   return {
     path: path.join(process.cwd(), path.dirname(filename)),
@@ -31,6 +54,11 @@ export function setupOutput(filename) {
   };
 }
 
+/**
+ * Setups plugins section for webpack config.
+ *
+ * @return {Array}
+ */
 export function setupPlugins() {
   return [
     new webpack.HotModuleReplacementPlugin(),
@@ -43,6 +71,13 @@ export function setupPlugins() {
   ];
 }
 
+/**
+ * Setups loaders for webpack.
+ *
+ * @param {Boolean} cssmodules
+ *
+ * @return {Object[]}
+ */
 export function setupLoaders(cssmodules) {
   return [
     {
@@ -64,6 +99,14 @@ export function setupLoaders(cssmodules) {
   ];
 }
 
+/**
+ * Generates config for webpack.
+ *
+ * @param {String} filename
+ * @param {Flags} flags
+ *
+ * @return {Object}
+ */
 export default function webpackConfigBuilder(filename, flags) {
   return {
     entry: setupEntry(filename, flags.host, flags.port),
