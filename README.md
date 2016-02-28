@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="/assets/aik.png" alt="aik" width="300" align="center">
+  <img src="/assets/aik.png" alt="aik" width="250" align="center">
 </div>
 <big><h1 align="center">Aik</h1></big>
 <p align="center"><big>
