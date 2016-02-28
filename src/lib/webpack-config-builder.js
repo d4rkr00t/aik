@@ -97,7 +97,7 @@ export function setupLoaders(cssmodules) {
       exclude: /(node_modules|bower_components)/,
       loaders: [
         makeAbsolutePathToNodeModules('react-hot-loader'),
-        `${makeAbsolutePathToNodeModules('babel-loader')}?presets[]=react,presets[]=es2015`
+        `${makeAbsolutePathToNodeModules('babel-loader')}?presets[]=${makeAbsolutePathToNodeModules('babel-preset-react')},presets[]=${makeAbsolutePathToNodeModules('babel-preset-es2015')}&cacheDirectory` // eslint-disable-line
       ]
     }
   ];
@@ -123,9 +123,7 @@ export default function webpackConfigBuilder(filename, flags) {
     },
     postcss: function (wp) {
       return [
-        postcssImport({
-          addDependencyTo: wp
-        }),
+        postcssImport({ addDependencyTo: wp }),
         autoprefixer(),
         precss()
       ];
