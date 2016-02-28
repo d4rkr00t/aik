@@ -53,6 +53,7 @@
     "validate"
   ],
   "dependencies": {
+    "autoprefixer": "^6.3.3",
     "babel-core": "^6.5.2",
     "babel-loader": "^6.2.3",
     "babel-preset-es2015": "^6.5.0",
@@ -63,6 +64,9 @@
     "meow": "^3.7.0",
     "ngrok": "0.1.99",
     "npm-install-webpack-plugin": "git://github.com/d4rkr00t/npm-install-webpack-plugin.git#search-in-nodemodules",
+    "postcss-import": "^8.0.2",
+    "postcss-loader": "^0.8.1",
+    "precss": "^1.4.0",
     "react-hot-loader": "^1.3.0",
     "style-loader": "^0.13.0",
     "webpack": "^1.12.14",

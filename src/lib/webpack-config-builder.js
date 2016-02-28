@@ -3,6 +3,10 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import NpmInstallPlugin from 'npm-install-webpack-plugin';
 
+import autoprefixer from 'autoprefixer';
+import precss from 'precss';
+import postcssImport from 'postcss-import';
+
 export function makeAbsolutePathToNodeModules(relativePath) {
   return path.join(__dirname, '..', 'node_modules', relativePath);
 }
@@ -45,7 +49,8 @@ export function setupLoaders(cssmodules) {
       test: /\.css$/,
       loaders: [
         makeAbsolutePathToNodeModules('style-loader'),
-        makeAbsolutePathToNodeModules('css-loader') + (cssmodules ? '?modules' : '')
+        makeAbsolutePathToNodeModules('css-loader') + (cssmodules ? '?modules&importLoaders=1' : ''),
+        makeAbsolutePathToNodeModules('postcss-loader')
       ]
     },
     {
@@ -68,6 +73,15 @@ export default function webpackConfigBuilder(filename, flags) {
     plugins: setupPlugins(),
     module: {
       loaders: setupLoaders(flags.cssmodules)
+    },
+    postcss: function (wp) {
+      return [
+        postcssImport({
+          addDependencyTo: wp
+        }),
+        autoprefixer(),
+        precss()
+      ];
     }
   };
 }
