@@ -58,13 +58,14 @@ Usage
 Options
   -p, --port        Web server port. [Default: 8080]
   -h, --host        Web server host. [Default: localhost]
+  -r, --react       Enables react hot loader.
   -n, --ngrok       Exposes server to real world by ngrok.
   -c, --cssmodules  Enables css modules.
   --help            Shows help.
 
 Examples
-  $ aik filename.js --port 3000 -n -c
-  Runs aik web server on 3000 port with ngrok and css modules support
+  $ aik filename.js --port 3000 -n -c -r
+  Runs aik web server on 3000 port with ngrok, css modules support and react hot loader
 ```
 
 ## Author
