@@ -1,4 +1,6 @@
 import path from 'path';
+import last from 'lodash/array/last';
+
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import NpmInstallPlugin from 'npm-install-webpack-plugin';
@@ -62,7 +64,9 @@ export function setupOutput(filename) {
 export function setupPlugins() {
   return [
     new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      title: last(process.cwd().split(path.sep))
+    }),
     new NpmInstallPlugin({
       save: false,
       saveDev: false,
