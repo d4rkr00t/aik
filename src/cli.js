@@ -17,7 +17,7 @@ const cli = meow({
     `  ${chalk.yellow('--help')}            Shows help.`,
     '',
     chalk.green('Examples'),
-    '  $ aik filename.js --port 3000 -n -cm',
+    '  $ aik filename.js --port 3000 -n -c',
     chalk.dim('  Runs aik web server on 3000 port with ngrok and css modules support')
   ]
 }, {
