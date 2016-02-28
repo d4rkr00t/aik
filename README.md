@@ -38,7 +38,14 @@ Frontend Playground
 
 
 ## Features
-// TODO
+* Runs web server with given javascript file.
+* [Automaticaly installs npm modules](https://github.com/ericclemmons/npm-install-webpack-plugin).
+* [Hot reload react components](https://github.com/gaearon/react-hot-loader).
+* Hot reload css.
+* Transpile javascript with [babel](https://babeljs.io/) using [es2015](http://babeljs.io/docs/plugins/preset-es2015/) and [react](http://babeljs.io/docs/plugins/preset-react/) presets.
+* [PostCSS](https://github.com/postcss/postcss) with [autoprefixer](https://github.com/postcss/autoprefixer) and [precss](https://github.com/jonathantneal/precss).
+* Optional enables [css-modules](https://github.com/css-modules/css-modules).
+* Optional exposes web server to real world by [ngrok](https://github.com/bubenshchykov/ngrok).
 
 ## Install
 
@@ -49,7 +56,19 @@ npm install -g aik
 ## Usage
 
 ```sh
-// TODO
+Usage
+  $ aik filename.js
+
+Options
+  -p, --port        Web server port. [Default: 8080]
+  -h, --host        Web server host. [Default: localhost]
+  -n, --ngrok       Exposes server to real world by ngrok.
+  -c, --cssmodules  Enables css modules.
+  --help            Shows help.
+
+Examples
+  $ aik filename.js --port 3000 -n -c
+  Runs aik web server on 3000 port with ngrok and css modules support
 ```
 
 ## Author
