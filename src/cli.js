@@ -1,8 +1,12 @@
 #! /usr/bin/env node
 import meow from 'meow';
 import chalk from 'chalk';
-import aik from './lib/';
 import isEmpty from 'lodash/isEmpty';
+import updateNotifier from 'update-notifier';
+import pkg from './package.json';
+import aik from './lib/';
+
+updateNotifier({ pkg }).notify();
 
 const cli = meow({
   help: [
@@ -15,6 +19,7 @@ const cli = meow({
     `  ${chalk.yellow('-r, --react')}       Enables react hot loader.`,
     `  ${chalk.yellow('-n, --ngrok')}       Exposes server to real world by ngrok.`,
     `  ${chalk.yellow('-c, --cssmodules')}  Enables css modules.`,
+    `  ${chalk.yellow('-v, --version')}     Shows version.`,
     `  ${chalk.yellow('--help')}            Shows help.`,
     '',
     chalk.green('Examples'),
@@ -27,7 +32,8 @@ const cli = meow({
     h: 'host',
     r: 'react',
     n: 'ngrok',
-    c: 'cssmodules'
+    c: 'cssmodules',
+    v: 'version'
   },
   default: {
     port: 8080,
@@ -40,6 +46,8 @@ const flags = cli.flags || {};
 
 if (isEmpty(input) || flags.help) {
   console.log(cli.help); // eslint-disable-line
+} else if (flags.version) {
+  console.log(pkg.version); // eslint-disable-line
 } else {
   aik(input, flags);
 }

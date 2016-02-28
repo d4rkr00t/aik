@@ -61,6 +61,7 @@ Options
   -r, --react       Enables react hot loader.
   -n, --ngrok       Exposes server to real world by ngrok.
   -c, --cssmodules  Enables css modules.
+  -v, --version     Shows version.
   --help            Shows help.
 
 Examples
