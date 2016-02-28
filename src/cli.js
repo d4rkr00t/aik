@@ -2,7 +2,7 @@
 import meow from 'meow';
 import chalk from 'chalk';
 import aik from './lib/';
-import isEmpty from 'lodash/lang/isEmpty';
+import isEmpty from 'lodash/isEmpty';
 
 const cli = meow({
   help: [

@@ -13,7 +13,7 @@ var _lib = require('./lib/');
 
 var _lib2 = _interopRequireDefault(_lib);
 
-var _isEmpty = require('lodash/lang/isEmpty');
+var _isEmpty = require('lodash/isEmpty');
 
 var _isEmpty2 = _interopRequireDefault(_isEmpty);
 
