@@ -61,6 +61,7 @@
     "chalk": "^1.1.1",
     "css-loader": "^0.23.1",
     "html-webpack-plugin": "^2.9.0",
+    "lodash": "^4.5.1",
     "meow": "^3.7.0",
     "ngrok": "0.1.99",
     "npm-install-webpack-plugin": "git://github.com/d4rkr00t/npm-install-webpack-plugin.git#search-in-nodemodules",

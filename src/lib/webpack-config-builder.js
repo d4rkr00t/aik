@@ -1,5 +1,5 @@
 import path from 'path';
-import last from 'lodash/array/last';
+import last from 'lodash/last';
 
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
