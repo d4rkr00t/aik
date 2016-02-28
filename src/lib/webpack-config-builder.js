@@ -35,7 +35,7 @@ export function setupEntry(filename, host, port) {
   return {
     app: [
       `${makeAbsolutePathToNodeModules('webpack-dev-server/client')}?http://${host}:${port}/`,
-      makeAbsolutePathToNodeModules('webpack/hot/only-dev-server'),
+      makeAbsolutePathToNodeModules('webpack/hot/dev-server'),
       path.join(process.cwd(), filename)
     ]
   };
@@ -79,10 +79,19 @@ export function setupPlugins() {
  * Setups loaders for webpack.
  *
  * @param {Boolean} cssmodules
+ * @param {Boolean} react
  *
  * @return {Object[]}
  */
-export function setupLoaders(cssmodules) {
+export function setupLoaders(cssmodules, react) {
+  const jsLoaders = [
+    `${makeAbsolutePathToNodeModules('babel-loader')}?presets[]=${makeAbsolutePathToNodeModules('babel-preset-react')},presets[]=${makeAbsolutePathToNodeModules('babel-preset-es2015')}&cacheDirectory` // eslint-disable-line
+  ];
+
+  if (react) {
+    jsLoaders.unshift(makeAbsolutePathToNodeModules('react-hot-loader'));
+  }
+
   return [
     {
       test: /\.css$/,
@@ -95,10 +104,7 @@ export function setupLoaders(cssmodules) {
     {
       test: /\.jsx?$/,
       exclude: /(node_modules|bower_components)/,
-      loaders: [
-        makeAbsolutePathToNodeModules('react-hot-loader'),
-        `${makeAbsolutePathToNodeModules('babel-loader')}?presets[]=${makeAbsolutePathToNodeModules('babel-preset-react')},presets[]=${makeAbsolutePathToNodeModules('babel-preset-es2015')}&cacheDirectory` // eslint-disable-line
-      ]
+      loaders: jsLoaders
     }
   ];
 }
@@ -119,7 +125,7 @@ export default function webpackConfigBuilder(filename, flags) {
     devtool: 'source-map',
     plugins: setupPlugins(),
     module: {
-      loaders: setupLoaders(flags.cssmodules)
+      loaders: setupLoaders(flags.cssmodules, flags.react)
     },
     postcss: function (wp) {
       return [
