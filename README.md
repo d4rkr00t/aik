@@ -43,6 +43,9 @@ Frontend Playground
 * Optional enables [css-modules](https://github.com/css-modules/css-modules).
 * Optional exposes web server to real world by [ngrok](https://github.com/bubenshchykov/ngrok).
 
+## Video
+https://www.youtube.com/watch?v=3XM6sAXFm9U&feature=youtu.be
+
 ## Install
 
 ```sh
