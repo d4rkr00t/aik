@@ -18,6 +18,7 @@ const cli = meow({
     `  ${chalk.yellow('-h, --host')}        Web server host. ${chalk.dim('[Default: localhost]')}`,
     `  ${chalk.yellow('-r, --react')}       Enables react hot loader.`,
     `  ${chalk.yellow('-n, --ngrok')}       Exposes server to real world by ngrok.`,
+    `  ${chalk.yellow('-o, --open')}        Opens web server url in default browser.`,
     `  ${chalk.yellow('-c, --cssmodules')}  Enables css modules.`,
     `  ${chalk.yellow('-v, --version')}     Shows version.`,
     `  ${chalk.yellow('--help')}            Shows help.`,
@@ -32,6 +33,7 @@ const cli = meow({
     h: 'host',
     r: 'react',
     n: 'ngrok',
+    o: 'open',
     c: 'cssmodules',
     v: 'version'
   },

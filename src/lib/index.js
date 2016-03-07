@@ -1,4 +1,5 @@
 import chalk from 'chalk';
+import opn from 'opn';
 
 import createWebpackDevServer from './webpack';
 import createNgrokTunnel from './ngrok';
@@ -49,7 +50,18 @@ export default function aikDevServer(input, flags) {
 
   return Promise
     .all(promiseList)
-    .then(([, ngrokUrl]) => {
+    .then((results) => {
+      if (flags.open) {
+        const [, ngrokUrl] = results;
+
+        opn(flags.ngrok ? ngrokUrl : `http://${flags.host}:${flags.port}`);
+      }
+
+      return results;
+    })
+    .then((results) => {
+      const [, ngrokUrl] = results;
+
       console.log(banner(filename, flags, ngrokUrl)); // eslint-disable-line
     })
     .catch((err) => {

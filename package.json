@@ -65,6 +65,7 @@
     "meow": "^3.7.0",
     "ngrok": "0.1.99",
     "npm-install-webpack-plugin": "git://github.com/d4rkr00t/npm-install-webpack-plugin.git#search-in-nodemodules",
+    "opn": "^4.0.1",
     "postcss-import": "^8.0.2",
     "postcss-loader": "^0.8.1",
     "precss": "^1.4.0",
