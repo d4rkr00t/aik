@@ -70,7 +70,7 @@ export default function aikDevServer(input, flags) {
     .then((results) => {
       const [server] = results;
 
-      restartHanlder(input, flags, { prc: process, server, chalk, aikDevServer });
+      restartHanlder(input, flags, { prc: process, server, chalk });
 
       return results;
     })
