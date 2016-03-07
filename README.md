@@ -63,6 +63,7 @@ Options
   -h, --host        Web server host. [Default: localhost]
   -r, --react       Enables react hot loader.
   -n, --ngrok       Exposes server to real world by ngrok.
+  -o, --open        Opens web server url in default browser.
   -c, --cssmodules  Enables css modules.
   -v, --version     Shows version.
   --help            Shows help.
