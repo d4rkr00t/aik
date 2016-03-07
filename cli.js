@@ -55,5 +55,5 @@ if ((0, _isEmpty2.default)(input) || flags.help) {
 } else if (flags.version) {
     console.log(_package2.default.version); // eslint-disable-line
   } else {
-      (0, _lib2.default)(input, flags);
+      (0, _lib2.default)(input, flags, console);
     }

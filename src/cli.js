@@ -51,5 +51,5 @@ if (isEmpty(input) || flags.help) {
 } else if (flags.version) {
   console.log(pkg.version); // eslint-disable-line
 } else {
-  aik(input, flags);
+  aik(input, flags, console);
 }

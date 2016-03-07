@@ -35,7 +35,7 @@
     "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage",
     "github-release": "conventional-github-releaser -p angular",
     "lint": "eslint src test",
-    "test": "ava",
+    "test": "ava --require babel-core/register",
     "test:watch": "chokidar 'test/*.js' 'src/**' -c 'npm test' --silent --initial",
     "validate": "npm run lint && npm test",
     "prepare": "npm run build && npm run validate && npm run check",
