@@ -3,6 +3,7 @@ import opn from 'opn';
 
 import createWebpackDevServer from './webpack';
 import createNgrokTunnel from './ngrok';
+import restartHanlder from './restart';
 
 /**
  * Generates banner for aik.
@@ -63,6 +64,15 @@ export default function aikDevServer(input, flags) {
       const [, ngrokUrl] = results;
 
       console.log(banner(filename, flags, ngrokUrl)); // eslint-disable-line
+
+      return results;
+    })
+    .then((results) => {
+      const [server] = results;
+
+      restartHanlder(input, flags, { prc: process, server, chalk, aikDevServer });
+
+      return results;
     })
     .catch((err) => {
       console.error(chalk.red(err)); // eslint-disable-line
