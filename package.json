@@ -63,7 +63,7 @@
     "html-webpack-plugin": "^2.9.0",
     "lodash": "^4.5.1",
     "meow": "^3.7.0",
-    "ngrok": "0.1.99",
+    "ngrok": "^2.1.6",
     "npm-install-webpack-plugin": "git://github.com/d4rkr00t/npm-install-webpack-plugin.git#search-in-nodemodules",
     "opn": "^4.0.1",
     "postcss-import": "^8.0.2",
