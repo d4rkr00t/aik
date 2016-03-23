@@ -8,6 +8,10 @@ import ngrok from 'ngrok';
  * @return {Promise}
  */
 export default function createNgrokTunnel(flags) {
+  if (flags.host !== 'localhost') {
+    return Promise.reject(new Error('Ngrok can`t be used with host option.'));
+  }
+
   return new Promise((resolve, reject) => {
     ngrok.connect(flags.port, (err, url) => {
       if (err) return reject(err);

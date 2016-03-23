@@ -14,7 +14,7 @@ const cli = meow({
     '  $ aik filename.js',
     '',
     chalk.green('Options'),
-    `  ${chalk.yellow('-p, --port')}        Web server port. ${chalk.dim('[Default: 8080]')}`,
+    `  ${chalk.yellow('-p, --port')}        Web server port. ${chalk.dim('[Default: 4444]')}`,
     `  ${chalk.yellow('-h, --host')}        Web server host. ${chalk.dim('[Default: localhost]')}`,
     `  ${chalk.yellow('-r, --react')}       Enables react hot loader.`,
     `  ${chalk.yellow('-n, --ngrok')}       Exposes server to real world by ngrok.`,
@@ -38,7 +38,7 @@ const cli = meow({
     v: 'version'
   },
   default: {
-    port: 8080,
+    port: 4444,
     host: 'localhost'
   }
 });

@@ -49,8 +49,6 @@ export default function aikDevServer(input, flags, console) {
     })
     .catch((err) => {
       console.error(chalk.red(err)); // eslint-disable-line
-
-      throw err;
     });
 }
 
