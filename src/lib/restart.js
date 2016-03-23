@@ -1,11 +1,9 @@
 /**
  * Restarts dev server.
  *
- * @param {String[]} input
- * @param {Flags} flags
  * @param {Object} imports
  */
-export default function reload(input, flags, imports) {
+export default function reload(imports) {
   const { prc, server, chalk } = imports;
 
   prc.stdin.setEncoding('utf8');

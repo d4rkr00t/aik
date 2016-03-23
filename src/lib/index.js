@@ -43,7 +43,7 @@ export default function aikDevServer(input, flags, console) {
     .then((results) => {
       const [server] = results;
 
-      restartHanlder(input, flags, { prc: process, server, chalk });
+      restartHanlder({ prc: process, server, chalk });
 
       return results;
     })
