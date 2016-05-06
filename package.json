@@ -86,7 +86,7 @@
     "cz-conventional-changelog": "^1.1.5",
     "eslint": "2.9.0",
     "nsp": "^2.2.1",
-    "nyc": "^6.1.1",
+    "nyc": "^6.4.3",
     "pmm": "^1.3.0",
     "pre-commit": "^1.1.2"
   },
