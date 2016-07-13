@@ -85,7 +85,7 @@
     "coveralls": "^2.11.6",
     "cz-conventional-changelog": "^1.1.5",
     "eslint": "2.9.0",
-    "nsp": "^2.4.0",
+    "nsp": "^2.6.1",
     "nyc": "^6.4.4",
     "pmm": "^1.3.0",
     "pre-commit": "^1.1.3"
