@@ -53,7 +53,7 @@ var flags = cli.flags || {};
 if ((0, _isEmpty2.default)(input) || flags.help) {
   console.log(cli.help); // eslint-disable-line
 } else if (flags.version) {
-    console.log(_package2.default.version); // eslint-disable-line
-  } else {
-      (0, _lib2.default)(input, flags, console);
-    }
+  console.log(_package2.default.version); // eslint-disable-line
+} else {
+  (0, _lib2.default)(input, flags, console);
+}

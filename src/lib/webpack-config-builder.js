@@ -71,7 +71,8 @@ export function setupPlugins() {
       save: false,
       saveDev: false,
       saveExact: false
-    })
+    }),
+    new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"development"' })
   ];
 }
 
@@ -105,6 +106,18 @@ export function setupLoaders(cssmodules, react) {
       test: /\.jsx?$/,
       exclude: /(node_modules|bower_components)/,
       loaders: jsLoaders
+    },
+    {
+      test: /\.json$/,
+      loader: makeAbsolutePathToNodeModules('json-loader')
+    },
+    {
+      test: /\.(jpg|png|gif|eot|svg|ttf|woff|woff2)$/,
+      loader: makeAbsolutePathToNodeModules('file-loader')
+    },
+    {
+      test: /\.(mp4|webm)$/,
+      loader: `${makeAbsolutePathToNodeModules('url')}?limit=10000`
     }
   ];
 }
@@ -122,7 +135,7 @@ export default function webpackConfigBuilder(filename, flags) {
     entry: setupEntry(filename, flags.host, flags.port),
     output: setupOutput(filename),
     debug: true,
-    devtool: 'source-map',
+    devtool: 'eval',
     plugins: setupPlugins(),
     module: {
       loaders: setupLoaders(flags.cssmodules, flags.react)
