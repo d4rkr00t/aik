@@ -11,12 +11,6 @@ const chalk = {
   dim: identity
 };
 
-test('banner -> server', (t) => {
-  const flags = { host: 'localhost', port: 1234 };
-
-  t.regex(banner(flags, '', chalk), /http:\/\/localhost:1234/);
-});
-
 test('banner -> css modules', (t) => {
   t.regex(banner({ cssmodules: true }, '', chalk), /CSS Modules:\s+enabled/);
   t.regex(banner({ cssmodules: false }, '', chalk), /CSS Modules:\s+disabled/);

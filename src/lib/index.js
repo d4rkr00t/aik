@@ -18,12 +18,15 @@ import banner from './banner';
 export default function aikDevServer(input, flags, console) {
   const [filename] = input;
   const promiseList = [
-    createWebpackDevServer(filename, flags),
     flags.ngrok && createNgrokTunnel(flags)
   ];
 
   return Promise
     .all(promiseList)
+    .then(ngrokUrl => {
+      return createWebpackDevServer(filename, flags, ngrokUrl)
+        .then(server => [server, ngrokUrl]);
+    })
     .then((results) => {
       if (flags.open) {
         const [, ngrokUrl] = results;

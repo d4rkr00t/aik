@@ -20,7 +20,6 @@ export default function banner(flags, ngrokUrl, chalk) {
 
      ${chalk.yellow('Frontend Playground')}
 
-${chalk.magenta('Server:')}            ${chalk.cyan(`http://${flags.host}:${flags.port}`)}
 ${chalk.magenta('CSS Modules:')}       ${flags.cssmodules ? chalk.green('enabled') : chalk.dim('disabled')}
 ${chalk.magenta('Ngrok:')}             ${flags.ngrok ? chalk.green(ngrokUrl) : chalk.dim('disabled')}
 ${chalk.magenta('React Hot Loader:')}  ${flags.react ? chalk.green('enabled') : chalk.dim('disabled')}
