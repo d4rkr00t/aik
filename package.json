@@ -78,7 +78,7 @@
     "webpack-dev-server": "^1.14.1"
   },
   "devDependencies": {
-    "ava": "^0.14.0",
+    "ava": "^0.15.0",
     "babel-cli": "^6.8.0",
     "babel-core": "^6.7.7",
     "babel-eslint": "^6.0.4",
