@@ -93,7 +93,7 @@
     "no-labels": [2],
     "no-lone-blocks": [2],
     "no-loop-func": [2],
-    "no-magic-numbers": [1, { "ignoreArrayIndexes": true }],
+    "no-magic-numbers": [1, { "ignoreArrayIndexes": true, "ignore": [-1, 0, 1] }],
     "no-multi-spaces": [2],
     "no-multi-str": [2],
     "no-native-reassign": [2],
@@ -186,7 +186,7 @@
     "max-statements": [0],
     "new-cap": [2],
     "new-parens": [2],
-    "newline-after-var": [2],
+    "newline-after-var": [0],
     "newline-per-chained-call": [0],
     "no-array-constructor": [2],
     "no-bitwise": [0],
@@ -237,7 +237,7 @@
 
     // ecmascript6
     "arrow-body-style": [0],
-    "arrow-parens": [2],
+    "arrow-parens": [0],
     "arrow-spacing": [2, { "before": true, "after": true }],
     "constructor-super": [2],
     "generator-star-spacing": [2, "after"],
@@ -255,7 +255,7 @@
     "prefer-reflect": [0],
     "prefer-rest-params": [0],
     "prefer-spread": [0],
-    "prefer-template": [2],
+    "prefer-template": [0],
     "require-yield": [2],
     "template-curly-spacing": [2, "never"]
   }
