@@ -30,7 +30,7 @@
   "scripts": {
     "audit": "nsp check package",
     "build": "babel -d ./ ./src",
-    "check": "npm run audit && npm outdated --depth 0",
+    "check": "npm outdated --depth 0",
     "coverage": "nyc --reporter=lcov --reporter=text --reporter=html npm test",
     "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage",
     "github-release": "conventional-github-releaser -p angular",
