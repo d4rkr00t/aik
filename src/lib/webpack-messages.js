@@ -1,10 +1,27 @@
+import { isLikelyASyntaxError, formatMessage } from './webpack-error-helpers';
+
+/**
+ * Moves current line to the most top of console.
+ *
+ * @param {Object} imports
+ * @param {Boolean} sep
+ */
+export function clearConsole({ chalk }, sep) {
+  sep && process.stdout.write(chalk.dim('----------------------------------\n'));
+  process.stdout.write('\x1B[2J\x1B[0f');
+}
+
+export function print({ log }, msg) {
+  return log(msg.join('\n'));
+}
+
 export function smallBanner(chalk, flags, ngrokUrl) {
   const msg = [
     `${chalk.magenta('Server:')} ${chalk.cyan(`http://${flags.host}:${flags.port}`)}`
   ];
 
   if (flags.ngrok) {
-    msg.push(`${chalk.magenta('Ngrok:')}  ${chalk.cyan(ngrokUrl)}`);
+    msg.push(`${chalk.magenta('Ngrok:')} ${chalk.cyan(ngrokUrl)}`);
   }
 
   return msg.join('\n');
@@ -43,4 +60,48 @@ export function eslintExtraWarning(chalk) {
     'Use ' + chalk.yellow('// eslint-disable-next-line') + ' to ignore the next line.',
     'Use ' + chalk.yellow('/* eslint-disable */') + ' to ignore all warnings in a file.'
   ].join('\n');
+}
+
+export function webpackBuilderBanner({ log, chalk }, entry, cssmodules) {
+  clearConsole({ chalk });
+  return print({ log }, [
+    chalk.green('Building...'),
+    '',
+    chalk.magenta('Entry point: ') + entry,
+    chalk.magenta('CSS Modules: ') + (cssmodules ? chalk.green('enabled') : 'disabled')
+  ]);
+}
+
+export function webpackBuilderRemovingDistMsg({ log, chalk }, distPath) {
+  return print({ log }, [
+    '',
+    chalk.yellow('Removing folder: ') + distPath
+  ]);
+}
+
+export function webpackBuilderRunningBuildMsg({ log, chalk }) {
+  return print({ log }, [
+    chalk.yellow('Running webpack production build...')
+  ]);
+}
+
+export function webpackBuilderErrorMsg({ log, chalk }, err) {
+  let msg = err.message || err;
+  if (isLikelyASyntaxError(msg)) {
+    msg = formatMessage(msg);
+  }
+
+  return print({ log }, [
+    '',
+    chalk.red('Failed to create a production build. Reason:'),
+    msg
+  ]);
+}
+
+export function webpackBuilderSuccessMsg({ log, chalk }, distShortName) {
+  return print({ log }, [
+    '',
+    chalk.green(`Successfully generated a bundle in the ${chalk.cyan('"' + distShortName + '"')} folder!`),
+    chalk.green('The bundle is optimized and ready to be deployed to production.')
+  ]);
 }

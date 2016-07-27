@@ -1,7 +1,9 @@
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
-import webpackConfigBuilder from './webpack-config-builder';
+import webpackConfigBuilder from './webpack-config-dev';
 import _chalk from 'chalk';
+
+import { isLikelyASyntaxError, formatMessage } from './webpack-error-helpers';
 
 import {
   compiling, compiledSuccessfully,
@@ -9,50 +11,12 @@ import {
   failedToCompile
 } from './webpack-messages';
 
-const SYNTAX_ERROR_LABEL = 'Syntax error:';
-
 /**
  * Moves current line to the most top of console.
  */
 export function clearConsole() {
   process.stdout.write(_chalk.dim('----------------------------------'));
   process.stdout.write('\x1B[2J\x1B[0f');
-}
-
-/**
- * Checks whether error is syntax error.
- *
- * @param {String} message
- *
- * @return {Boolean}
- */
-export function isLikelyASyntaxError(message) {
-  return message.indexOf(SYNTAX_ERROR_LABEL) !== -1;
-}
-
-/**
- * Makes some common errors shorter.
- *
- * @param {String} message
- *
- * @return {String}
- */
-export function formatMessage(message) {
-  return message
-    // Babel syntax error
-    .replace(
-      'Module build failed: SyntaxError:',
-      SYNTAX_ERROR_LABEL
-    )
-    // Webpack file not found error
-    .replace(
-      /Module not found: Error: Cannot resolve 'file' or 'directory'/,
-      'Module not found:'
-    )
-    // Internal stacks are generally useless so we strip them
-    .replace(/^\s*at\s.*:\d+:\d+[\s\)]*\n/gm, '') // at ... ...:x:y
-    // Webpack loader names obscure CSS filenames
-    .replace('./~/css-loader!./~/postcss-loader!', '');
 }
 
 /**

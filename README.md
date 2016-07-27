@@ -29,15 +29,14 @@ Frontend Playground
   <a href="http://commitizen.github.io/cz-cli/">
     <img src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg" alt="Commitizen Friendly">
   </a>
-
 </p>
-
 
 ## Features
 * Runs web server with given javascript file.
 * [Automaticaly installs npm modules](https://github.com/ericclemmons/npm-install-webpack-plugin).
 * [Hot reload react components](https://github.com/gaearon/react-hot-loader).
 * Hot reload css.
+* Generates production ready build.
 * Transpile javascript with [babel](https://babeljs.io/) using [es2015](http://babeljs.io/docs/plugins/preset-es2015/) and [react](http://babeljs.io/docs/plugins/preset-react/) presets.
 * [PostCSS](https://github.com/postcss/postcss) with [autoprefixer](https://github.com/postcss/autoprefixer) and [precss](https://github.com/jonathantneal/precss).
 * Optional enables [css-modules](https://github.com/css-modules/css-modules).
@@ -59,6 +58,7 @@ Usage
   $ aik filename.js
 
 Options
+  -b  --build       Build production version for given entry point. [Default output: dist]
   -p, --port        Web server port. [Default: 8080]
   -h, --host        Web server host. [Default: localhost]
   -r, --react       Enables react hot loader.
@@ -71,6 +71,9 @@ Options
 Examples
   $ aik filename.js --port 3000 -n -c -r
   Runs aik web server on 3000 port with ngrok, css modules support and react hot loader
+
+  $ aik filename.js --build
+  Builds filename.js for production use and saves output to dist folder.
 ```
 
 ## Author
