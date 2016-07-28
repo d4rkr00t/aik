@@ -11,58 +11,80 @@ export function clearConsole({ chalk }, sep) {
   process.stdout.write('\x1B[2J\x1B[0f');
 }
 
+/**
+ * Actually prints message to whatever console passed.
+ *
+ * @param {Object} imports
+ * @param {Function} imports.log
+ * @param {String[]} msg
+ *
+ * @return {void}
+ */
 export function print({ log }, msg) {
   return log(msg.join('\n'));
 }
 
-export function smallBanner(chalk, flags, ngrokUrl) {
-  const msg = [
-    `${chalk.magenta('Server:')} ${chalk.cyan(`http://${flags.host}:${flags.port}`)}`
-  ];
+/**
+ *
+ * Common Messages
+ *
+ */
 
-  if (flags.ngrok) {
-    msg.push(`${chalk.magenta('Ngrok:')} ${chalk.cyan(ngrokUrl)}`);
-  }
-
-  return msg.join('\n');
-}
-
-export function compiling(chalk) {
-  return [
-    chalk.yellow('Compiling...')
-  ].join('\n');
-}
-
-export function compiledSuccessfully(chalk, flags, ngrokUrl) {
-  return [
-    smallBanner(chalk, flags, ngrokUrl),
-    '',
-    chalk.green('Compiled successfully!')
-  ].join('\n');
-}
-
-export function failedToCompile(chalk) {
-  return [
-    chalk.red('Failed to compile.')
-  ].join('\n');
-}
-
-export function compiledWithWarnings(chalk) {
-  return [
-    chalk.yellow('Compiled with warnings.')
-  ].join('\n');
-}
-
-export function eslintExtraWarning(chalk) {
-  return [
+export function eslintExtraWarningMsg({ log, chalk }) {
+  return print({ log }, [
     '',
     'You may use special comments to disable some warnings.',
     'Use ' + chalk.yellow('// eslint-disable-next-line') + ' to ignore the next line.',
     'Use ' + chalk.yellow('/* eslint-disable */') + ' to ignore all warnings in a file.'
-  ].join('\n');
+  ]);
 }
 
-export function webpackBuilderBanner({ log, chalk }, entry, cssmodules) {
+/**
+ *
+ * Dev Server Messages
+ *
+ */
+
+export function devServerInvalidBuildMsg({ log, chalk }) {
+  clearConsole({ chalk });
+  return print({ log }, [
+    chalk.yellow('Compiling...')
+  ]);
+}
+
+export function devServerCompiledSuccessfullyMsg({ log, chalk }, flags, ngrokUrl) {
+  const msg = [
+    chalk.magenta('Server: ') + chalk.cyan(`http://${flags.host}:${flags.port}`),
+    '',
+    chalk.green('Compiled successfully!')
+  ];
+
+  if (flags.ngrok) {
+    msg.push(chalk.magenta('Ngrok: ') + chalk.cyan(ngrokUrl));
+  }
+
+  return print({ log }, msg);
+}
+
+export function devServerFailedToCompileMsg({ log, chalk }) {
+  return print({ log }, [
+    chalk.red('Failed to compile.')
+  ]);
+}
+
+export function devServerCompiledWithWarningsMsg({ log, chalk }) {
+  return print({ log }, [
+    chalk.yellow('Compiled with warnings.')
+  ]);
+}
+
+/**
+ *
+ * Build Messages
+ *
+ */
+
+export function builderBanner({ log, chalk }, entry, cssmodules) {
   clearConsole({ chalk });
   return print({ log }, [
     chalk.green('Building...'),
@@ -72,20 +94,20 @@ export function webpackBuilderBanner({ log, chalk }, entry, cssmodules) {
   ]);
 }
 
-export function webpackBuilderRemovingDistMsg({ log, chalk }, distPath) {
+export function builderRemovingDistMsg({ log, chalk }, distPath) {
   return print({ log }, [
     '',
     chalk.yellow('Removing folder: ') + distPath
   ]);
 }
 
-export function webpackBuilderRunningBuildMsg({ log, chalk }) {
+export function builderRunningBuildMsg({ log, chalk }) {
   return print({ log }, [
     chalk.yellow('Running webpack production build...')
   ]);
 }
 
-export function webpackBuilderErrorMsg({ log, chalk }, err) {
+export function builderErrorMsg({ log, chalk }, err) {
   let msg = err.message || err;
   if (isLikelyASyntaxError(msg)) {
     msg = formatMessage(msg);
@@ -98,7 +120,7 @@ export function webpackBuilderErrorMsg({ log, chalk }, err) {
   ]);
 }
 
-export function webpackBuilderSuccessMsg({ log, chalk }, distShortName) {
+export function builderSuccessMsg({ log, chalk }, distShortName) {
   return print({ log }, [
     '',
     chalk.green(`Successfully generated a bundle in the ${chalk.cyan('"' + distShortName + '"')} folder!`),

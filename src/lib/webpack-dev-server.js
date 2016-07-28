@@ -6,26 +6,13 @@ import _chalk from 'chalk';
 import { isLikelyASyntaxError, formatMessage } from './webpack-error-helpers';
 
 import {
-  compiling, compiledSuccessfully,
-  compiledWithWarnings, eslintExtraWarning,
-  failedToCompile
+  clearConsole,
+  eslintExtraWarningMsg,
+  devServerInvalidBuildMsg,
+  devServerCompiledSuccessfullyMsg,
+  devServerFailedToCompileMsg,
+  devServerCompiledWithWarningsMsg
 } from './webpack-messages';
-
-/**
- * Moves current line to the most top of console.
- */
-export function clearConsole() {
-  process.stdout.write(_chalk.dim('----------------------------------'));
-  process.stdout.write('\x1B[2J\x1B[0f');
-}
-
-/**
- * On invalid handler for webpack compiler.
- */
-export function onInvalidBuild() {
-  clearConsole();
-  console.log(compiling(_chalk)); // eslint-disable-line
-}
 
 /**
  * On done handler for webpack compiler.
@@ -42,12 +29,12 @@ export function onInvalidBuild() {
 export function onDone(imports, flags, ngrokUrl, stats) {
   const hasErrors = stats.hasErrors();
   const hasWarnings = stats.hasWarnings();
-  const { log, chalk } = imports;
+  const { log } = imports;
 
-  clearConsole();
+  clearConsole(imports, true);
 
   if (!hasErrors && !hasWarnings) {
-    return log(compiledSuccessfully(chalk, flags, ngrokUrl));
+    return devServerCompiledSuccessfullyMsg(imports, flags, ngrokUrl);
   }
 
   const json = stats.toJson();
@@ -55,7 +42,7 @@ export function onDone(imports, flags, ngrokUrl, stats) {
   let formattedErrors = json.errors.map(message => 'Error in ' + formatMessage(message));
 
   if (hasErrors) {
-    log(failedToCompile(chalk));
+    devServerFailedToCompileMsg(imports);
 
     // If there are any syntax errors, show just them.
     // This prevents a confusing ESLint parsing error
@@ -69,9 +56,9 @@ export function onDone(imports, flags, ngrokUrl, stats) {
   }
 
   if (hasWarnings) {
-    log(compiledWithWarnings(chalk));
+    devServerCompiledWithWarningsMsg(imports);
     formattedWarnings.forEach(message => log('\n', message));
-    log(eslintExtraWarning(chalk));
+    eslintExtraWarningMsg(imports);
   }
 }
 
@@ -87,7 +74,7 @@ export function onDone(imports, flags, ngrokUrl, stats) {
 export function createWebpackCompiler(config, flags, ngrokUrl) {
   const compiler = webpack(config);
   const imports = { log: console.log.bind(console), chalk: _chalk }; // eslint-disable-line
-  compiler.plugin('invalid', onInvalidBuild);
+  compiler.plugin('invalid', devServerInvalidBuildMsg.bind(null, imports));
   compiler.plugin('done', onDone.bind(null, imports, flags, ngrokUrl));
   return compiler;
 }

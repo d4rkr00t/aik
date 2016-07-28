@@ -6,11 +6,11 @@ import _chalk from 'chalk';
 import webpackConfigBuilder from './webpack-config-prod';
 
 import {
-  webpackBuilderBanner,
-  webpackBuilderRemovingDistMsg,
-  webpackBuilderRunningBuildMsg,
-  webpackBuilderErrorMsg,
-  webpackBuilderSuccessMsg
+  builderBanner,
+  builderRemovingDistMsg,
+  builderRunningBuildMsg,
+  builderErrorMsg,
+  builderSuccessMsg
 } from './webpack-messages';
 
 /**
@@ -40,18 +40,18 @@ export default function runWebpackBuilder(filename, flags, console) {
   const dist = path.join(process.cwd(), distShortName);
   const msgImports = { log: console.log.bind(console), chalk: _chalk }; // eslint-disable-line
 
-  webpackBuilderBanner(msgImports, filename, flags.cssmodules);
-  webpackBuilderRemovingDistMsg(msgImports, dist);
+  builderBanner(msgImports, filename, flags.cssmodules);
+  builderRemovingDistMsg(msgImports, dist);
 
   return removeDist(dist)
     .then(() => {
-      webpackBuilderRunningBuildMsg(msgImports);
+      builderRunningBuildMsg(msgImports);
       compiler.run(err => {
         if (err) {
-          webpackBuilderErrorMsg(msgImports, err);
+          builderErrorMsg(msgImports, err);
           process.exit(1); // eslint-disable-line
         }
-        webpackBuilderSuccessMsg(msgImports, distShortName);
+        builderSuccessMsg(msgImports, distShortName);
       });
     });
 }
