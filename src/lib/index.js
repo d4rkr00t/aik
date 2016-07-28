@@ -25,6 +25,7 @@ export function aikDevServer(input, flags, console) {
   return Promise
     .all(promiseList)
     .then(ngrokUrl => {
+      console.log(banner(flags, ngrokUrl, chalk)); // eslint-disable-line
       return createWebpackDevServer(filename, flags, ngrokUrl)
         .then(server => [server, ngrokUrl]);
     })
@@ -33,11 +34,6 @@ export function aikDevServer(input, flags, console) {
         const [, ngrokUrl] = results;
         opn(flags.ngrok ? ngrokUrl : `http://${flags.host}:${flags.port}`);
       }
-      return results;
-    })
-    .then((results) => {
-      const [, ngrokUrl] = results;
-      console.log(banner(flags, ngrokUrl, chalk)); // eslint-disable-line
       return results;
     })
     .then((results) => {

@@ -68,9 +68,8 @@ export function setupPlugins() {
       title: last(process.cwd().split(path.sep))
     }),
     new NpmInstallPlugin({
-      save: false,
-      saveDev: false,
-      saveExact: false
+      dev: true,
+      peerDependencies: true
     }),
     new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"development"' })
   ];
