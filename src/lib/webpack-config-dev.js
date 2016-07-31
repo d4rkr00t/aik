@@ -116,7 +116,22 @@ export function setupLoaders(cssmodules, react) {
     },
     {
       test: /\.(mp4|webm)$/,
-      loader: `${makeAbsolutePathToNodeModules('url')}?limit=10000`
+      loader: `${makeAbsolutePathToNodeModules('url-loader')}?limit=10000`
+    }
+  ];
+}
+
+/**
+ * Setups pre loaders for webpack.
+ *
+ * @return {Object[]}
+ */
+export function setupPreloaders() {
+  return [
+    {
+      test: /\.js$/,
+      loader: makeAbsolutePathToNodeModules('eslint-loader'),
+      exclude: /node_modules/
     }
   ];
 }
@@ -137,7 +152,12 @@ export default function webpackConfigBuilder(filename, flags) {
     devtool: 'eval',
     plugins: setupPlugins(),
     module: {
+      preLoaders: setupPreloaders(),
       loaders: setupLoaders(flags.cssmodules, flags.react)
+    },
+    eslint: {
+      configFile: path.join(__dirname, 'eslint-config.js'),
+      useEslintrc: false
     },
     postcss: function (wp) {
       return [
