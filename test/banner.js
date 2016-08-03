@@ -16,6 +16,11 @@ test('banner -> css modules', (t) => {
   t.regex(banner({ cssmodules: false }, '', chalk), /CSS Modules:\s+disabled/);
 });
 
+test('banner -> server', (t) => {
+  const flags = { host: 'localhost', port: 1234 };
+  t.regex(banner(flags, '', chalk), /http:\/\/localhost:1234/);
+});
+
 test('banner -> ngrok', (t) => {
   t.regex(banner({ ngrok: true }, 'url', chalk), /Ngrok:\s+url/);
   t.regex(banner({ ngrok: false }, '', chalk), /Ngrok:\s+disabled/);

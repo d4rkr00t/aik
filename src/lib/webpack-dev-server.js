@@ -42,7 +42,7 @@ export function onDone(imports, flags, ngrokUrl, stats) {
   let formattedErrors = json.errors.map(message => 'Error in ' + formatMessage(message));
 
   if (hasErrors) {
-    devServerFailedToCompileMsg(imports);
+    devServerFailedToCompileMsg(imports, flags, ngrokUrl);
 
     // If there are any syntax errors, show just them.
     // This prevents a confusing ESLint parsing error
@@ -56,7 +56,7 @@ export function onDone(imports, flags, ngrokUrl, stats) {
   }
 
   if (hasWarnings) {
-    devServerCompiledWithWarningsMsg(imports);
+    devServerCompiledWithWarningsMsg(imports, flags, ngrokUrl);
     formattedWarnings.forEach(message => log('\n', message));
     eslintExtraWarningMsg(imports);
   }

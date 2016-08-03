@@ -45,6 +45,16 @@ export function eslintExtraWarningMsg({ log, chalk }) {
  *
  */
 
+export function devServerSmallBanner({ chalk }, flags, ngrokUrl) {
+  const msg = [chalk.magenta('Server: ') + chalk.cyan(`http://${flags.host}:${flags.port}`)];
+
+  if (flags.ngrok) {
+    msg.push(chalk.magenta('Ngrok: ') + chalk.cyan(ngrokUrl));
+  }
+
+  return msg;
+}
+
 export function devServerInvalidBuildMsg({ log, chalk }) {
   clearConsole({ chalk });
   return print({ log }, [
@@ -53,29 +63,21 @@ export function devServerInvalidBuildMsg({ log, chalk }) {
 }
 
 export function devServerCompiledSuccessfullyMsg({ log, chalk }, flags, ngrokUrl) {
-  const msg = [
-    chalk.magenta('Server: ') + chalk.cyan(`http://${flags.host}:${flags.port}`),
-    '',
-    chalk.green('Compiled successfully!')
-  ];
-
-  if (flags.ngrok) {
-    msg.push(chalk.magenta('Ngrok: ') + chalk.cyan(ngrokUrl));
-  }
-
+  const msg = devServerSmallBanner({ chalk }, flags, ngrokUrl);
+  msg.push('', chalk.green('Compiled successfully!'));
   return print({ log }, msg);
 }
 
-export function devServerFailedToCompileMsg({ log, chalk }) {
-  return print({ log }, [
-    chalk.red('Failed to compile.')
-  ]);
+export function devServerFailedToCompileMsg({ log, chalk }, flags, ngrokUrl) {
+  const msg = devServerSmallBanner({ chalk }, flags, ngrokUrl);
+  msg.push('', chalk.red('Failed to compile.'));
+  return print({ log }, msg);
 }
 
-export function devServerCompiledWithWarningsMsg({ log, chalk }) {
-  return print({ log }, [
-    chalk.yellow('Compiled with warnings.')
-  ]);
+export function devServerCompiledWithWarningsMsg({ log, chalk }, flags, ngrokUrl) {
+  const msg = devServerSmallBanner({ chalk }, flags, ngrokUrl);
+  msg.push('', chalk.yellow('Compiled with warnings.'));
+  return print({ log }, msg);
 }
 
 /**
