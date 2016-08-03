@@ -32,16 +32,16 @@ Frontend Playground
 </p>
 
 ## Features
-* Runs web server with given javascript file.
-* [Automaticaly installs npm modules](https://github.com/ericclemmons/npm-install-webpack-plugin).
-* [Hot reload react components](https://github.com/gaearon/react-hot-loader).
-* Hot reload css.
-* Generates production ready build.
-* Transpile javascript with [babel](https://babeljs.io/) using [es2015](http://babeljs.io/docs/plugins/preset-es2015/) and [react](http://babeljs.io/docs/plugins/preset-react/) presets.
-* [PostCSS](https://github.com/postcss/postcss) with [autoprefixer](https://github.com/postcss/autoprefixer) and [precss](https://github.com/jonathantneal/precss).
-* Runs [eslint](http://eslint.org/) to help you find potential errors (there aren't any code style rules).
-* Optional enables [css-modules](https://github.com/css-modules/css-modules).
-* Optional exposes web server to real world by [ngrok](https://github.com/bubenshchykov/ngrok).
+* Run web server with given javascript file
+* [Automatically install npm modules](https://github.com/ericclemmons/npm-install-webpack-plugin)
+* [Hot reload react components](https://github.com/gaearon/react-hot-loader)
+* Hot reload css
+* Production ready build
+* Modern javascript with [babel](https://babeljs.io/) using [es2015](http://babeljs.io/docs/plugins/preset-es2015/) and [react](http://babeljs.io/docs/plugins/preset-react/) presets
+* [PostCSS](https://github.com/postcss/postcss) with [autoprefixer](https://github.com/postcss/autoprefixer) and [precss](https://github.com/jonathantneal/precss)
+* [ESLint](http://eslint.org/) to help you find potential errors (there aren't any code style rules)
+* [Optional] — [css-modules](https://github.com/css-modules/css-modules)
+* [Optional] — expose web server to real world by [ngrok](https://github.com/bubenshchykov/ngrok)
 
 ## Video
 https://www.youtube.com/watch?v=3XM6sAXFm9U&feature=youtu.be
