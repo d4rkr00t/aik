@@ -83,7 +83,7 @@
     "webpack-dev-server": "^1.14.1"
   },
   "devDependencies": {
-    "ava": "^0.15.2",
+    "ava": "^0.16.0",
     "babel-cli": "^6.11.4",
     "babel-plugin-transform-function-bind": "^6.8.0",
     "conventional-github-releaser": "^1.1.3",
