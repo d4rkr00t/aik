@@ -40,6 +40,7 @@ Frontend Playground
 * Modern javascript with [babel](https://babeljs.io/) using [es2015](http://babeljs.io/docs/plugins/preset-es2015/) and [react](http://babeljs.io/docs/plugins/preset-react/) presets
 * [PostCSS](https://github.com/postcss/postcss) with [autoprefixer](https://github.com/postcss/autoprefixer) and [precss](https://github.com/jonathantneal/precss)
 * [ESLint](http://eslint.org/) to help you find potential errors (there aren't any code style rules)
+* [ESLint React Plugin](https://github.com/yannickcr/eslint-plugin-react) for linting react specific things
 * [Optional] — [css-modules](https://github.com/css-modules/css-modules)
 * [Optional] — expose web server to real world by [ngrok](https://github.com/bubenshchykov/ngrok)
 
