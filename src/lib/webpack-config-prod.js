@@ -46,7 +46,7 @@ export function setupEntry(filename) {
  */
 export function setupOutput(filename, dist) {
   return {
-    path: path.join(process.cwd(), dist, path.dirname(filename)),
+    path: path.join(process.cwd(), dist),
     filename: '[name].[hash:8].js',
     hash: true,
     publicPath: '/'
