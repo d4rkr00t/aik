@@ -38,7 +38,7 @@ export function onDone(imports, flags, filename, ngrokUrl, stats) {
     return devServerCompiledSuccessfullyMsg(imports, flags, filename, ngrokUrl);
   }
 
-  const json = stats.toJson();
+  const json = stats.toJson({}, true);
   const formattedWarnings = json.warnings.map(message => 'Warning in ' + formatMessage(message));
   let formattedErrors = json.errors.map(message => 'Error in ' + formatMessage(message));
 
