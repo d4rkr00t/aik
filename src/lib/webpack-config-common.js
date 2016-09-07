@@ -2,17 +2,6 @@ import path from 'path';
 import fs from 'fs';
 
 /**
- * Makes absolute path to node_modules for webpack plugins and loaders.
- *
- * @param {String} relativePath
- *
- * @return {String}
- */
-export function resolveToOwnNodeModules(relativePath = '') {
-  return path.join(__dirname, '..', 'node_modules', relativePath);
-}
-
-/**
  * Resolves file path to current working directory.
  *
  * @param {String} filename

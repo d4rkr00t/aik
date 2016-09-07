@@ -10,7 +10,7 @@ import autoprefixer from 'autoprefixer';
 import precss from 'precss';
 import postcssImport from 'postcss-import';
 
-import { resolveToOwnNodeModules, resolveToCwd, getTemplatePath, isTemplateExists } from './webpack-config-common';
+import { resolveToCwd, getTemplatePath, isTemplateExists } from './webpack-config-common';
 
 /**
  * Setups entry part of webpack config.
@@ -96,21 +96,21 @@ export function setupPlugins(template) {
  */
 export function setupLoaders(cssmodules) {
   const babelLoader = [
-    resolveToOwnNodeModules('babel-loader'),
-    `?presets[]=${resolveToOwnNodeModules('babel-preset-react')}`,
-    `,presets[]=${resolveToOwnNodeModules('babel-preset-es2015')}`
+    require.resolve('babel-loader'),
+    `?presets[]=${require.resolve('babel-preset-react')}`,
+    `,presets[]=${require.resolve('babel-preset-es2015')}`
   ];
   const jsLoaders = [babelLoader.join('')];
   const cssLoaders = [
-    resolveToOwnNodeModules('css-loader') + (cssmodules ? '?modules&importLoaders=1' : ''),
-    resolveToOwnNodeModules('postcss-loader')
+    require.resolve('css-loader') + (cssmodules ? '?modules&importLoaders=1' : ''),
+    require.resolve('postcss-loader')
   ];
 
   return [
     {
       test: /\.css$/,
       loader: ExtractTextPlugin.extract(
-        resolveToOwnNodeModules('style-loader'),
+        require.resolve('style-loader'),
         cssLoaders.join('!')
       )
     },
@@ -121,22 +121,23 @@ export function setupLoaders(cssmodules) {
     },
     {
       test: /\.(jpg|png|gif|eot|svg|ttf|woff|woff2)$/,
-      loader: resolveToOwnNodeModules('file-loader'),
+      loader: require.resolve('file-loader'),
       query: {
         name: '[name].[hash:8].[ext]'
       }
     },
     {
       test: /\.json$/,
-      loader: resolveToOwnNodeModules('json-loader')
+      loader: require.resolve('json-loader')
     },
     {
       test: /\.(mp4|webm)$/,
-      loader: `${resolveToOwnNodeModules('url')}?limit=10000`
+      loader: require.resolve('url'),
+      query: { limit: 1000 }
     },
     {
       test: /\.html$/,
-      loader: resolveToOwnNodeModules('html-loader')
+      loader: require.resolve('html-loader')
     }
   ];
 }

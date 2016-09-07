@@ -9,7 +9,7 @@ import autoprefixer from 'autoprefixer';
 import precss from 'precss';
 import postcssImport from 'postcss-import';
 
-import { resolveToOwnNodeModules, resolveToCwd, getTemplatePath, isTemplateExists } from './webpack-config-common';
+import { resolveToCwd, getTemplatePath, isTemplateExists } from './webpack-config-common';
 
 /**
  * Setups entry part of webpack config.
@@ -25,8 +25,8 @@ export function setupEntry(filename, host, port) {
 
   return {
     app: [
-      `${resolveToOwnNodeModules('webpack-dev-server/client')}?http://${host}:${port}/`,
-      resolveToOwnNodeModules('webpack/hot/dev-server'),
+      `${require.resolve('webpack-dev-server/client')}?http://${host}:${port}/`,
+      require.resolve('webpack/hot/dev-server'),
       resolveToCwd(filename)
     ]
   };
@@ -84,20 +84,23 @@ export function setupPlugins(template) {
  */
 export function setupLoaders(cssmodules, react) {
   const jsLoaders = [
-    `${resolveToOwnNodeModules('babel-loader')}?presets[]=${resolveToOwnNodeModules('babel-preset-react')},presets[]=${resolveToOwnNodeModules('babel-preset-es2015')}&cacheDirectory` // eslint-disable-line
+    require.resolve('babel-loader')
+    + '?presets[]=' + require.resolve('babel-preset-react')
+    + ',presets[]=' + require.resolve('babel-preset-es2015')
+    + '&cacheDirectory'
   ];
 
   if (react) {
-    jsLoaders.unshift(resolveToOwnNodeModules('react-hot-loader'));
+    jsLoaders.unshift(require.resolve('react-hot-loader'));
   }
 
   return [
     {
       test: /\.css$/,
       loaders: [
-        resolveToOwnNodeModules('style-loader'),
-        resolveToOwnNodeModules('css-loader') + (cssmodules ? '?modules&importLoaders=1' : ''),
-        resolveToOwnNodeModules('postcss-loader')
+        require.resolve('style-loader'),
+        require.resolve('css-loader') + (cssmodules ? '?modules&importLoaders=1' : ''),
+        require.resolve('postcss-loader')
       ]
     },
     {
@@ -107,19 +110,20 @@ export function setupLoaders(cssmodules, react) {
     },
     {
       test: /\.json$/,
-      loader: resolveToOwnNodeModules('json-loader')
+      loader: require.resolve('json-loader')
     },
     {
       test: /\.(jpg|png|gif|eot|svg|ttf|woff|woff2)$/,
-      loader: resolveToOwnNodeModules('file-loader')
+      loader: require.resolve('file-loader')
     },
     {
       test: /\.(mp4|webm)$/,
-      loader: `${resolveToOwnNodeModules('url-loader')}?limit=10000`
+      loader: require.resolve('url-loader'),
+      query: { limit: 1000 }
     },
     {
       test: /\.html$/,
-      loader: resolveToOwnNodeModules('html-loader')
+      loader: require.resolve('html-loader')
     }
   ];
 }
@@ -133,7 +137,7 @@ export function setupPreloaders() {
   return [
     {
       test: /\.js$/,
-      loader: resolveToOwnNodeModules('eslint-loader'),
+      loader: require.resolve('eslint-loader'),
       exclude: /node_modules/
     }
   ];
