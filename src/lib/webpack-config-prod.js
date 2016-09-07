@@ -10,16 +10,7 @@ import autoprefixer from 'autoprefixer';
 import precss from 'precss';
 import postcssImport from 'postcss-import';
 
-/**
- * Makes absolute path to node_modules for webpack plugins and loaders.
- *
- * @param {String} relativePath
- *
- * @return {String}
- */
-export function makeAbsolutePathToNodeModules(relativePath) {
-  return path.join(__dirname, '..', 'node_modules', relativePath);
-}
+import { resolveToOwnNodeModules, resolveToCwd, getTemplatePath, isTemplateExists } from './webpack-config-common';
 
 /**
  * Setups entry part of webpack config.
@@ -31,7 +22,7 @@ export function makeAbsolutePathToNodeModules(relativePath) {
 export function setupEntry(filename) {
   return {
     app: [
-      path.join(process.cwd(), filename)
+      resolveToCwd(filename)
     ]
   };
 }
@@ -46,8 +37,8 @@ export function setupEntry(filename) {
  */
 export function setupOutput(filename, dist) {
   return {
-    path: path.join(process.cwd(), dist),
-    filename: '[name].[hash:8].js',
+    path: resolveToCwd(dist),
+    filename: `${path.basename(filename, '.js')}.[hash:8].js`,
     hash: true,
     publicPath: '/'
   };
@@ -56,13 +47,21 @@ export function setupOutput(filename, dist) {
 /**
  * Setups plugins section for webpack config.
  *
+ * @param {String} template file name
+ *
  * @return {Array}
  */
-export function setupPlugins() {
+export function setupPlugins(template) {
+  const htmlPluginOptions = {
+    title: last(process.cwd().split(path.sep))
+  };
+
+  if (template) {
+    htmlPluginOptions.template = template;
+  }
+
   return [
-    new HtmlWebpackPlugin({
-      title: last(process.cwd().split(path.sep))
-    }),
+    new HtmlWebpackPlugin(htmlPluginOptions),
     new NpmInstallPlugin({
       save: false,
       saveDev: false,
@@ -97,21 +96,21 @@ export function setupPlugins() {
  */
 export function setupLoaders(cssmodules) {
   const babelLoader = [
-    makeAbsolutePathToNodeModules('babel-loader'),
-    `?presets[]=${makeAbsolutePathToNodeModules('babel-preset-react')}`,
-    `,presets[]=${makeAbsolutePathToNodeModules('babel-preset-es2015')}`
+    resolveToOwnNodeModules('babel-loader'),
+    `?presets[]=${resolveToOwnNodeModules('babel-preset-react')}`,
+    `,presets[]=${resolveToOwnNodeModules('babel-preset-es2015')}`
   ];
   const jsLoaders = [babelLoader.join('')];
   const cssLoaders = [
-    makeAbsolutePathToNodeModules('css-loader') + (cssmodules ? '?modules&importLoaders=1' : ''),
-    makeAbsolutePathToNodeModules('postcss-loader')
+    resolveToOwnNodeModules('css-loader') + (cssmodules ? '?modules&importLoaders=1' : ''),
+    resolveToOwnNodeModules('postcss-loader')
   ];
 
   return [
     {
       test: /\.css$/,
       loader: ExtractTextPlugin.extract(
-        makeAbsolutePathToNodeModules('style-loader'),
+        resolveToOwnNodeModules('style-loader'),
         cssLoaders.join('!')
       )
     },
@@ -121,19 +120,23 @@ export function setupLoaders(cssmodules) {
       loaders: jsLoaders
     },
     {
-      test: /\.json$/,
-      loader: makeAbsolutePathToNodeModules('json-loader')
-    },
-    {
       test: /\.(jpg|png|gif|eot|svg|ttf|woff|woff2)$/,
-      loader: makeAbsolutePathToNodeModules('file-loader'),
+      loader: resolveToOwnNodeModules('file-loader'),
       query: {
         name: '[name].[hash:8].[ext]'
       }
     },
     {
+      test: /\.json$/,
+      loader: resolveToOwnNodeModules('json-loader')
+    },
+    {
       test: /\.(mp4|webm)$/,
-      loader: `${makeAbsolutePathToNodeModules('url')}?limit=10000`
+      loader: `${resolveToOwnNodeModules('url')}?limit=10000`
+    },
+    {
+      test: /\.html$/,
+      loader: resolveToOwnNodeModules('html-loader')
     }
   ];
 }
@@ -148,13 +151,15 @@ export function setupLoaders(cssmodules) {
  * @return {Object}
  */
 export default function webpackConfigBuilder(filename, flags, dist) {
+  const template = getTemplatePath(filename);
+
   return {
     entry: setupEntry(filename),
     output: setupOutput(filename, dist),
     debug: false,
     bail: true,
     devtool: 'source-map',
-    plugins: setupPlugins(),
+    plugins: setupPlugins(isTemplateExists(template) && template),
     module: {
       loaders: setupLoaders(flags.cssmodules)
     },
