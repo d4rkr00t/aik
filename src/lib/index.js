@@ -5,7 +5,6 @@ import createWebpackDevServer from './webpack-dev-server';
 import runWebpackBuilder from './webpack-build';
 import createNgrokTunnel from './ngrok';
 import restartHanlder from './restart';
-import banner from './banner';
 
 /**
  * Aik dev server command
@@ -25,7 +24,6 @@ export function aikDevServer(input, flags, console) {
   return Promise
     .all(promiseList)
     .then(ngrokUrl => {
-      console.log(banner(flags, ngrokUrl, chalk)); // eslint-disable-line
       return createWebpackDevServer(filename, flags, ngrokUrl)
         .then(server => [server, ngrokUrl]);
     })

@@ -45,11 +45,23 @@ export function eslintExtraWarningMsg({ log, chalk }) {
  *
  */
 
-export function devServerSmallBanner({ chalk }, flags, ngrokUrl) {
-  const msg = [chalk.magenta('Server: ') + chalk.cyan(`http://${flags.host}:${flags.port}`)];
+export function devServerBanner({ chalk }, flags, entry, ngrokUrl) {
+  const msg = [
+    '',
+    chalk.magenta('Entry point:      ') + entry,
+    chalk.magenta('Server:           ') + chalk.cyan(`http://${flags.host}:${flags.port}`)
+  ];
 
   if (flags.ngrok) {
-    msg.push(chalk.magenta('Ngrok: ') + chalk.cyan(ngrokUrl));
+    msg.push(chalk.magenta('Ngrok:            ') + chalk.cyan(ngrokUrl));
+  }
+
+  if (flags.cssmodules) {
+    msg.push(chalk.magenta('CSS Modules: ') + chalk.yellow('enabled'));
+  }
+
+  if (flags.react) {
+    msg.push(chalk.magenta('React Hot Loader: ') + chalk.yellow('enabled'));
   }
 
   return msg;
@@ -62,20 +74,20 @@ export function devServerInvalidBuildMsg({ log, chalk }) {
   ]);
 }
 
-export function devServerCompiledSuccessfullyMsg({ log, chalk }, flags, ngrokUrl) {
-  const msg = devServerSmallBanner({ chalk }, flags, ngrokUrl);
+export function devServerCompiledSuccessfullyMsg({ log, chalk }, flags, entry, ngrokUrl) {
+  const msg = devServerBanner({ chalk }, flags, entry, ngrokUrl);
   msg.push('', chalk.green('Compiled successfully!'));
   return print({ log }, msg);
 }
 
-export function devServerFailedToCompileMsg({ log, chalk }, flags, ngrokUrl) {
-  const msg = devServerSmallBanner({ chalk }, flags, ngrokUrl);
+export function devServerFailedToCompileMsg({ log, chalk }, flags, entry, ngrokUrl) {
+  const msg = devServerBanner({ chalk }, flags, entry, ngrokUrl);
   msg.push('', chalk.red('Failed to compile.'));
   return print({ log }, msg);
 }
 
-export function devServerCompiledWithWarningsMsg({ log, chalk }, flags, ngrokUrl) {
-  const msg = devServerSmallBanner({ chalk }, flags, ngrokUrl);
+export function devServerCompiledWithWarningsMsg({ log, chalk }, flags, entry, ngrokUrl) {
+  const msg = devServerBanner({ chalk }, flags, entry, ngrokUrl);
   msg.push('', chalk.yellow('Compiled with warnings.'));
   return print({ log }, msg);
 }

@@ -21,12 +21,13 @@ import {
  * @param {Function} imports.log
  * @param {Object} imports.chalk
  * @param {Flags} flags
+ * @param {String} filename
  * @param {String} ngrokUrl
  * @param {Object} stats - webpack build stats
  *
  * @return {void}
  */
-export function onDone(imports, flags, ngrokUrl, stats) {
+export function onDone(imports, flags, filename, ngrokUrl, stats) {
   const hasErrors = stats.hasErrors();
   const hasWarnings = stats.hasWarnings();
   const { log } = imports;
@@ -34,7 +35,7 @@ export function onDone(imports, flags, ngrokUrl, stats) {
   clearConsole(imports, true);
 
   if (!hasErrors && !hasWarnings) {
-    return devServerCompiledSuccessfullyMsg(imports, flags, ngrokUrl);
+    return devServerCompiledSuccessfullyMsg(imports, flags, filename, ngrokUrl);
   }
 
   const json = stats.toJson();
@@ -42,7 +43,7 @@ export function onDone(imports, flags, ngrokUrl, stats) {
   let formattedErrors = json.errors.map(message => 'Error in ' + formatMessage(message));
 
   if (hasErrors) {
-    devServerFailedToCompileMsg(imports, flags, ngrokUrl);
+    devServerFailedToCompileMsg(imports, flags, filename, ngrokUrl);
 
     // If there are any syntax errors, show just them.
     // This prevents a confusing ESLint parsing error
@@ -56,7 +57,7 @@ export function onDone(imports, flags, ngrokUrl, stats) {
   }
 
   if (hasWarnings) {
-    devServerCompiledWithWarningsMsg(imports, flags, ngrokUrl);
+    devServerCompiledWithWarningsMsg(imports, flags, filename, ngrokUrl);
     formattedWarnings.forEach(message => log('\n', message));
     eslintExtraWarningMsg(imports);
   }
@@ -67,15 +68,16 @@ export function onDone(imports, flags, ngrokUrl, stats) {
  *
  * @param {Object} config - webpack config
  * @param {Flags} flags
+ * @param {String} filename
  * @param {String} ngrokUrl
  *
  * @return {Object}
  */
-export function createWebpackCompiler(config, flags, ngrokUrl) {
+export function createWebpackCompiler(config, flags, filename, ngrokUrl) {
   const compiler = webpack(config);
   const imports = { log: console.log.bind(console), chalk: _chalk }; // eslint-disable-line
   compiler.plugin('invalid', devServerInvalidBuildMsg.bind(null, imports));
-  compiler.plugin('done', onDone.bind(null, imports, flags, ngrokUrl));
+  compiler.plugin('done', onDone.bind(null, imports, flags, filename, ngrokUrl));
   return compiler;
 }
 
@@ -90,7 +92,7 @@ export function createWebpackCompiler(config, flags, ngrokUrl) {
  */
 export default function createWebpackDevServer(filename, flags, ngrokUrl) {
   const config = webpackConfigBuilder(filename, flags);
-  const compiler = createWebpackCompiler(config, flags, ngrokUrl);
+  const compiler = createWebpackCompiler(config, flags, filename, ngrokUrl);
   const server = new WebpackDevServer(compiler, {
     historyApiFallback: true,
     hot: true,

@@ -9,16 +9,7 @@ import autoprefixer from 'autoprefixer';
 import precss from 'precss';
 import postcssImport from 'postcss-import';
 
-/**
- * Makes absolute path to node_modules for webpack plugins and loaders.
- *
- * @param {String} relativePath
- *
- * @return {String}
- */
-export function makeAbsolutePathToNodeModules(relativePath) {
-  return path.join(__dirname, '..', 'node_modules', relativePath);
-}
+import { resolveToOwnNodeModules, resolveToCwd, getTemplatePath, isTemplateExists } from './webpack-config-common';
 
 /**
  * Setups entry part of webpack config.
@@ -34,9 +25,9 @@ export function setupEntry(filename, host, port) {
 
   return {
     app: [
-      `${makeAbsolutePathToNodeModules('webpack-dev-server/client')}?http://${host}:${port}/`,
-      makeAbsolutePathToNodeModules('webpack/hot/dev-server'),
-      path.join(process.cwd(), filename)
+      `${resolveToOwnNodeModules('webpack-dev-server/client')}?http://${host}:${port}/`,
+      resolveToOwnNodeModules('webpack/hot/dev-server'),
+      resolveToCwd(filename)
     ]
   };
 }
@@ -51,7 +42,7 @@ export function setupEntry(filename, host, port) {
 export function setupOutput(filename) {
   return {
     path: path.join(process.cwd(), path.dirname(filename)),
-    filename: 'index.js',
+    filename: path.basename(filename),
     hash: true
   };
 }
@@ -59,14 +50,22 @@ export function setupOutput(filename) {
 /**
  * Setups plugins section for webpack config.
  *
+ * @param {String} template file name
+ *
  * @return {Array}
  */
-export function setupPlugins() {
+export function setupPlugins(template) {
+  const htmlPluginOptions = {
+    title: last(process.cwd().split(path.sep))
+  };
+
+  if (template) {
+    htmlPluginOptions.template = template;
+  }
+
   return [
     new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebpackPlugin({
-      title: last(process.cwd().split(path.sep))
-    }),
+    new HtmlWebpackPlugin(htmlPluginOptions),
     new NpmInstallPlugin({
       dev: true,
       peerDependencies: true
@@ -85,20 +84,20 @@ export function setupPlugins() {
  */
 export function setupLoaders(cssmodules, react) {
   const jsLoaders = [
-    `${makeAbsolutePathToNodeModules('babel-loader')}?presets[]=${makeAbsolutePathToNodeModules('babel-preset-react')},presets[]=${makeAbsolutePathToNodeModules('babel-preset-es2015')}&cacheDirectory` // eslint-disable-line
+    `${resolveToOwnNodeModules('babel-loader')}?presets[]=${resolveToOwnNodeModules('babel-preset-react')},presets[]=${resolveToOwnNodeModules('babel-preset-es2015')}&cacheDirectory` // eslint-disable-line
   ];
 
   if (react) {
-    jsLoaders.unshift(makeAbsolutePathToNodeModules('react-hot-loader'));
+    jsLoaders.unshift(resolveToOwnNodeModules('react-hot-loader'));
   }
 
   return [
     {
       test: /\.css$/,
       loaders: [
-        makeAbsolutePathToNodeModules('style-loader'),
-        makeAbsolutePathToNodeModules('css-loader') + (cssmodules ? '?modules&importLoaders=1' : ''),
-        makeAbsolutePathToNodeModules('postcss-loader')
+        resolveToOwnNodeModules('style-loader'),
+        resolveToOwnNodeModules('css-loader') + (cssmodules ? '?modules&importLoaders=1' : ''),
+        resolveToOwnNodeModules('postcss-loader')
       ]
     },
     {
@@ -108,15 +107,19 @@ export function setupLoaders(cssmodules, react) {
     },
     {
       test: /\.json$/,
-      loader: makeAbsolutePathToNodeModules('json-loader')
+      loader: resolveToOwnNodeModules('json-loader')
     },
     {
       test: /\.(jpg|png|gif|eot|svg|ttf|woff|woff2)$/,
-      loader: makeAbsolutePathToNodeModules('file-loader')
+      loader: resolveToOwnNodeModules('file-loader')
     },
     {
       test: /\.(mp4|webm)$/,
-      loader: `${makeAbsolutePathToNodeModules('url-loader')}?limit=10000`
+      loader: `${resolveToOwnNodeModules('url-loader')}?limit=10000`
+    },
+    {
+      test: /\.html$/,
+      loader: resolveToOwnNodeModules('html-loader')
     }
   ];
 }
@@ -130,7 +133,7 @@ export function setupPreloaders() {
   return [
     {
       test: /\.js$/,
-      loader: makeAbsolutePathToNodeModules('eslint-loader'),
+      loader: resolveToOwnNodeModules('eslint-loader'),
       exclude: /node_modules/
     }
   ];
@@ -145,12 +148,14 @@ export function setupPreloaders() {
  * @return {Object}
  */
 export default function webpackConfigBuilder(filename, flags) {
+  const template = getTemplatePath(filename);
+
   return {
     entry: setupEntry(filename, flags.host, flags.port),
     output: setupOutput(filename),
     debug: true,
     devtool: 'eval',
-    plugins: setupPlugins(),
+    plugins: setupPlugins(isTemplateExists(template) && template),
     module: {
       preLoaders: setupPreloaders(),
       loaders: setupLoaders(flags.cssmodules, flags.react)

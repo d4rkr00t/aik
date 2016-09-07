@@ -31,21 +31,84 @@ Frontend Playground
   </a>
 </p>
 
-## Features
-* Run web server with given javascript file
-* [Automatically install npm modules](https://github.com/ericclemmons/npm-install-webpack-plugin)
-* [Hot reload react components](https://github.com/gaearon/react-hot-loader)
-* Hot reload css
-* Production ready build
-* Modern javascript with [babel](https://babeljs.io/) using [es2015](http://babeljs.io/docs/plugins/preset-es2015/) and [react](http://babeljs.io/docs/plugins/preset-react/) presets
-* [PostCSS](https://github.com/postcss/postcss) with [autoprefixer](https://github.com/postcss/autoprefixer) and [precss](https://github.com/jonathantneal/precss)
-* [ESLint](http://eslint.org/) to help you find potential errors (there aren't any code style rules)
-* [ESLint React Plugin](https://github.com/yannickcr/eslint-plugin-react) for linting react specific things
-* [Optional] — [css-modules](https://github.com/css-modules/css-modules)
-* [Optional] — expose web server to real world by [ngrok](https://github.com/bubenshchykov/ngrok)
+## Objectives
 
-## Video
-https://www.youtube.com/watch?v=3XM6sAXFm9U&feature=youtu.be
+This project aims to help to build fast prototypes and not supposed to be a part of any production-ready systems.
+If you want solutions which are better for production usage you can take a look at the alternatives list down below.
+
+Even though Aik has extra features for React, the main goal is to be open for any JavaScript framework or library.
+
+## Features
+
+### Run web server with JavaScript file
+
+To start playing around with new ideas is as simple as running a single command in your terminal:
+
+```sh
+aik index.js
+```
+
+### Automatically install npm modules
+
+Aik takes care of installing npm modules for you automatically using awesome "[npm install webpack plugin](https://github.com/ericclemmons/npm-install-webpack-plugin)".
+Just add require or import statement in the JavaScript file and you are ready to go.
+
+```js
+import react from 'react';
+import ReactDOM from 'react-dom';
+```
+
+### Custom templates
+By default, Aik uses built-in into the "[html-webpack-plugin](https://github.com/ampedandwired/html-webpack-plugin)" template,
+but it's easy to create your own. Just add HTML file with the same name as JavaScript file.
+
+```
+aik-test/
+├── index.js
+└── index.html
+```
+
+**Important:** Do not add script tag with src to JavaScript file (in the example above to index.js) Aik will do it automatically.
+
+### Hot reload
+Aik sets up hot reloading for CSS and with extra option '-r' for React components using @gaeron's [react-hot-loader](https://github.com/gaearon/react-hot-loader).
+
+```sh
+aik index.js -r # option for enabling react hot loading
+```
+
+### Latest and Greatest technologies for frontend development
+
+There are (an opinionated) set of technologies that will help you prototype faster and use greatest new features from ES2015 and ES2016 (soon).
+And also you don't have to worry about all these messy prefixes in CSS because there is an autoprefixer which will do it for you.
+Moreover, there is a little bit of syntactic sugar over CSS provided by terrific PostCSS and PreCSS.
+
+* Modern javascript with [Babel](https://babeljs.io/) using [ES2015](http://babeljs.io/docs/plugins/preset-es2015/) and [React](http://babeljs.io/docs/plugins/preset-react/) presets
+* [PostCSS](https://github.com/postcss/postcss) with [Autoprefixer](https://github.com/postcss/autoprefixer) and [PreCSS](https://github.com/jonathantneal/precss)
+* [Optional] — [css-modules](https://github.com/css-modules/css-modules)
+
+### Linting
+
+Aik comes with set up linters. Nothing annoying about code style, only rules which helps you find potential errors.
+
+* [ESLint](http://eslint.org/)
+* [ESLint React Plugin](https://github.com/yannickcr/eslint-plugin-react) for linting React specific things
+
+### Production ready build
+
+```sh
+aik index.js --build
+```
+
+Produces minimized build for production usage. It's easy to publish prototype to GitHub pages, Surge, or wherever you want.
+
+### Expose web server to the real world
+
+Optionally, by providing '-n' flag you can expose web server to the real world using awesome "[Ngrok](https://github.com/bubenshchykov/ngrok)".
+
+```sh
+aik index.js -n # option for enabling ngrok
+```
 
 ## Install
 
@@ -78,6 +141,23 @@ Examples
   Builds filename.js for production use and saves output to dist folder.
 ```
 
+## Alternatives
+
+* [create-react-app](https://github.com/facebookincubator/create-react-app)
+* [enclave](https://github.com/eanplatter/enclave)
+* [nwb](https://github.com/insin/nwb)
+* [motion](https://github.com/motion/motion)
+* [rackt-cli](https://github.com/mzabriskie/rackt-cli)
+* [budō](https://github.com/mattdesl/budo)
+* [rwb](https://github.com/petehunt/rwb)
+* [quik](https://github.com/satya164/quik)
+* [sagui](https://github.com/saguijs/sagui)
+* [roc](https://github.com/rocjs/roc)
+* [react-app](https://github.com/kriasoft/react-app)
+* [dev-toolkit](https://github.com/stoikerty/dev-toolkit)
+* [mozilla-neo](https://github.com/mozilla/neo)
+* [tarec](https://github.com/geowarin/tarec)
+
 ## Author
 
 Stanislav Sysoev d4rkr00t@gmail.com https://github.com/d4rkr00t/aik
@@ -89,3 +169,5 @@ Stanislav Sysoev d4rkr00t@gmail.com https://github.com/d4rkr00t/aik
 ## Contributing
 
 Contributions are highly welcome! This repo is commitizen friendly — please read about it [here](http://commitizen.github.io/cz-cli/).
+
+**I'll appreciate any grammatical or spelling corrections as I'm not a native speaker.**
