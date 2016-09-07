@@ -57,7 +57,7 @@ export function devServerBanner({ chalk }, flags, entry, ngrokUrl) {
   }
 
   if (flags.cssmodules) {
-    msg.push(chalk.magenta('CSS Modules: ') + chalk.yellow('enabled'));
+    msg.push(chalk.magenta('CSS Modules:      ') + chalk.yellow('enabled'));
   }
 
   if (flags.react) {
