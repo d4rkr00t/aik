@@ -27,6 +27,9 @@
     "type": "git",
     "url": "https://github.com/d4rkr00t/aik"
   },
+  "engines": {
+    "node": ">=4"
+  },
   "scripts": {
     "audit": "nsp check package",
     "build": "babel -d ./ ./src",
