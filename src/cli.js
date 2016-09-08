@@ -15,6 +15,7 @@ const cli = meow({
     '',
     chalk.green('Options'),
     `  ${chalk.yellow('-b, --build')}       Build production version for given entry point. [Default output: dist]`,
+    `  ${chalk.yellow('-u, --base')}        Base path from witch urls in build begins`,
     `  ${chalk.yellow('-p, --port')}        Web server port. ${chalk.dim('[Default: 4444]')}`,
     `  ${chalk.yellow('-h, --host')}        Web server host. ${chalk.dim('[Default: localhost]')}`,
     `  ${chalk.yellow('-r, --react')}       Enables react hot loader.`,
@@ -34,6 +35,7 @@ const cli = meow({
 }, {
   alias: {
     b: 'build',
+    u: 'base',
     p: 'port',
     h: 'host',
     r: 'react',
