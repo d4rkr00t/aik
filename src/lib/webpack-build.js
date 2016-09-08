@@ -40,7 +40,7 @@ export default function runWebpackBuilder(filename, flags, console) {
   const dist = path.join(process.cwd(), distShortName);
   const msgImports = { log: console.log.bind(console), chalk: _chalk }; // eslint-disable-line
 
-  builderBanner(msgImports, filename, flags.cssmodules);
+  builderBanner(msgImports, filename, flags);
   builderRemovingDistMsg(msgImports, dist);
 
   return removeDist(dist)

@@ -1,3 +1,4 @@
+import isString from 'lodash/isString';
 import { isLikelyASyntaxError, formatMessage } from './webpack-error-helpers';
 
 /**
@@ -98,14 +99,22 @@ export function devServerCompiledWithWarningsMsg({ log, chalk }, flags, entry, n
  *
  */
 
-export function builderBanner({ log, chalk }, entry, cssmodules) {
+export function builderBanner({ log, chalk }, entry, flags) {
   clearConsole({ chalk });
-  return print({ log }, [
+
+  const msg = [
     chalk.green('Building...'),
     '',
-    chalk.magenta('Entry point: ') + entry,
-    chalk.magenta('CSS Modules: ') + (cssmodules ? chalk.green('enabled') : 'disabled')
-  ]);
+    chalk.magenta('Entry point: ') + entry
+  ];
+
+  if (isString(flags.base)) {
+    msg.push(chalk.magenta('Base path: ') + flags.base);
+  }
+
+  msg.push(chalk.magenta('CSS Modules: ') + (flags.cssmodules ? chalk.green('enabled') : 'disabled'));
+
+  return print({ log }, msg);
 }
 
 export function builderRemovingDistMsg({ log, chalk }, distPath) {

@@ -1,5 +1,6 @@
 import path from 'path';
 import last from 'lodash/last';
+import isString from 'lodash/isString';
 
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
@@ -32,15 +33,18 @@ export function setupEntry(filename) {
  *
  * @param {String} filename
  * @param {String} dist
+ * @param {String} [base]
  *
  * @return {Object}
  */
-export function setupOutput(filename, dist) {
+export function setupOutput(filename, dist, base) {
+  const publicPath = base.endsWith('/') ? base : base + '/';
+
   return {
     path: resolveToCwd(dist),
     filename: `${path.basename(filename, '.js')}.[hash:8].js`,
     hash: true,
-    publicPath: '/'
+    publicPath
   };
 }
 
@@ -156,7 +160,7 @@ export default function webpackConfigBuilder(filename, flags, dist) {
 
   return {
     entry: setupEntry(filename),
-    output: setupOutput(filename, dist),
+    output: setupOutput(filename, dist, isString(flags.base) ? flags.base : ''),
     debug: false,
     bail: true,
     devtool: 'source-map',

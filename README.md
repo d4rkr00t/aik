@@ -71,7 +71,7 @@ aik-test/
 **Important:** Do not add script tag with src to JavaScript file (in the example above to index.js) Aik will do it automatically.
 
 ### Hot reload
-Aik sets up hot reloading for CSS and with extra option '-r' for React components using @gaeron's [react-hot-loader](https://github.com/gaearon/react-hot-loader).
+Aik sets up hot reloading for CSS and with an extra option '-r' for React components using @gaeron's [react-hot-loader](https://github.com/gaearon/react-hot-loader).
 
 ```sh
 aik index.js -r # option for enabling react hot loading
@@ -101,6 +101,23 @@ aik index.js --build
 ```
 
 Produces minimized build for production usage. It's easy to publish prototype to GitHub pages, Surge, or wherever you want.
+Important that assets urls are relative to root:
+
+```html
+<script type="text/javascript" src="/index.c699c867.js"></script></body>
+```
+
+If you want to host build in sub directory (e.g. https://my-web-site.com/sub-dir/) you should run Aik with the '--base' flag:
+
+```sh
+aik index.js --build --base "/my-sub-folder"
+```
+
+Now assets urls are relative to specified base path:
+
+```html
+<script type="text/javascript" src="/my-sub-folder/index.c699c867.js"></script></body>
+```
 
 ### Expose web server to the real world
 
@@ -124,6 +141,7 @@ Usage
 
 Options
   -b  --build       Build production version for given entry point. [Default output: dist]
+  -u, --base        Base path from witch urls in build begins
   -p, --port        Web server port. [Default: 8080]
   -h, --host        Web server host. [Default: localhost]
   -r, --react       Enables react hot loader.
