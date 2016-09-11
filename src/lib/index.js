@@ -48,10 +48,12 @@ export function aikDevServer(input, flags, console) {
  * @param {String[]} input
  * @param {Flags} flags
  * @param {Object} console
+ *
+ * @return {Promise}
  */
 export function aikBuild(input, flags, console) {
   const [filename] = input;
-  runWebpackBuilder(filename, flags, console);
+  return runWebpackBuilder(filename, flags, console);
 }
 
 /**
