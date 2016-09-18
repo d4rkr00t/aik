@@ -55,17 +55,12 @@ export function setupOutput(filename) {
  * @return {Array}
  */
 export function setupPlugins(template) {
-  const htmlPluginOptions = {
-    title: last(process.cwd().split(path.sep))
-  };
-
-  if (template) {
-    htmlPluginOptions.template = template;
-  }
-
   return [
     new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebpackPlugin(htmlPluginOptions),
+    new HtmlWebpackPlugin({
+      title: last(process.cwd().split(path.sep)),
+      template: template ? template : require.resolve('../template/index.ejs')
+    }),
     new NpmInstallPlugin({
       dev: true,
       peerDependencies: true

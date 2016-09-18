@@ -56,16 +56,11 @@ export function setupOutput(filename, dist, base) {
  * @return {Array}
  */
 export function setupPlugins(template) {
-  const htmlPluginOptions = {
-    title: last(process.cwd().split(path.sep))
-  };
-
-  if (template) {
-    htmlPluginOptions.template = template;
-  }
-
   return [
-    new HtmlWebpackPlugin(htmlPluginOptions),
+    new HtmlWebpackPlugin({
+      title: last(process.cwd().split(path.sep)),
+      template: template ? template : require.resolve('../template/index.ejs')
+    }),
     new NpmInstallPlugin({
       save: false,
       saveDev: false,
