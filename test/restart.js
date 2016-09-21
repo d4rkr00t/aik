@@ -1,19 +1,17 @@
 import test from 'ava';
-import identity from 'lodash/identity';
-
 import restart from '../src/lib/restart';
 
 const chalk = {
-  yellow: identity,
-  green: identity
+  yellow: arg => arg,
+  green: arg => arg
 };
 
 const prc = {
   stdin: {
-    setEncoding: identity
+    setEncoding: arg => arg
   },
   stdout: {
-    write: identity
+    write: arg => arg
   }
 };
 

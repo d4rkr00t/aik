@@ -9,10 +9,6 @@ var _chalk = require('chalk');
 
 var _chalk2 = _interopRequireDefault(_chalk);
 
-var _isEmpty = require('lodash/isEmpty');
-
-var _isEmpty2 = _interopRequireDefault(_isEmpty);
-
 var _updateNotifier = require('update-notifier');
 
 var _updateNotifier2 = _interopRequireDefault(_updateNotifier);
@@ -50,7 +46,7 @@ var cli = (0, _meow2.default)({
 var input = cli.input || [];
 var flags = cli.flags || {};
 
-if ((0, _isEmpty2.default)(input) || flags.help) {
+if (!input.length || flags.help) {
   console.log(cli.help); // eslint-disable-line
 } else if (flags.version) {
   console.log(_package2.default.version); // eslint-disable-line

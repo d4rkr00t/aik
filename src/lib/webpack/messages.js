@@ -1,4 +1,4 @@
-import isString from 'lodash/isString';
+import isString from '../utils/isString';
 import { isLikelyASyntaxError, formatMessage } from './error-helpers';
 
 /**

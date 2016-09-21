@@ -1,8 +1,8 @@
 import webpack from 'webpack';
 import rimraf from 'rimraf';
 import path from 'path';
-import { isString } from 'lodash';
 import _chalk from 'chalk';
+import isString from './utils/isString';
 import webpackConfigBuilder from './webpack/config';
 import {
   builderBanner,

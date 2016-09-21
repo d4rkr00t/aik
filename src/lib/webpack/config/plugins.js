@@ -1,9 +1,9 @@
 import path from 'path';
-import last from 'lodash/last';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import NpmInstallPlugin from 'npm-install-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import last from '../../utils/last';
 
 export function htmlWebpackPlugin(template) {
   return new HtmlWebpackPlugin({

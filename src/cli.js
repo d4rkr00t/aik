@@ -1,7 +1,6 @@
 #! /usr/bin/env node
 import meow from 'meow';
 import chalk from 'chalk';
-import isEmpty from 'lodash/isEmpty';
 import updateNotifier from 'update-notifier';
 import pkg from './package.json';
 import { aikDevServer, aikBuild } from './lib/';
@@ -53,7 +52,7 @@ const cli = meow({
 const input = cli.input || [];
 const flags = cli.flags || {};
 
-if (isEmpty(input) || flags.help) {
+if (!input.length || flags.help) {
   console.log(cli.help); // eslint-disable-line
 } else if (flags.version) {
   console.log(pkg.version); // eslint-disable-line

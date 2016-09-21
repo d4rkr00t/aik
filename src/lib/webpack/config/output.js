@@ -1,5 +1,5 @@
 import path from 'path';
-import { isString } from 'lodash';
+import isString from '../../utils/isString';
 import { resolveToCwd } from './helpers';
 
 /**
