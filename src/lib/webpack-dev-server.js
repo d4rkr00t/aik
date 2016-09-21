@@ -1,10 +1,8 @@
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
-import webpackConfigBuilder from './webpack-config-dev';
+import webpackConfigBuilder from './webpack/config';
 import _chalk from 'chalk';
-
-import { isLikelyASyntaxError, formatMessage } from './webpack-error-helpers';
-
+import { isLikelyASyntaxError, formatMessage } from './webpack/error-helpers';
 import {
   clearConsole,
   eslintExtraWarningMsg,
@@ -12,7 +10,7 @@ import {
   devServerCompiledSuccessfullyMsg,
   devServerFailedToCompileMsg,
   devServerCompiledWithWarningsMsg
-} from './webpack-messages';
+} from './webpack/messages';
 
 /**
  * On done handler for webpack compiler.
@@ -91,7 +89,7 @@ export function createWebpackCompiler(config, flags, filename, ngrokUrl) {
  * @return {Promise}
  */
 export default function createWebpackDevServer(filename, flags, ngrokUrl) {
-  const config = webpackConfigBuilder(filename, flags);
+  const config = webpackConfigBuilder(filename, flags, false, '');
   const compiler = createWebpackCompiler(config, flags, filename, ngrokUrl);
   const server = new WebpackDevServer(compiler, {
     historyApiFallback: true,

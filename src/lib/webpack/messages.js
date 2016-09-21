@@ -1,5 +1,5 @@
 import isString from 'lodash/isString';
-import { isLikelyASyntaxError, formatMessage } from './webpack-error-helpers';
+import { isLikelyASyntaxError, formatMessage } from './error-helpers';
 
 /**
  * Moves current line to the most top of console.
