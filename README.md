@@ -79,11 +79,11 @@ aik index.js -r # option for enabling react hot loading
 
 ### Latest and Greatest technologies for frontend development
 
-There are (an opinionated) set of technologies that will help you prototype faster and use greatest new features from ES2015 and ES2016 (soon).
+There are (an opinionated) set of technologies that will help you prototype faster. Aik uses [preset-latest](http://babeljs.io/docs/plugins/preset-latest/) for babel which contain all yearly presets.
 And also you don't have to worry about all these messy prefixes in CSS because there is an autoprefixer which will do it for you.
 Moreover, there is a little bit of syntactic sugar over CSS provided by terrific PostCSS and PreCSS.
 
-* Modern javascript with [Babel](https://babeljs.io/) using [ES2015](http://babeljs.io/docs/plugins/preset-es2015/) and [React](http://babeljs.io/docs/plugins/preset-react/) presets
+* Modern javascript with [Babel](https://babeljs.io/) using [Latest](http://babeljs.io/docs/plugins/preset-latest/) and [React](http://babeljs.io/docs/plugins/preset-react/) presets
 * [PostCSS](https://github.com/postcss/postcss) with [Autoprefixer](https://github.com/postcss/autoprefixer) and [PreCSS](https://github.com/jonathantneal/precss)
 * [Optional] — [css-modules](https://github.com/css-modules/css-modules)
 

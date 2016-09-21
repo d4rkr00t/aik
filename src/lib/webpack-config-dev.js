@@ -81,7 +81,7 @@ export function setupLoaders(cssmodules, react) {
   const jsLoaders = [
     require.resolve('babel-loader')
     + '?presets[]=' + require.resolve('babel-preset-react')
-    + ',presets[]=' + require.resolve('babel-preset-es2015')
+    + ',presets[]=' + require.resolve('babel-preset-latest')
     + '&cacheDirectory'
   ];
 
