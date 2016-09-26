@@ -1,13 +1,11 @@
+/* @flow */
+
 import { resolveToCwd } from './helpers';
 
 /**
  * Entry for production build.
- *
- * @param {String} filename
- *
- * @return {Object}
  */
-export function entryProd(filename) {
+export function entryProd(filename:string) : Entry {
   return {
     app: [resolveToCwd(filename)]
   };
@@ -16,13 +14,8 @@ export function entryProd(filename) {
 
 /**
  * Entry for dev server.
- *
- * @param {String} filename
- * @param {Object} flags
- *
- * @return {Object}
  */
-export function entryDev(filename, flags) {
+export function entryDev(filename:string, flags:CLIFlags) : Entry {
   const host = flags.host === '::' ? 'localhost' : flags.host;
 
   return {
@@ -36,14 +29,8 @@ export function entryDev(filename, flags) {
 
 /**
  * Setups entry part of webpack config.
- *
- * @param {String} filename
- * @param {Object} flags
- * @param {Boolean} isProd
- *
- * @return {Object}
  */
-export default function entry(filename, flags, isProd) {
+export default function entry(filename:string, flags:CLIFlags, isProd:boolean) : Entry {
   return isProd
     ? entryProd(filename)
     : entryDev(filename, flags);

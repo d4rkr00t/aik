@@ -1,9 +1,15 @@
+/* @flow */
+
+type ReloadImports = {
+  prc: Object,
+  server: Object,
+  chalk: $npm$chalk$Style // Terrible name of type
+}
+
 /**
- * Restarts dev server.
- *
- * @param {Object} imports
+ * Restarts dev server when typing rs and enter.
  */
-export default function reload(imports) {
+export default function reload(imports:ReloadImports) {
   const { prc, server, chalk } = imports;
 
   prc.stdin.setEncoding('utf8');

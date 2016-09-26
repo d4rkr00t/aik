@@ -1,18 +1,13 @@
+/* @flow */
+
 import path from 'path';
-import isString from '../../utils/isString';
 import { resolveToCwd } from './helpers';
 
 /**
  * Output for production build.
- *
- * @param {String} filename
- * @param {Object} flags
- * @param {String} dist - folder where production build will be placed.
- *
- * @return {Object}
  */
-export function outputProd(filename, flags, dist) {
-  const base = isString(flags.base) ? flags.base : '';
+export function outputProd(filename:string, flags:CLIFlags, dist:string) : Output {
+  const base = typeof flags.base === 'string' ? flags.base : '';
   const publicPath = base.endsWith('/') ? base : base + '/';
 
   return {
@@ -25,12 +20,8 @@ export function outputProd(filename, flags, dist) {
 
 /**
  * Output for dev server.
- *
- * @param {String} filename
- *
- * @return {Object}
  */
-export function outputDev(filename) {
+export function outputDev(filename:string) : Output {
   return {
     path: path.join(process.cwd(), path.dirname(filename)),
     filename: path.basename(filename),
@@ -40,15 +31,8 @@ export function outputDev(filename) {
 
 /**
  * Setups output section of webpack config.
- *
- * @param {String} filename
- * @param {Object} flags
- * @param {Boolean} isProd
- * @param {String} dist - folder where production build will be placed.
- *
- * @return {Object}
  */
-export default function output(filename, flags, isProd, dist) {
+export default function output(filename:string, flags:CLIFlags, isProd:boolean, dist:string) : Output {
   return isProd
     ? outputProd(filename, flags, dist)
     : outputDev(filename);

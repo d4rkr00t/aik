@@ -1,26 +1,20 @@
+/* @flow */
+
 const SYNTAX_ERROR_LABEL = 'SyntaxError:';
 const SYNTAX_ERROR_LABEL_HUMAN_FRIENDLY = 'Syntax Error:';
 
 /**
  * Checks whether error is syntax error.
- *
- * @param {String} message
- *
- * @return {Boolean}
  */
-export function isLikelyASyntaxError(message) {
+export function isLikelyASyntaxError(message:string) : boolean {
   return message.indexOf(SYNTAX_ERROR_LABEL) !== -1
     || message.indexOf(SYNTAX_ERROR_LABEL_HUMAN_FRIENDLY) !== -1;
 }
 
 /**
  * Makes some common errors shorter.
- *
- * @param {String} message
- *
- * @return {String}
  */
-export function formatMessage(message) {
+export function formatMessage(message:string) : string {
   return message
     // Babel syntax error
     .replace(

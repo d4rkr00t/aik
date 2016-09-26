@@ -1,11 +1,11 @@
+/* @flow */
+
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 /**
  * Setups pre loaders for webpack.
- *
- * @return {Object[]}
  */
-export function preloaders() {
+export function preloaders() : Loader[] {
   return [
     {
       test: /\.js$/,
@@ -17,14 +17,9 @@ export function preloaders() {
 
 /**
  * Creates loader for JavaScript files and add some extra features for dev server, like hot reloading.
- *
- * @param {Object} flags
- * @param {Boolean} isProd
- *
- * @return {String[]}
  */
-export function createJSLoader(flags, isProd) {
-  const babelLoader = [
+export function createJSLoader(flags:CLIFlags, isProd:boolean) : string[] {
+  const babelLoader:string[] = [
     require.resolve('babel-loader'),
     `?presets[]=${require.resolve('babel-preset-react')}`,
     `,presets[]=${require.resolve('babel-preset-latest')}`
@@ -34,7 +29,7 @@ export function createJSLoader(flags, isProd) {
     babelLoader.push('&cacheDirectory');
   }
 
-  const jsLoaders = [babelLoader.join('')];
+  const jsLoaders:string[] = [babelLoader.join('')];
 
   if (!isProd && flags.react) {
     jsLoaders.unshift(require.resolve('react-hot-loader'));
@@ -45,12 +40,8 @@ export function createJSLoader(flags, isProd) {
 
 /**
  * Creates production loader for CSS files.
- *
- * @param {Object} flags
- *
- * @return {String[]}
  */
-export function createCSSLoaderProd(flags) {
+export function createCSSLoaderProd(flags:CLIFlags) : Loader {
   const cssLoaders = [
     require.resolve('css-loader') + (flags.cssmodules ? '?modules&importLoaders=1' : ''),
     require.resolve('postcss-loader')
@@ -67,12 +58,8 @@ export function createCSSLoaderProd(flags) {
 
 /**
  * Creates dev server loader for CSS files.
- *
- * @param {Object} flags
- *
- * @return {String[]}
  */
-export function createCSSLoaderDev(flags) {
+export function createCSSLoaderDev(flags:CLIFlags) : Loader {
   return {
     test: /\.css$/,
     loaders: [
@@ -85,13 +72,8 @@ export function createCSSLoaderDev(flags) {
 
 /**
  * Setups loaders for webpack.
- *
- * @param {Object} flags
- * @param {Boolean} isProd
- *
- * @return {Object[]}
  */
-export function loaders(flags, isProd) {
+export function loaders(flags:CLIFlags, isProd:boolean) : Loader[] {
   const jsLoaders = createJSLoader(flags, isProd);
   return [
     isProd

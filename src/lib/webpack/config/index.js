@@ -1,3 +1,5 @@
+/* @flow */
+
 import path from 'path';
 import autoprefixer from 'autoprefixer';
 import precss from 'precss';
@@ -10,15 +12,8 @@ import { preloaders, loaders } from './loaders';
 
 /**
  * Generates config for webpack.
- *
- * @param {String} filename
- * @param {Flags} flags
- * @param {Boolean} isProd
- * @param {String} dist - folder where production build will be placed.
- *
- * @return {Object}
  */
-export default function webpackConfigBuilder(filename, flags, isProd, dist) {
+export default function webpackConfigBuilder(filename:string, flags:CLIFlags, isProd:boolean, dist:string) : WebPackConfig { // eslint-disable-line
   const template = getTemplatePath(filename);
 
   return {
@@ -26,7 +21,7 @@ export default function webpackConfigBuilder(filename, flags, isProd, dist) {
     output: output(filename, flags, isProd, dist),
     debug: !isProd,
     devtool: !isProd && 'eval',
-    plugins: plugins(isTemplateExists(template) && template),
+    plugins: plugins(isTemplateExists(template) && template, isProd),
     module: {
       preLoaders: preloaders(),
       loaders: loaders(flags, isProd)
