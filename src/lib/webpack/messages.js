@@ -39,13 +39,19 @@ export function eslintExtraWarningMsg(imports:WebpackMessageImports) {
  *
  */
 
-export function devServerBanner(imports:WebpackMessageImports, flags:CLIFlags, entry:string, ngrokUrl:NgrokUrl) : string[] {
+export function devServerBanner(imports:WebpackMessageImports, flags:CLIFlags, entry:string, ngrokUrl:NgrokUrl, template:string) : string[] {
   const { chalk } = imports;
   const msg:string[] = [
+    chalk.green('Watching...'),
     '',
-    chalk.magenta('Entry point:      ') + entry,
-    chalk.magenta('Server:           ') + chalk.cyan(`http://${flags.host}:${flags.port}`)
+    chalk.magenta('Entry point:      ') + entry
   ];
+
+  if (template) {
+    msg.push(chalk.magenta('Custom template:  ') + template);
+  }
+
+  msg.push(chalk.magenta('Server:           ') + chalk.cyan(`http://${flags.host}:${flags.port}`));
 
   if (ngrokUrl) {
     msg.push(chalk.magenta('Ngrok:            ') + chalk.cyan(ngrokUrl));
@@ -70,23 +76,23 @@ export function devServerInvalidBuildMsg(imports:WebpackMessageImports) {
   ]);
 }
 
-export function devServerCompiledSuccessfullyMsg(imports:WebpackMessageImports, flags:CLIFlags, entry:string, ngrokUrl:NgrokUrl) {
+export function devServerCompiledSuccessfullyMsg(imports:WebpackMessageImports, flags:CLIFlags, entry:string, ngrokUrl:NgrokUrl, template:string) {
   const { chalk, log } = imports;
-  const msg = devServerBanner(imports, flags, entry, ngrokUrl);
+  const msg = devServerBanner(imports, flags, entry, ngrokUrl, template);
   msg.push('', chalk.green('Compiled successfully!'));
   return print(imports, msg);
 }
 
-export function devServerFailedToCompileMsg(imports:WebpackMessageImports, flags:CLIFlags, entry:string, ngrokUrl:NgrokUrl) {
+export function devServerFailedToCompileMsg(imports:WebpackMessageImports, flags:CLIFlags, entry:string, ngrokUrl:NgrokUrl, template:string) {
   const { chalk, log } = imports;
-  const msg = devServerBanner(imports, flags, entry, ngrokUrl);
+  const msg = devServerBanner(imports, flags, entry, ngrokUrl, template);
   msg.push('', chalk.red('Failed to compile.'));
   return print(imports, msg);
 }
 
-export function devServerCompiledWithWarningsMsg(imports:WebpackMessageImports, flags:CLIFlags, entry:string, ngrokUrl:NgrokUrl) {
+export function devServerCompiledWithWarningsMsg(imports:WebpackMessageImports, flags:CLIFlags, entry:string, ngrokUrl:NgrokUrl, template:string) {
   const { chalk, log } = imports;
-  const msg = devServerBanner(imports, flags, entry, ngrokUrl);
+  const msg = devServerBanner(imports, flags, entry, ngrokUrl, template);
   msg.push('', chalk.yellow('Compiled with warnings.'));
   return print(imports, msg);
 }
@@ -97,7 +103,7 @@ export function devServerCompiledWithWarningsMsg(imports:WebpackMessageImports, 
  *
  */
 
-export function builderBanner(imports:WebpackMessageImports, flags:CLIFlags, entry:string) {
+export function builderBanner(imports:WebpackMessageImports, flags:CLIFlags, entry:string, template:string) {
   const { chalk, log } = imports;
 
   clearConsole(imports);
@@ -105,15 +111,20 @@ export function builderBanner(imports:WebpackMessageImports, flags:CLIFlags, ent
   const msg = [
     chalk.green('Building...'),
     '',
-    chalk.magenta('Entry point: ') + entry
+    chalk.magenta('Entry point:     ') + entry
   ];
+
+
+  if (template) {
+    msg.push(chalk.magenta('Custom template: ') + template)
+  }
 
   const base = flags.base;
   if (base  && typeof base === 'string') {
     msg.push(chalk.magenta('Base path: ') + base);
   }
 
-  msg.push(chalk.magenta('CSS Modules: ') + (flags.cssmodules ? chalk.green('enabled') : 'disabled'));
+  msg.push(chalk.magenta('CSS Modules:     ') + (flags.cssmodules ? chalk.green('enabled') : 'disabled'));
 
   return print(imports, msg);
 }

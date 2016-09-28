@@ -5,6 +5,7 @@ import rimraf from 'rimraf';
 import path from 'path';
 import _chalk from 'chalk';
 import webpackConfigBuilder from './webpack/config';
+import { getTemplatePath } from './webpack/config/helpers';
 import {
   builderBanner,
   builderRemovingDistMsg,
@@ -24,13 +25,15 @@ export function removeDist(distPath:string) : Promise<*> {
  * Builds project using webpack.
  */
 export default function runWebpackBuilder(filename:string, flags:CLIFlags, console:Object) : Promise<*> {
+  const template = getTemplatePath(filename);
+  const templateRelative = path.relative(process.cwd(), template);
   const distShortName = typeof flags.build === 'string' ? flags.build : 'dist';
-  const config = webpackConfigBuilder(filename, flags, true, distShortName);
+  const config = webpackConfigBuilder(filename, flags, true, template, distShortName);
   const compiler = webpack(config);
   const dist = path.join(process.cwd(), distShortName);
   const msgImports = { log: console.log.bind(console), chalk: _chalk }; // eslint-disable-line
 
-  builderBanner(msgImports, flags, filename);
+  builderBanner(msgImports, flags, filename, templateRelative);
   builderRemovingDistMsg(msgImports, dist);
 
   return removeDist(dist)

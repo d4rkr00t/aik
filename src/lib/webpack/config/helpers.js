@@ -11,17 +11,6 @@ export function resolveToCwd(filename:string = '') : string {
 }
 
 /**
- * Generates possible template path for given file name.
- *
- * For example: index.js -> index.html
- */
-export function getTemplatePath(filename:string = '') : string {
-  const basename = path.basename(filename, '.js');
-  const dirname = path.dirname(filename);
-  return resolveToCwd(path.join(dirname, basename + '.html'));
-}
-
-/**
  * Checks whether templatePath is a file.
  */
 export function isTemplateExists(templatePath:string) : boolean {
@@ -32,3 +21,16 @@ export function isTemplateExists(templatePath:string) : boolean {
     return false;
   }
 }
+
+/**
+ * Generates path to custom template for given file name.
+ *
+ * For example: index.js -> index.html
+ */
+export function getTemplatePath(filename:string = '') : string {
+  const basename = path.basename(filename, '.js');
+  const dirname = path.dirname(filename);
+  const templatePath = resolveToCwd(path.join(dirname, basename + '.html'));
+  return isTemplateExists(templatePath) ? templatePath : '';
+}
+
