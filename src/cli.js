@@ -1,4 +1,7 @@
 #! /usr/bin/env node
+
+/* @flow */
+
 import meow from 'meow';
 import chalk from 'chalk';
 import updateNotifier from 'update-notifier';
@@ -57,7 +60,9 @@ if (!input.length || flags.help) {
 } else if (flags.version) {
   console.log(pkg.version); // eslint-disable-line
 } else if (flags.build) {
-  aikBuild(input, flags, console);
+  aikBuild(input, flags, console)
+    .catch((err) => console.error(chalk.red(err))); // eslint-disable-line
 } else {
-  aikDevServer(input, flags, console);
+  aikDevServer(input, flags, console)
+    .catch((err) => console.error(chalk.red(err))); // eslint-disable-line
 }

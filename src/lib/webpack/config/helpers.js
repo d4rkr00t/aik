@@ -1,14 +1,12 @@
+/* @flow */
+
 import path from 'path';
 import fs from 'fs';
 
 /**
  * Resolves file path to current working directory.
- *
- * @param {String} filename
- *
- * @return {String}
  */
-export function resolveToCwd(filename = '') {
+export function resolveToCwd(filename:string = '') : string {
   return path.join(process.cwd(), filename);
 }
 
@@ -16,12 +14,8 @@ export function resolveToCwd(filename = '') {
  * Generates possible template path for given file name.
  *
  * For example: index.js -> index.html
- *
- * @param {String} filename
- *
- * @returns {String}
  */
-export function getTemplatePath(filename = '') {
+export function getTemplatePath(filename:string = '') : string {
   const basename = path.basename(filename, '.js');
   const dirname = path.dirname(filename);
   return resolveToCwd(path.join(dirname, basename + '.html'));
@@ -29,12 +23,8 @@ export function getTemplatePath(filename = '') {
 
 /**
  * Checks whether templatePath is a file.
- *
- * @param {String} templatePath
- *
- * @return {Boolean}
  */
-export function isTemplateExists(templatePath) {
+export function isTemplateExists(templatePath:string) : boolean {
   try {
     const stats = fs.statSync(templatePath);
     return stats.isFile();

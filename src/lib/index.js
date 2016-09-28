@@ -1,3 +1,5 @@
+/* @flow */
+
 import chalk from 'chalk';
 import opn from 'opn';
 
@@ -8,28 +10,20 @@ import restartHanlder from './restart';
 
 /**
  * Aik dev server command
- *
- * @param {String[]} input
- * @param {Flags} flags
- * @param {Object} console
- *
- * @return {Promise}
  */
-export function aikDevServer(input, flags, console) {
+export function aikDevServer(input:string[], flags:CLIFlags, console:Console) : Promise<*> {
   const [filename] = input;
-  const promiseList = [
-    flags.ngrok && createNgrokTunnel(flags)
-  ];
+  const promiseList = [flags.ngrok && createNgrokTunnel(flags)];
 
   return Promise
     .all(promiseList)
-    .then(ngrokUrl => {
-      return createWebpackDevServer(filename, flags, ngrokUrl)
+    .then(([ngrokUrl:NgrokUrl]) => {
+      return createWebpackDevServer(filename, flags, ngrokUrl, console)
         .then(server => [server, ngrokUrl]);
     })
     .then((results) => {
       if (flags.open) {
-        const [, ngrokUrl] = results;
+        const [, ngrokUrl:NgrokUrl] = results;
         opn(flags.ngrok ? ngrokUrl : `http://${flags.host}:${flags.port}`);
       }
       return results;
@@ -38,34 +32,13 @@ export function aikDevServer(input, flags, console) {
       const [server] = results;
       restartHanlder({ prc: process, server, chalk });
       return results;
-    })
-    .catch((err) => console.error(chalk.red(err))); // eslint-disable-line
+    });
 }
 
 /**
  * Aik build command
- *
- * @param {String[]} input
- * @param {Flags} flags
- * @param {Object} console
- *
- * @return {Promise}
  */
-export function aikBuild(input, flags, console) {
+export function aikBuild(input:string[], flags:CLIFlags, console:Console) : Promise<*> {
   const [filename] = input;
   return runWebpackBuilder(filename, flags, console);
 }
-
-/**
- * CLI Flags
- *
- * @typedef {Object} Flags
- *
- * @property {String} port
- * @property {String} host
- * @property {String} react
- * @property {Boolean} ngrok
- * @property {Boolean} open
- * @property {Boolean} cssmodules
- * @property {Boolean|String} build
- */

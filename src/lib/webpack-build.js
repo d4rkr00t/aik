@@ -1,8 +1,9 @@
+/* @flow */
+
 import webpack from 'webpack';
 import rimraf from 'rimraf';
 import path from 'path';
 import _chalk from 'chalk';
-import isString from './utils/isString';
 import webpackConfigBuilder from './webpack/config';
 import {
   builderBanner,
@@ -14,32 +15,22 @@ import {
 
 /**
  * Removes distribute folder to prevent duplicates.
- *
- * @param {String} distPath
- *
- * @return {Promise}
  */
-export function removeDist(distPath) {
+export function removeDist(distPath:string) : Promise<*> {
   return new Promise(resolve => rimraf(distPath, resolve));
 }
 
 /**
  * Builds project using webpack.
- *
- * @param {String} filename
- * @param {Flags} flags
- * @param {Function} console
- *
- * @return {Promise}
  */
-export default function runWebpackBuilder(filename, flags, console) {
-  const distShortName = isString(flags.build) ? flags.build : 'dist';
+export default function runWebpackBuilder(filename:string, flags:CLIFlags, console:Object) : Promise<*> {
+  const distShortName = typeof flags.build === 'string' ? flags.build : 'dist';
   const config = webpackConfigBuilder(filename, flags, true, distShortName);
   const compiler = webpack(config);
   const dist = path.join(process.cwd(), distShortName);
   const msgImports = { log: console.log.bind(console), chalk: _chalk }; // eslint-disable-line
 
-  builderBanner(msgImports, filename, flags);
+  builderBanner(msgImports, flags, filename);
   builderRemovingDistMsg(msgImports, dist);
 
   return removeDist(dist)

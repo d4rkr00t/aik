@@ -1,3 +1,5 @@
+/* @flow */
+
 import path from 'path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
@@ -5,7 +7,7 @@ import NpmInstallPlugin from 'npm-install-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import last from '../../utils/last';
 
-export function htmlWebpackPlugin(template) {
+export function htmlWebpackPlugin(template:string|false) {
   return new HtmlWebpackPlugin({
     title: last(process.cwd().split(path.sep)),
     template: template ? template : require.resolve('../../../template/index.ejs')
@@ -21,12 +23,8 @@ export function npmInstallPlugin() {
 
 /**
  * Plugins for production build.
- *
- * @param {String} template
- *
- * @return {Array}
  */
-export function pluginsProd(template) {
+export function pluginsProd(template:string|false) : Array<any> {
   return [
     new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"production"' }),
     htmlWebpackPlugin(template),
@@ -52,12 +50,8 @@ export function pluginsProd(template) {
 
 /**
  * Plugins for dev server.
- *
- * @param {String} template
- *
- * @return {Array}
  */
-export function pluginsDev(template) {
+export function pluginsDev(template:string|false) : Array<any> {
   return [
     new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"development"' }),
     new webpack.HotModuleReplacementPlugin(),
@@ -68,15 +62,8 @@ export function pluginsDev(template) {
 
 /**
  * Setups plugins section for webpack config.
- *
- * @param {String} filename
- * @param {Object} flags
- * @param {Boolean} isProd
- * @param {String} [template]
- *
- * @return {Object}
  */
-export default function plugins(filename, flags, isProd, template) {
+export default function plugins(template:string|false, isProd:boolean) : Array<any> {
   return isProd
     ? pluginsProd(template)
     : pluginsDev(template);

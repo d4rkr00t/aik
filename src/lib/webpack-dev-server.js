@@ -1,3 +1,5 @@
+/* @flow */
+
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import webpackConfigBuilder from './webpack/config';
@@ -14,18 +16,8 @@ import {
 
 /**
  * On done handler for webpack compiler.
- *
- * @param {Object} imports
- * @param {Function} imports.log
- * @param {Object} imports.chalk
- * @param {Flags} flags
- * @param {String} filename
- * @param {String} ngrokUrl
- * @param {Object} stats - webpack build stats
- *
- * @return {void}
  */
-export function onDone(imports, flags, filename, ngrokUrl, stats) {
+export function onDone(imports:WebpackMessageImports, flags:CLIFlags, filename:string, ngrokUrl:NgrokUrl, stats:Object) {
   const hasErrors = stats.hasErrors();
   const hasWarnings = stats.hasWarnings();
   const { log } = imports;
@@ -63,15 +55,8 @@ export function onDone(imports, flags, filename, ngrokUrl, stats) {
 
 /**
  * Creates webpack compiler.
- *
- * @param {Object} config - webpack config
- * @param {Flags} flags
- * @param {String} filename
- * @param {String} ngrokUrl
- *
- * @return {Object}
  */
-export function createWebpackCompiler(config, flags, filename, ngrokUrl) {
+export function createWebpackCompiler(config:Object, flags:CLIFlags, filename:string, ngrokUrl:NgrokUrl) {
   const compiler = webpack(config);
   const imports = { log: console.log.bind(console), chalk: _chalk }; // eslint-disable-line
   compiler.plugin('invalid', devServerInvalidBuildMsg.bind(null, imports));
@@ -81,14 +66,8 @@ export function createWebpackCompiler(config, flags, filename, ngrokUrl) {
 
 /**
  * Creates webpack dev server.
- *
- * @param {String} filename
- * @param {Flags} flags
- * @param {String} ngrokUrl
- *
- * @return {Promise}
  */
-export default function createWebpackDevServer(filename, flags, ngrokUrl) {
+export default function createWebpackDevServer(filename:string, flags:CLIFlags, ngrokUrl:NgrokUrl) : Promise<Object> {
   const config = webpackConfigBuilder(filename, flags, false, '');
   const compiler = createWebpackCompiler(config, flags, filename, ngrokUrl);
   const server = new WebpackDevServer(compiler, {
