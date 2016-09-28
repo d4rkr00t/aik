@@ -1,8 +1,6 @@
 module.exports = {
   root: true,
 
-  parser: 'babel-eslint',
-
   env: {
     browser: true,
     commonjs: true,
@@ -11,8 +9,9 @@ module.exports = {
   },
 
   parserOptions: {
-    ecmaVersion: 6,
+    ecmaVersion: 2017,
     sourceType: 'module',
+    impliedStrict: true,
     ecmaFeatures: {
       jsx: true,
       generators: true
@@ -55,15 +54,16 @@ module.exports = {
     'no-extra-bind': 'warn',
     'no-extra-label': 'warn',
     'no-fallthrough': 'warn',
+    'no-global-assign': 'warn',
     'no-implied-eval': 'warn',
     'no-invalid-this': 'warn',
     'no-labels': 'warn',
     'no-lone-blocks': 'warn',
-    'no-native-reassign': 'warn',
     'no-new-func': 'warn',
     'no-self-assign': 'warn',
     'no-self-compare': 'warn',
     'no-unmodified-loop-condition': 'warn',
+    'no-unused-expressions': 'warn',
     'no-unused-labels': 'warn',
     'no-useless-call': 'warn',
     'no-useless-escape': 'warn',
