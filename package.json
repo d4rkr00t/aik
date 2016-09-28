@@ -5,8 +5,9 @@
   "bin": "cli.js",
   "main": "lib/index.js",
   "files": [
+    "cli.js",
     "lib/",
-    "cli.js"
+    "template/"
   ],
   "keywords": [
     "node",
@@ -32,14 +33,12 @@
   },
   "scripts": {
     "audit": "nsp check package",
+    "prebuild": "rimraf ./lib",
     "build": "babel -d ./ ./src",
     "check": "npm outdated --depth 0",
-    "coverage": "nyc --reporter=lcov --reporter=text --reporter=html npm test",
-    "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage",
     "github-release": "conventional-github-releaser -p angular",
-    "lint": "eslint src test",
-    "test": "ava test/*.js",
-    "validate": "npm run lint && npm test && flow",
+    "lint": "eslint src",
+    "validate": "npm run lint && flow",
     "prepare": "npm run build && npm run validate && npm run check",
     "pp": "npm run prepare",
     "major": "pmm major",
@@ -86,18 +85,14 @@
     "webpack-dev-server": "^1.16.1"
   },
   "devDependencies": {
-    "ava": "^0.16.0",
     "babel-cli": "^6.14.0",
     "babel-eslint": "^7.0.0",
     "babel-plugin-syntax-flow": "^6.13.0",
     "babel-plugin-transform-flow-strip-types": "^6.14.0",
-    "babel-register": "^6.14.0",
     "conventional-github-releaser": "^1.1.3",
-    "coveralls": "^2.11.14",
     "cz-conventional-changelog": "^1.2.0",
     "flow-bin": "^0.32.0",
     "nsp": "^2.6.1",
-    "nyc": "^8.3.0",
     "pmm": "^1.3.0",
     "pre-commit": "^1.1.3"
   },

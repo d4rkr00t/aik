@@ -10,5 +10,4 @@ script:
   - npm run build
   - npm run validate
 after_success:
-  - npm run coveralls
   - npm run github-release
