@@ -1,27 +1,21 @@
 /* @flow */
 
-type ReloadImports = {
-  prc: Object,
-  server: Object,
-  chalk: $npm$chalk$Style // Terrible name of type
-}
+import chalk from 'chalk';
 
 /**
  * Restarts dev server when typing rs and enter.
  */
-export default function reload(imports:ReloadImports) {
-  const { prc, server, chalk } = imports;
+export default function reload(server:Object) {
+  process.stdin.setEncoding('utf8');
+  process.stdin.on('readable', () => {
+    const chunk = process.stdin.read();
 
-  prc.stdin.setEncoding('utf8');
-  prc.stdin.on('readable', () => {
-    const chunk = prc.stdin.read();
-
-    if (chunk !== null && chunk.indexOf('rs') !== -1) {
-      prc.stdout.write(chalk.yellow('Restarting'));
-      prc.stdout.write('\n');
+    if (chunk && chunk.indexOf('rs') !== -1) {
+      process.stdout.write(chalk.yellow('Restarting'));
+      process.stdout.write('\n');
       server.invalidate();
-      prc.stdout.write(chalk.green('Done'));
-      prc.stdout.write('\n');
+      process.stdout.write(chalk.green('Done'));
+      process.stdout.write('\n');
     }
   });
 }

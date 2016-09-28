@@ -12,38 +12,40 @@ declare type CLIFlags = {
   version: boolean,
 }
 
-declare type Console = {
-  log: Function,
-  error: Function
+declare type AikParams = {
+  isProd: boolean,
+  ngrok: string,
+  template: {
+    path: string,
+    short: string
+  },
+  dist: {
+    path: string,
+    short: string
+  }
 }
 
 declare type NgrokUrl = string | false
 
-type WebpackMessageImports = {
-  chalk: $npm$chalk$Style,
-  log: Function
-}
-
-type Entry = {
+declare type Entry = {
   app: string[]
 }
 
-
-type Output = {
+declare type Output = {
   path: string,
   filename: string,
   hash: boolean,
   publicPath?: string
 }
 
-type Loader = {
+declare type Loader = {
   test: RegExp | string,
   loader?: string,
   loaders?: string[],
   exclude?: RegExp
 }
 
-type WebPackConfig = {
+declare type WebPackConfig = {
   entry: Entry,
   output: Output,
   debug: boolean,

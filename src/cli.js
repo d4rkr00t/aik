@@ -1,4 +1,4 @@
-#! /usr/bin/env node
+#!/usr/bin/env node
 
 /* @flow */
 
@@ -60,9 +60,9 @@ if (!input.length || flags.help) {
 } else if (flags.version) {
   console.log(pkg.version); // eslint-disable-line
 } else if (flags.build) {
-  aikBuild(input, flags, console)
+  aikBuild(input, flags)
     .catch((err) => console.error(chalk.red(err))); // eslint-disable-line
 } else {
-  aikDevServer(input, flags, console)
+  aikDevServer(input, flags)
     .catch((err) => console.error(chalk.red(err))); // eslint-disable-line
 }

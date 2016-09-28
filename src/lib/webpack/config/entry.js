@@ -30,8 +30,8 @@ export function entryDev(filename:string, flags:CLIFlags) : Entry {
 /**
  * Setups entry part of webpack config.
  */
-export default function entry(filename:string, flags:CLIFlags, isProd:boolean) : Entry {
-  return isProd
+export default function entry(filename:string, flags:CLIFlags, params:AikParams) : Entry {
+  return params.isProd
     ? entryProd(filename)
     : entryDev(filename, flags);
 }

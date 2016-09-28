@@ -73,8 +73,10 @@ export function createCSSLoaderDev(flags:CLIFlags) : Loader {
 /**
  * Setups loaders for webpack.
  */
-export function loaders(flags:CLIFlags, isProd:boolean) : Loader[] {
+export function loaders(flags:CLIFlags, params:AikParams) : Loader[] {
+  const { isProd } = params;
   const jsLoaders = createJSLoader(flags, isProd);
+
   return [
     isProd
       ? createCSSLoaderProd(flags)

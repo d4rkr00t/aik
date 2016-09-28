@@ -1,12 +1,9 @@
 /* @flow */
 
-import path from 'path';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import webpackConfigBuilder from './webpack/config';
-import _chalk from 'chalk';
 import { isLikelyASyntaxError, formatMessage } from './webpack/error-helpers';
-import { getTemplatePath } from './webpack/config/helpers';
 import {
   clearConsole,
   eslintExtraWarningMsg,
@@ -19,15 +16,14 @@ import {
 /**
  * On done handler for webpack compiler.
  */
-export function onDone(imports:WebpackMessageImports, flags:CLIFlags, filename:string, ngrokUrl:NgrokUrl, template:string, stats:Object) {
+export function onDone(filename:string, flags:CLIFlags, params:AikParams, stats:Object) {
   const hasErrors = stats.hasErrors();
   const hasWarnings = stats.hasWarnings();
-  const { log } = imports;
 
-  clearConsole(imports, true);
+  clearConsole(true);
 
   if (!hasErrors && !hasWarnings) {
-    return devServerCompiledSuccessfullyMsg(imports, flags, filename, ngrokUrl, template);
+    return devServerCompiledSuccessfullyMsg(filename, flags, params);
   }
 
   const json = stats.toJson({}, true);
@@ -35,7 +31,7 @@ export function onDone(imports:WebpackMessageImports, flags:CLIFlags, filename:s
   let formattedErrors = json.errors.map(message => 'Error in ' + formatMessage(message));
 
   if (hasErrors) {
-    devServerFailedToCompileMsg(imports, flags, filename, ngrokUrl, template);
+    devServerFailedToCompileMsg(filename, flags, params);
 
     // If there are any syntax errors, show just them.
     // This prevents a confusing ESLint parsing error
@@ -45,35 +41,32 @@ export function onDone(imports:WebpackMessageImports, flags:CLIFlags, filename:s
     }
 
     // If errors exist, ignore warnings.
-    return formattedErrors.forEach(message => log('\n', message));
+    return formattedErrors.forEach(message => console.log('\n', message));
   }
 
   if (hasWarnings) {
-    devServerCompiledWithWarningsMsg(imports, flags, filename, ngrokUrl, template);
-    formattedWarnings.forEach(message => log('\n', message));
-    eslintExtraWarningMsg(imports);
+    devServerCompiledWithWarningsMsg(filename, flags, params);
+    formattedWarnings.forEach(message => console.log('\n', message));
+    eslintExtraWarningMsg();
   }
 }
 
 /**
  * Creates webpack compiler.
  */
-export function createWebpackCompiler(config:Object, flags:CLIFlags, filename:string, ngrokUrl:NgrokUrl, template:string) {
+export function createWebpackCompiler(filename:string, flags:CLIFlags, params:AikParams, config:Object) {
   const compiler = webpack(config);
-  const imports = { log: console.log.bind(console), chalk: _chalk }; // eslint-disable-line
-  const templateRelative = path.relative(process.cwd(), template);
-  compiler.plugin('invalid', devServerInvalidBuildMsg.bind(null, imports));
-  compiler.plugin('done', onDone.bind(null, imports, flags, filename, ngrokUrl, templateRelative));
+  compiler.plugin('invalid', devServerInvalidBuildMsg);
+  compiler.plugin('done', onDone.bind(null, filename, flags, params));
   return compiler;
 }
 
 /**
  * Creates webpack dev server.
  */
-export default function createWebpackDevServer(filename:string, flags:CLIFlags, ngrokUrl:NgrokUrl) : Promise<Object> {
-  const template = getTemplatePath(filename);
-  const config = webpackConfigBuilder(filename, flags, false, template, '');
-  const compiler = createWebpackCompiler(config, flags, filename, ngrokUrl, template);
+export default function createWebpackDevServer(filename:string, flags:CLIFlags, params:AikParams) : Promise<Object> {
+  const config = webpackConfigBuilder(filename, flags, params);
+  const compiler = createWebpackCompiler(filename, flags, params, config);
   const server = new WebpackDevServer(compiler, {
     historyApiFallback: true,
     hot: true,

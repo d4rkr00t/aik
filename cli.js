@@ -1,4 +1,4 @@
-#! /usr/bin/env node
+#!/usr/bin/env node
 'use strict';
 
 var _meow = require('meow');
@@ -51,11 +51,11 @@ if (!input.length || flags.help) {
 } else if (flags.version) {
   console.log(_package2.default.version); // eslint-disable-line
 } else if (flags.build) {
-  (0, _lib.aikBuild)(input, flags, console).catch(function (err) {
+  (0, _lib.aikBuild)(input, flags).catch(function (err) {
     return console.error(_chalk2.default.red(err));
   }); // eslint-disable-line
 } else {
-  (0, _lib.aikDevServer)(input, flags, console).catch(function (err) {
+  (0, _lib.aikDevServer)(input, flags).catch(function (err) {
     return console.error(_chalk2.default.red(err));
   }); // eslint-disable-line
 }

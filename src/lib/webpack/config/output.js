@@ -6,12 +6,12 @@ import { resolveToCwd } from './helpers';
 /**
  * Output for production build.
  */
-export function outputProd(filename:string, flags:CLIFlags, dist:string) : Output {
+export function outputProd(filename:string, flags:CLIFlags, params:AikParams) : Output {
   const base = typeof flags.base === 'string' ? flags.base : '';
   const publicPath = base.endsWith('/') ? base : base + '/';
 
   return {
-    path: resolveToCwd(dist),
+    path: resolveToCwd(params.dist.path),
     filename: `${path.basename(filename, '.js')}.[hash:8].js`,
     hash: true,
     publicPath
@@ -32,8 +32,8 @@ export function outputDev(filename:string) : Output {
 /**
  * Setups output section of webpack config.
  */
-export default function output(filename:string, flags:CLIFlags, isProd:boolean, dist:string) : Output {
-  return isProd
-    ? outputProd(filename, flags, dist)
+export default function output(filename:string, flags:CLIFlags, params:AikParams) : Output {
+  return params.isProd
+    ? outputProd(filename, flags, params)
     : outputDev(filename);
 }

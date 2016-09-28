@@ -3,34 +3,35 @@
 import chalk from 'chalk';
 import opn from 'opn';
 
+import createParams from './params';
 import createWebpackDevServer from './webpack-dev-server';
 import runWebpackBuilder from './webpack-build';
 import createNgrokTunnel from './ngrok';
-import restartHanlder from './restart';
+import restartHandler from './restart';
 
 /**
  * Aik dev server command
  */
-export function aikDevServer(input:string[], flags:CLIFlags, console:Console) : Promise<*> {
+export function aikDevServer(input:string[], flags:CLIFlags) : Promise<*> {
   const [filename] = input;
   const promiseList = [flags.ngrok && createNgrokTunnel(flags)];
 
   return Promise
     .all(promiseList)
     .then(([ngrokUrl:NgrokUrl]) => {
-      return createWebpackDevServer(filename, flags, ngrokUrl, console)
+      const params = createParams(filename, flags, ngrokUrl, false);
+      return createWebpackDevServer(filename, flags, params)
         .then(server => [server, ngrokUrl]);
     })
     .then((results) => {
+      const [server, ngrokUrl:NgrokUrl] = results;
+
       if (flags.open) {
-        const [, ngrokUrl:NgrokUrl] = results;
-        opn(flags.ngrok ? ngrokUrl : `http://${flags.host}:${flags.port}`);
+        opn(ngrokUrl ? ngrokUrl : `http://${flags.host}:${flags.port}`);
       }
-      return results;
-    })
-    .then((results) => {
-      const [server] = results;
-      restartHanlder({ prc: process, server, chalk });
+
+      restartHandler(server);
+
       return results;
     });
 }
@@ -38,7 +39,8 @@ export function aikDevServer(input:string[], flags:CLIFlags, console:Console) : 
 /**
  * Aik build command
  */
-export function aikBuild(input:string[], flags:CLIFlags, console:Console) : Promise<*> {
+export function aikBuild(input:string[], flags:CLIFlags) : Promise<*> {
   const [filename] = input;
-  return runWebpackBuilder(filename, flags, console);
+  const params = createParams(filename, flags, '', false);
+  return runWebpackBuilder(filename, flags, params);
 }
