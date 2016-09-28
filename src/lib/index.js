@@ -41,6 +41,6 @@ export function aikDevServer(input:string[], flags:CLIFlags) : Promise<*> {
  */
 export function aikBuild(input:string[], flags:CLIFlags) : Promise<*> {
   const [filename] = input;
-  const params = createParams(filename, flags, '', false);
+  const params = createParams(filename, flags, '', true);
   return runWebpackBuilder(filename, flags, params);
 }

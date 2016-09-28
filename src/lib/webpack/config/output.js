@@ -11,7 +11,7 @@ export function outputProd(filename:string, flags:CLIFlags, params:AikParams) : 
   const publicPath = base.endsWith('/') ? base : base + '/';
 
   return {
-    path: resolveToCwd(params.dist.path),
+    path: resolveToCwd(params.dist.short),
     filename: `${path.basename(filename, '.js')}.[hash:8].js`,
     hash: true,
     publicPath
