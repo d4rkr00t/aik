@@ -100,15 +100,5 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  },
-  "ava": {
-    "source": [
-      "src/**/*.js"
-    ],
-    "concurrency": 5,
-    "require": [
-      "babel-register"
-    ],
-    "babel": "inherit"
   }
 }
