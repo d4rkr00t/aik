@@ -3,7 +3,7 @@
 import path from 'path';
 import autoprefixer from 'autoprefixer';
 import precss from 'precss';
-import postcssImport from 'postcss-import';
+import postcssPartialImport from 'postcss-partial-import';
 import entry from './entry';
 import output from './output';
 import plugins from './plugins';
@@ -29,7 +29,7 @@ export default function webpackConfigBuilder(filename:string, flags:CLIFlags, pa
     },
     postcss: function (wp) {
       return [
-        postcssImport({ addDependencyTo: wp }),
+        postcssPartialImport({ addDependencyTo: wp }),
         autoprefixer(),
         precss()
       ];
