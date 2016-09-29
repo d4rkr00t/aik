@@ -4,11 +4,8 @@
 
 import meow from 'meow';
 import chalk from 'chalk';
-import updateNotifier from 'update-notifier';
 import pkg from './package.json';
 import { aikDevServer, aikBuild } from './lib/';
-
-updateNotifier({ pkg }).notify();
 
 const cli = meow({
   help: [
