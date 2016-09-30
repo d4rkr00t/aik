@@ -34,6 +34,33 @@ If you want solutions which are better for production usage you can take a look 
 
 Even though Aik has extra features for React, the main goal is to be open for any JavaScript framework or library.
 
+## Quick Start
+
+```sh
+npm i -g aik
+aik index.js
+```
+
+![aik quick start](/assets/quick-start.png)
+
+## Table of Content
+
+* [Objectives](#objectives)
+* [Quick Start](#quick-start)
+* [Features](#features)
+  * [Run web server with JavaScript file](#run-web-server-with-javascript-file)
+  * [Automatically install npm modules](#automatically-install-npm-modules)
+  * [Custom templates](#custom-templates)
+  * [Hot reload](#hot-reload)
+  * [Latest and Greatest technologies for frontend development](#latest-and-greatest-technologies-for-frontend-development)
+  * [Linting](#linting)
+  * [Production ready build](#production-ready-build)
+  * [Expose web server to the real world](#expose-web-server-to-the-real-world)
+* [Usage](#usage)
+* [Alternatives](#alternatives)
+* [License](#license)
+* [Contributing](#contributing)
+
 ## Features
 
 ### Run web server with JavaScript file
@@ -121,12 +148,6 @@ Optionally, by providing '-n' flag you can expose web server to the real world u
 
 ```sh
 aik index.js -n # option for enabling ngrok
-```
-
-## Install
-
-```sh
-npm install -g aik
 ```
 
 ## Usage
