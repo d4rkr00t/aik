@@ -27,9 +27,7 @@ declare type AikParams = {
 
 declare type NgrokUrl = string | false
 
-declare type Entry = {
-  app: string[]
-}
+declare type Entry = Object
 
 declare type Output = {
   path: string,
