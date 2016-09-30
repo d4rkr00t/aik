@@ -17,8 +17,8 @@ var _lib = require('./lib/');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var cli = (0, _meow2.default)({
-  help: [_chalk2.default.green('Usage'), '  $ aik filename.js', '', _chalk2.default.green('Options'), '  ' + _chalk2.default.yellow('-b, --build') + '       Build production version for given entry point. [Default output: dist]', '  ' + _chalk2.default.yellow('-u, --base') + '        Base path from witch urls in build begins', '  ' + _chalk2.default.yellow('-p, --port') + '        Web server port. ' + _chalk2.default.dim('[Default: 4444]'), '  ' + _chalk2.default.yellow('-h, --host') + '        Web server host. ' + _chalk2.default.dim('[Default: localhost]'), '  ' + _chalk2.default.yellow('-r, --react') + '       Enables react hot loader.', '  ' + _chalk2.default.yellow('-n, --ngrok') + '       Exposes server to real world by ngrok.', '  ' + _chalk2.default.yellow('-o, --open') + '        Opens web server url in default browser.', '  ' + _chalk2.default.yellow('-c, --cssmodules') + '  Enables css modules.', '  ' + _chalk2.default.yellow('-v, --version') + '     Shows version.', '  ' + _chalk2.default.yellow('--help') + '            Shows help.', '', _chalk2.default.green('Examples'), '  $ aik filename.js --port 3000 -n -c -r', _chalk2.default.dim('  Runs aik web server on 3000 port with ngrok, css modules support and react hot loader'), '', '  $ aik filename.js --build', _chalk2.default.dim('  Builds filename.js for production use and saves output to dist folder.')]
+const cli = (0, _meow2.default)({
+  help: [_chalk2.default.green('Usage'), '  $ aik filename.js', '', _chalk2.default.green('Options'), `  ${ _chalk2.default.yellow('-b, --build') }       Build production version for given entry point. [Default output: dist]`, `  ${ _chalk2.default.yellow('-u, --base') }        Base path from witch urls in build begins`, `  ${ _chalk2.default.yellow('-p, --port') }        Web server port. ${ _chalk2.default.dim('[Default: 4444]') }`, `  ${ _chalk2.default.yellow('-h, --host') }        Web server host. ${ _chalk2.default.dim('[Default: localhost]') }`, `  ${ _chalk2.default.yellow('-r, --react') }       Enables react hot loader.`, `  ${ _chalk2.default.yellow('-n, --ngrok') }       Exposes server to real world by ngrok.`, `  ${ _chalk2.default.yellow('-o, --open') }        Opens web server url in default browser.`, `  ${ _chalk2.default.yellow('-c, --cssmodules') }  Enables css modules.`, `  ${ _chalk2.default.yellow('-v, --version') }     Shows version.`, `  ${ _chalk2.default.yellow('--help') }            Shows help.`, '', _chalk2.default.green('Examples'), '  $ aik filename.js --port 3000 -n -c -r', _chalk2.default.dim('  Runs aik web server on 3000 port with ngrok, css modules support and react hot loader'), '', '  $ aik filename.js --build', _chalk2.default.dim('  Builds filename.js for production use and saves output to dist folder.')]
 }, {
   alias: {
     b: 'build',
@@ -37,19 +37,15 @@ var cli = (0, _meow2.default)({
   }
 });
 
-var input = cli.input || [];
-var flags = cli.flags || {};
+const input = cli.input || [];
+const flags = cli.flags || {};
 
 if (!input.length || flags.help) {
   console.log(cli.help); // eslint-disable-line
 } else if (flags.version) {
   console.log(_package2.default.version); // eslint-disable-line
 } else if (flags.build) {
-  (0, _lib.aikBuild)(input, flags).catch(function (err) {
-    return console.error(_chalk2.default.red(err));
-  }); // eslint-disable-line
+  (0, _lib.aikBuild)(input, flags).catch(err => console.error(_chalk2.default.red(err))); // eslint-disable-line
 } else {
-  (0, _lib.aikDevServer)(input, flags).catch(function (err) {
-    return console.error(_chalk2.default.red(err));
-  }); // eslint-disable-line
+  (0, _lib.aikDevServer)(input, flags).catch(err => console.error(_chalk2.default.red(err))); // eslint-disable-line
 }
