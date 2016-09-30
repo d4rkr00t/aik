@@ -7,7 +7,6 @@ import createParams from './params';
 import createWebpackDevServer from './webpack-dev-server';
 import runWebpackBuilder from './webpack-build';
 import createNgrokTunnel from './ngrok';
-import restartHandler from './restart';
 
 /**
  * Aik dev server command
@@ -25,13 +24,9 @@ export function aikDevServer(input:string[], flags:CLIFlags) : Promise<*> {
     })
     .then((results) => {
       const [server, ngrokUrl:NgrokUrl] = results;
-
       if (flags.open) {
         opn(ngrokUrl ? ngrokUrl : `http://${flags.host}:${flags.port}`);
       }
-
-      restartHandler(server);
-
       return results;
     });
 }
