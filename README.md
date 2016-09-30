@@ -52,7 +52,7 @@ aik index.js
   * [Automatically install npm modules](#automatically-install-npm-modules)
   * [Custom templates](#custom-templates)
   * [Hot reload](#hot-reload)
-  * [Latest and Greatest technologies for frontend development](#latest-and-greatest-technologies-for-frontend-development)
+  * [Latest and greatest technologies for frontend development](#latest-and-greatest-technologies-for-frontend-development)
   * [Linting](#linting)
   * [Production ready build](#production-ready-build)
   * [Expose web server to the real world](#expose-web-server-to-the-real-world)
@@ -100,7 +100,7 @@ Aik sets up hot reloading for CSS and with an extra option '-r' for React compon
 aik index.js -r # option for enabling react hot loading
 ```
 
-### Latest and Greatest technologies for frontend development
+### Latest and greatest technologies for frontend development
 
 There are (an opinionated) set of technologies that will help you prototype faster. Aik uses [preset-latest](http://babeljs.io/docs/plugins/preset-latest/) for babel which contain all yearly presets.
 And also you don't have to worry about all these messy prefixes in CSS because there is an autoprefixer which will do it for you.
