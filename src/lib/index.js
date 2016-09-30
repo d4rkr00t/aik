@@ -7,11 +7,14 @@ import createWebpackDevServer from './webpack-dev-server';
 import runWebpackBuilder from './webpack-build';
 import createNgrokTunnel from './ngrok';
 import createParams from './utils/params';
+import { devServerInvalidBuildMsg } from './utils/messages';
 
 /**
  * Aik dev server command
  */
 export function aikDevServer(input:string[], flags:CLIFlags) : Promise<*> {
+  devServerInvalidBuildMsg();
+
   const [filename] = input;
   const promiseList = [flags.ngrok && createNgrokTunnel(flags)];
 
