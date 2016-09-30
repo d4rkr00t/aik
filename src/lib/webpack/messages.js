@@ -112,7 +112,7 @@ export function builderBanner(filename:string, flags:CLIFlags, params:AikParams)
 
   const base = flags.base;
   if (base  && typeof base === 'string') {
-    msg.push(chalk.magenta('Base path: ') + base);
+    msg.push(chalk.magenta('Base path:       ') + base);
   }
 
   msg.push(chalk.magenta('CSS Modules:     ') + (flags.cssmodules ? chalk.green('enabled') : 'disabled'));
