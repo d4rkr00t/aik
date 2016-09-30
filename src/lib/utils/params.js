@@ -1,7 +1,7 @@
 /* @flow */
 
 import path from 'path';
-import { getTemplatePath } from './webpack/config/helpers';
+import getTemplatePath from './get-template-path';
 
 /**
  * Params for Aik

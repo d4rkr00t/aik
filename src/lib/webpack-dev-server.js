@@ -2,8 +2,8 @@
 
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
-import webpackConfigBuilder from './webpack/config';
-import { isLikelyASyntaxError, formatMessage } from './webpack/error-helpers';
+import webpackConfigBuilder from './webpack/config-builder';
+import { isLikelyASyntaxError, formatMessage } from './utils/error-helpers';
 import {
   clearConsole,
   eslintExtraWarningMsg,
@@ -11,7 +11,7 @@ import {
   devServerCompiledSuccessfullyMsg,
   devServerFailedToCompileMsg,
   devServerCompiledWithWarningsMsg
-} from './webpack/messages';
+} from './utils/messages';
 
 /**
  * On done handler for webpack compiler.

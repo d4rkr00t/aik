@@ -12,7 +12,7 @@ import { preloaders, loaders } from './loaders';
 /**
  * Generates config for webpack.
  */
-export default function webpackConfigBuilder(filename:string, flags:CLIFlags, params:AikParams) : WebPackConfig { // eslint-disable-line
+export default function webpackConfigBuilder(filename:string, flags:CLIFlags, params:AikParams) : WebPackConfig {
   return {
     entry: entry(filename, flags, params),
     output: output(filename, flags, params),
@@ -24,7 +24,7 @@ export default function webpackConfigBuilder(filename:string, flags:CLIFlags, pa
       loaders: loaders(flags, params)
     },
     eslint: {
-      configFile: path.join(__dirname, '../../eslint-config.js'),
+      configFile: path.join(__dirname, '../eslint-config.js'),
       useEslintrc: false
     },
     postcss: function (wp) {

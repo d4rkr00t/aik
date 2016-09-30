@@ -2,14 +2,14 @@
 
 import webpack from 'webpack';
 import rimraf from 'rimraf';
-import webpackConfigBuilder from './webpack/config';
+import webpackConfigBuilder from './webpack/config-builder';
 import {
   builderBanner,
   builderRemovingDistMsg,
   builderRunningBuildMsg,
   builderErrorMsg,
   builderSuccessMsg
-} from './webpack/messages';
+} from './utils/messages';
 
 /**
  * Removes distribute folder to prevent duplicates.

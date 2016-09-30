@@ -5,12 +5,12 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import NpmInstallPlugin from 'npm-install-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import last from '../../utils/last';
+import last from '../utils/last';
 
 export function htmlWebpackPlugin(template:string|false) {
   return new HtmlWebpackPlugin({
     title: last(process.cwd().split(path.sep)),
-    template: template ? template : require.resolve('../../../../template/index.ejs')
+    template: template ? template : require.resolve('../../../template/index.ejs')
   });
 }
 

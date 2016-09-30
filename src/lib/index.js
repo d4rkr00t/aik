@@ -3,10 +3,10 @@
 import chalk from 'chalk';
 import opn from 'opn';
 
-import createParams from './params';
 import createWebpackDevServer from './webpack-dev-server';
 import runWebpackBuilder from './webpack-build';
 import createNgrokTunnel from './ngrok';
+import createParams from './utils/params';
 
 /**
  * Aik dev server command
