@@ -29,16 +29,16 @@ Frontend Playground
 
 ## Objectives
 
-This project aims to help to build fast prototypes and not supposed to be a part of any production-ready systems.
-If you want solutions which are better for production usage you can take a look at the alternatives list down below.
+This project aims to help to prototype fast and not supposed to be a part of any production-ready system.
+If you want solutions which are better for production usage you can take a look at the [alternatives](#alternatives) list down below.
 
-Even though Aik has extra features for React, the main goal is to be open for any JavaScript framework or library.
+Aiks main goal is to be open for any JavaScript framework or library, even though it has extra features for React.
 
 ## Quick Start
 
 ```sh
 npm i -g aik
-aik index.js
+aik index.js -o
 ```
 
 ![aik quick start](/assets/quick-start.png)
@@ -65,7 +65,7 @@ aik index.js
 
 ### Run web server with JavaScript file
 
-To start playing around with new ideas is as simple as running a single command in your terminal:
+Start playing around with new ideas is as simple as running a single command in your terminal:
 
 ```sh
 aik index.js
@@ -73,7 +73,7 @@ aik index.js
 
 ### Automatically install npm modules
 
-Aik takes care of installing npm modules for you automatically using awesome "[npm install webpack plugin](https://github.com/ericclemmons/npm-install-webpack-plugin)".
+Aik takes care of installing npm modules for you automatically using "[npm install webpack plugin](https://github.com/ericclemmons/npm-install-webpack-plugin)".
 Just add require or import statement in the JavaScript file and you are ready to go.
 
 ```js
@@ -82,8 +82,9 @@ import ReactDOM from 'react-dom';
 ```
 
 ### Custom templates
+
 By default, Aik uses built-in into the "[html-webpack-plugin](https://github.com/ampedandwired/html-webpack-plugin)" template,
-but it's easy to create your own. Just add HTML file with the same name as JavaScript file.
+but it's easy to create your own. Just add an HTML file with the same name as the JavaScript file.
 
 ```
 aik-test/
@@ -91,9 +92,10 @@ aik-test/
 └── index.html
 ```
 
-**Important:** Do not add script tag with src to JavaScript file (in the example above to index.js) Aik will do it automatically.
+**Important:** Do not add script tag with src to the JavaScript file (in the example above to index.js) Aik will do it automatically.
 
 ### Hot reload
+
 Aik sets up hot reloading for CSS and with an extra option '-r' for React components using @gaeron's [react-hot-loader](https://github.com/gaearon/react-hot-loader).
 
 ```sh
@@ -102,9 +104,9 @@ aik index.js -r # option for enabling react hot loading
 
 ### Latest and greatest technologies for frontend development
 
-There are (an opinionated) set of technologies that will help you prototype faster. Aik uses [preset-latest](http://babeljs.io/docs/plugins/preset-latest/) for babel which contain all yearly presets.
+There are (an opinionated) set of technologies that will help you prototype faster. Aik uses [preset-latest](http://babeljs.io/docs/plugins/preset-latest/) for babel which contains all yearly presets.
 And also you don't have to worry about all these messy prefixes in CSS because there is an autoprefixer which will do it for you.
-Moreover, there is a little bit of syntactic sugar over CSS provided by terrific PostCSS and PreCSS.
+Moreover, there is a little bit of syntactic sugar over CSS provided by PostCSS and PreCSS.
 
 * Modern javascript with [Babel](https://babeljs.io/) using [Latest](http://babeljs.io/docs/plugins/preset-latest/) and [React](http://babeljs.io/docs/plugins/preset-react/) presets
 * [PostCSS](https://github.com/postcss/postcss) with [Autoprefixer](https://github.com/postcss/autoprefixer) and [PreCSS](https://github.com/jonathantneal/precss)
@@ -112,7 +114,7 @@ Moreover, there is a little bit of syntactic sugar over CSS provided by terrific
 
 ### Linting
 
-Aik comes with set up linters. Nothing annoying about code style, only rules which helps you find potential errors.
+Aik comes with set up linters. Nothing annoying about code style, only rules which help you find potential errors.
 
 * [ESLint](http://eslint.org/)
 * [ESLint React Plugin](https://github.com/yannickcr/eslint-plugin-react) for linting React specific things
@@ -124,7 +126,7 @@ aik index.js --build
 ```
 
 Produces minimized build for production usage. It's easy to publish prototype to GitHub pages, Surge, or wherever you want.
-Important that assets urls are relative to root:
+Important that assets urls are relative to the root:
 
 ```html
 <script type="text/javascript" src="/index.c699c867.js"></script></body>
@@ -144,7 +146,7 @@ Now assets urls are relative to specified base path:
 
 ### Expose web server to the real world
 
-Optionally, by providing '-n' flag you can expose web server to the real world using awesome "[Ngrok](https://github.com/bubenshchykov/ngrok)".
+Optionally, by providing '-n' flag you can expose web server to the real world using "[Ngrok](https://github.com/bubenshchykov/ngrok)".
 
 ```sh
 aik index.js -n # option for enabling ngrok
