@@ -49,6 +49,7 @@ declare type WebPackConfig = {
   debug: boolean,
   devtool: boolean | string,
   plugins: Array<any>,
+  bail: boolean,
   module: {
     preLoaders: Loader[],
     loaders: Loader[]
@@ -58,4 +59,15 @@ declare type WebPackConfig = {
     useEslintrc: boolean
   },
   postcss: () => Array<any>
+}
+
+declare type BuildStats = {
+  buildDuration: number,
+  assets: BuildStatAsset[]
+}
+
+declare type BuildStatAsset = {
+  name: string,
+  size: number,
+  sizeGz: number
 }

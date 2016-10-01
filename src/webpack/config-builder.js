@@ -19,6 +19,7 @@ export default function webpackConfigBuilder(filename: string, flags: CLIFlags, 
     debug: !params.isProd,
     devtool: !params.isProd && 'eval',
     plugins: plugins(params),
+    bail: params.isProd,
     module: {
       preLoaders: preloaders(),
       loaders: loaders(flags, params)

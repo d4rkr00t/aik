@@ -19,11 +19,12 @@ import {
 export function onDone(filename: string, flags: CLIFlags, params: AikParams, stats: Object) {
   const hasErrors = stats.hasErrors();
   const hasWarnings = stats.hasWarnings();
+  const buildDuration: number = stats.endTime - stats.startTime;
 
   clearConsole(true);
 
   if (!hasErrors && !hasWarnings) {
-    return devServerCompiledSuccessfullyMsg(filename, flags, params);
+    return devServerCompiledSuccessfullyMsg(filename, flags, params, buildDuration);
   }
 
   const json = stats.toJson({}, true);
@@ -31,7 +32,7 @@ export function onDone(filename: string, flags: CLIFlags, params: AikParams, sta
   let formattedErrors = json.errors.map(message => 'Error in ' + formatMessage(message));
 
   if (hasErrors) {
-    devServerFailedToCompileMsg(filename, flags, params);
+    devServerFailedToCompileMsg();
 
     // If there are any syntax errors, show just them.
     // This prevents a confusing ESLint parsing error
@@ -45,7 +46,7 @@ export function onDone(filename: string, flags: CLIFlags, params: AikParams, sta
   }
 
   if (hasWarnings) {
-    devServerCompiledWithWarningsMsg(filename, flags, params);
+    devServerCompiledWithWarningsMsg(filename, flags, params, buildDuration);
     formattedWarnings.forEach(message => console.log('\n', message)); // eslint-disable-line
     eslintExtraWarningMsg();
   }
