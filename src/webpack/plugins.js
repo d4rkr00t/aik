@@ -10,7 +10,7 @@ import last from '../utils/last';
 export function htmlWebpackPlugin(template: string | false) {
   return new HtmlWebpackPlugin({
     title: last(process.cwd().split(path.sep)),
-    template: template ? template : require.resolve('../../../template/index.ejs')
+    template: template ? template : require.resolve('../../template/index.ejs')
   });
 }
 
