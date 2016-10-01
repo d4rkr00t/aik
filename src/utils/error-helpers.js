@@ -29,5 +29,6 @@ export function formatMessage(message: string) : string {
     // Internal stacks are generally useless so we strip them
     .replace(/^\s*at\s.*:\d+:\d+[\s\)]*\n/gm, '') // at ... ...:x:y
     // Webpack loader names obscure CSS filenames
-    .replace('./~/css-loader!./~/postcss-loader!', '');
+    .replace('./~/css-loader!./~/postcss-loader!', '')
+    .replace(/\s@ multi .+/, '');
 }

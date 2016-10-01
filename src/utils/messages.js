@@ -26,11 +26,34 @@ export function print(msg: string[]) {
 
 export function eslintExtraWarningMsg() {
   return print([
-    '',
     'You may use special comments to disable some warnings.',
     'Use ' + chalk.yellow('// eslint-disable-next-line') + ' to ignore the next line.',
     'Use ' + chalk.yellow('/* eslint-disable */') + ' to ignore all warnings in a file.'
   ]);
+}
+
+
+/**
+ *
+ *
+ * Helpers
+ *
+ */
+
+export function doneBadge() {
+  return chalk.bgGreen.black(' DONE ');
+}
+
+export function warningBadge() {
+  return chalk.bgYellow.black(' WARNING ');
+}
+
+export function waitBadge() {
+  return chalk.bgBlue.black(' WAIT ');
+}
+
+export function errorBadge() {
+  return chalk.bgRed.black(' ERROR ');
 }
 
 /**
@@ -41,7 +64,6 @@ export function eslintExtraWarningMsg() {
 
 export function devServerBanner(filename: string, flags: CLIFlags, params: AikParams) : string[] {
   const msg:string[] = [
-    chalk.green('Watching...'),
     '',
     chalk.magenta('Entry point:      ') + filename
   ];
@@ -69,24 +91,24 @@ export function devServerBanner(filename: string, flags: CLIFlags, params: AikPa
 
 export function devServerInvalidBuildMsg() {
   clearConsole();
-  return print([chalk.yellow('Compiling...')]);
+  return print([waitBadge() + ' ' + chalk.blue('Compiling...')]);
 }
 
-export function devServerCompiledSuccessfullyMsg(filename: string, flags: CLIFlags, params: AikParams) {
+export function devServerCompiledSuccessfullyMsg(filename: string, flags: CLIFlags, params: AikParams, buildDuration: number) { // eslint-disable-line
   const msg = devServerBanner(filename, flags, params);
-  msg.push('', chalk.green('Compiled successfully!'));
+  msg.unshift(doneBadge() + ' ' + chalk.green(`Compiled successfully in ${buildDuration}ms!`));
   return print(msg);
 }
 
-export function devServerFailedToCompileMsg(filename: string, flags: CLIFlags, params: AikParams) {
-  const msg = devServerBanner(filename, flags, params);
-  msg.push('', chalk.red('Failed to compile.'));
-  return print(msg);
+export function devServerFailedToCompileMsg() {
+  clearConsole(true);
+  return print([errorBadge() + ' ' + chalk.red('Failed to compile.')]);
 }
 
-export function devServerCompiledWithWarningsMsg(filename: string, flags: CLIFlags, params: AikParams) {
+export function devServerCompiledWithWarningsMsg(filename: string, flags: CLIFlags, params: AikParams, buildDuration: number) { // eslint-disable-line
   const msg = devServerBanner(filename, flags, params);
-  msg.push('', chalk.yellow('Compiled with warnings.'));
+  msg.unshift(warningBadge() + ' ' + chalk.yellow(`Compiled with warnings in ${buildDuration}ms.`));
+  msg.push('', chalk.dim('---------'));
   return print(msg);
 }
 
@@ -100,7 +122,7 @@ export function builderBanner(filename: string, flags: CLIFlags, params: AikPara
   clearConsole();
 
   const msg = [
-    chalk.green('Building...'),
+    waitBadge() + ' ' + chalk.blue('Building...'),
     '',
     chalk.magenta('Entry point:     ') + filename
   ];
@@ -134,23 +156,40 @@ export function builderRunningBuildMsg() {
 }
 
 export function builderErrorMsg(err: { message: string } | string) {
+  clearConsole(true);
+
   let msg: string = typeof err.message === 'string' ? err.message : err.toString();
 
   if (isLikelyASyntaxError(msg)) {
     msg = formatMessage(msg);
   }
-
   return print([
-    '',
-    chalk.red('Failed to create a production build. Reason:'),
+    errorBadge() + ' ' + chalk.red('Failed to create a production build. Reason:'),
     msg
   ]);
 }
 
-export function builderSuccessMsg(distShortName: string) {
+export function builderSuccessMsg(distShortName: string, buildStats: BuildStats) {
+  clearConsole(true);
+
+  const assets = buildStats.assets;
+  const longestNameSize = assets.reduce((acc, item) => item.name.length > acc ? item.name.length : acc, 0) + 1;
+  const padStringPlaceholder = ' '.repeat(longestNameSize);
+  const padString = (placeholder: string, str: string) => (str + placeholder).substr(0, placeholder.length);
+
   return print([
+    doneBadge() + ` in ${buildStats.buildDuration}ms`,
     '',
     chalk.green(`Successfully generated a bundle in the ${chalk.cyan('"' + distShortName + '"')} folder!`),
-    chalk.green('The bundle is optimized and ready to be deployed to production.')
+    chalk.green('The bundle is optimized and ready to be deployed to production.'),
+    '',
+    chalk.bgMagenta.black(' ASSETS '),
+    '',
+    buildStats.assets.map(asset => {
+      return [
+        `${chalk.magenta(padString(padStringPlaceholder, asset.name + ':'))}`,
+        `${asset.size.toFixed(2)}kb, ${asset.sizeGz.toFixed(2)}kb gzip`
+      ].join(' ');
+    }).join('\n')
   ]);
 }
