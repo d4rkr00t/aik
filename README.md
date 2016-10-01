@@ -48,6 +48,7 @@ aik index.js -o
 * [Objectives](#objectives)
 * [Quick Start](#quick-start)
 * [Usage](#usage)
+* [Examples](#examples)
 * [Features](#features)
   * [Run web server with JavaScript file](#run-web-server-with-javascript-file)
   * [Automatically install npm modules](#automatically-install-npm-modules)
@@ -87,6 +88,10 @@ Examples
   $ aik filename.js --build
   Builds filename.js for production use and saves output to dist folder.
 ```
+
+## Examples
+
+Repository with example usage of Aik — [aik-examples](https://github.com/d4rkr00t/aik-examples).
 
 ## Features
 
