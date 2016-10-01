@@ -5,7 +5,7 @@ import ngrok from 'ngrok';
 /**
  * Creates ngrok tunnel.
  */
-export default function createNgrokTunnel(flags:CLIFlags) : Promise<string> {
+export default function createNgrokTunnel(flags: CLIFlags) : Promise<string> {
   if (flags.host !== 'localhost') {
     return Promise.reject(new Error('Ngrok can`t be used with host option.'));
   }

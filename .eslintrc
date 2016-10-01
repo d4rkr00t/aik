@@ -4,26 +4,18 @@
     "es6": true,
     "node": true,
     "mocha": true,
-    "browser": true
+    "browser": false
   },
-  "ecmaFeatures": {
-    "arrowFunctions": true,
-    "blockBindings": true,
-    "classes": true,
-    "defaultParams": true,
-    "destructuring": true,
-    "forOf": true,
-    "generators": false,
-    "modules": true,
-    "objectLiteralComputedProperties": true,
-    "objectLiteralDuplicateProperties": false,
-    "objectLiteralShorthandMethods": true,
-    "objectLiteralShorthandProperties": true,
-    "spread": true,
-    "superInFunctions": true,
-    "templateStrings": true,
-    "jsx": true
-  },
+
+  "plugins": [
+    "flowtype"
+  ],
+
+  "extends": [
+    // https://github.com/gajus/eslint-plugin-flowtype#configuration
+    "plugin:flowtype/recommended"
+  ],
+
   "rules": {
     // possible errors
     "comma-dangle": [2, "never"],
@@ -52,11 +44,7 @@
     "no-unexpected-multiline": [2],
     "no-unreachable": [2],
     "use-isnan": [2],
-    "valid-jsdoc": [2, {
-      "requireReturn": false,
-      "requireParamDescription": false,
-      "requireReturnDescription": false
-    }],
+    "valid-jsdoc": [0],
     "valid-typeof": [2],
 
     // best practices

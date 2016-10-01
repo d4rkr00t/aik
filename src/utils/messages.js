@@ -6,7 +6,7 @@ import { isLikelyASyntaxError, formatMessage } from './error-helpers';
 /**
  * Moves current line to the most top of console.
  */
-export function clearConsole(sep?:boolean) {
+export function clearConsole(sep?: boolean) {
   sep && process.stdout.write(chalk.dim('----------------------------------\n'));
   process.stdout.write('\x1B[2J\x1B[0f');
 }
@@ -14,8 +14,8 @@ export function clearConsole(sep?:boolean) {
 /**
  * Actually prints message to the console
  */
-export function print(msg:string[]) {
-  return console.log(msg.join('\n'));
+export function print(msg: string[]) {
+  return console.log(msg.join('\n')); // eslint-disable-line
 }
 
 /**
@@ -39,7 +39,7 @@ export function eslintExtraWarningMsg() {
  *
  */
 
-export function devServerBanner(filename:string, flags:CLIFlags, params:AikParams) : string[] {
+export function devServerBanner(filename: string, flags: CLIFlags, params: AikParams) : string[] {
   const msg:string[] = [
     chalk.green('Watching...'),
     '',
@@ -72,19 +72,19 @@ export function devServerInvalidBuildMsg() {
   return print([chalk.yellow('Compiling...')]);
 }
 
-export function devServerCompiledSuccessfullyMsg(filename:string, flags:CLIFlags, params:AikParams) {
+export function devServerCompiledSuccessfullyMsg(filename: string, flags: CLIFlags, params: AikParams) {
   const msg = devServerBanner(filename, flags, params);
   msg.push('', chalk.green('Compiled successfully!'));
   return print(msg);
 }
 
-export function devServerFailedToCompileMsg(filename:string, flags:CLIFlags, params:AikParams) {
+export function devServerFailedToCompileMsg(filename: string, flags: CLIFlags, params: AikParams) {
   const msg = devServerBanner(filename, flags, params);
   msg.push('', chalk.red('Failed to compile.'));
   return print(msg);
 }
 
-export function devServerCompiledWithWarningsMsg(filename:string, flags:CLIFlags, params:AikParams) {
+export function devServerCompiledWithWarningsMsg(filename: string, flags: CLIFlags, params: AikParams) {
   const msg = devServerBanner(filename, flags, params);
   msg.push('', chalk.yellow('Compiled with warnings.'));
   return print(msg);
@@ -96,7 +96,7 @@ export function devServerCompiledWithWarningsMsg(filename:string, flags:CLIFlags
  *
  */
 
-export function builderBanner(filename:string, flags:CLIFlags, params:AikParams) {
+export function builderBanner(filename: string, flags: CLIFlags, params: AikParams) {
   clearConsole();
 
   const msg = [
@@ -107,11 +107,11 @@ export function builderBanner(filename:string, flags:CLIFlags, params:AikParams)
 
 
   if (params.template.short) {
-    msg.push(chalk.magenta('Custom template: ') + params.template.short)
+    msg.push(chalk.magenta('Custom template: ') + params.template.short);
   }
 
   const base = flags.base;
-  if (base  && typeof base === 'string') {
+  if (base && typeof base === 'string') {
     msg.push(chalk.magenta('Base path:       ') + base);
   }
 
@@ -120,7 +120,7 @@ export function builderBanner(filename:string, flags:CLIFlags, params:AikParams)
   return print(msg);
 }
 
-export function builderRemovingDistMsg(distPath:string) {
+export function builderRemovingDistMsg(distPath: string) {
   return print([
     '',
     chalk.yellow('Removing folder: ') + distPath
@@ -133,8 +133,8 @@ export function builderRunningBuildMsg() {
   ]);
 }
 
-export function builderErrorMsg(err:{ message: string } | string) {
-  let msg:string = typeof err.message === 'string' ? err.message : err.toString();
+export function builderErrorMsg(err: { message: string } | string) {
+  let msg: string = typeof err.message === 'string' ? err.message : err.toString();
 
   if (isLikelyASyntaxError(msg)) {
     msg = formatMessage(msg);
@@ -147,7 +147,7 @@ export function builderErrorMsg(err:{ message: string } | string) {
   ]);
 }
 
-export function builderSuccessMsg(distShortName:string) {
+export function builderSuccessMsg(distShortName: string) {
   return print([
     '',
     chalk.green(`Successfully generated a bundle in the ${chalk.cyan('"' + distShortName + '"')} folder!`),

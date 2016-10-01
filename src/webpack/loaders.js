@@ -18,8 +18,8 @@ export function preloaders() : Loader[] {
 /**
  * Creates loader for JavaScript files and add some extra features for dev server, like hot reloading.
  */
-export function createJSLoader(flags:CLIFlags, isProd:boolean) : string[] {
-  const babelLoader:string[] = [
+export function createJSLoader(flags: CLIFlags, isProd: boolean) : string[] {
+  const babelLoader: string[] = [
     require.resolve('babel-loader'),
     `?presets[]=${require.resolve('babel-preset-react')}`,
     `,presets[]=${require.resolve('babel-preset-latest')}`
@@ -29,7 +29,7 @@ export function createJSLoader(flags:CLIFlags, isProd:boolean) : string[] {
     babelLoader.push('&cacheDirectory');
   }
 
-  const jsLoaders:string[] = [babelLoader.join('')];
+  const jsLoaders: string[] = [babelLoader.join('')];
 
   if (!isProd && flags.react) {
     jsLoaders.unshift(require.resolve('react-hot-loader'));
@@ -41,7 +41,7 @@ export function createJSLoader(flags:CLIFlags, isProd:boolean) : string[] {
 /**
  * Creates production loader for CSS files.
  */
-export function createCSSLoaderProd(flags:CLIFlags) : Loader {
+export function createCSSLoaderProd(flags: CLIFlags) : Loader {
   const cssLoaders = [
     require.resolve('css-loader') + (flags.cssmodules ? '?modules&importLoaders=1' : ''),
     require.resolve('postcss-loader')
@@ -59,7 +59,7 @@ export function createCSSLoaderProd(flags:CLIFlags) : Loader {
 /**
  * Creates dev server loader for CSS files.
  */
-export function createCSSLoaderDev(flags:CLIFlags) : Loader {
+export function createCSSLoaderDev(flags: CLIFlags) : Loader {
   return {
     test: /\.css$/,
     loaders: [
@@ -73,7 +73,7 @@ export function createCSSLoaderDev(flags:CLIFlags) : Loader {
 /**
  * Setups loaders for webpack.
  */
-export function loaders(flags:CLIFlags, params:AikParams) : Loader[] {
+export function loaders(flags: CLIFlags, params: AikParams) : Loader[] {
   const { isProd } = params;
   const jsLoaders = createJSLoader(flags, isProd);
 

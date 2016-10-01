@@ -1,6 +1,5 @@
 /* @flow */
 
-import chalk from 'chalk';
 import opn from 'opn';
 
 import createWebpackDevServer from './webpack-dev-server';
@@ -12,7 +11,7 @@ import { devServerInvalidBuildMsg } from './utils/messages';
 /**
  * Aik dev server command
  */
-export function aikDevServer(input:string[], flags:CLIFlags) : Promise<*> {
+export function aikDevServer(input: string[], flags: CLIFlags) : Promise<*> {
   devServerInvalidBuildMsg();
 
   const [filename] = input;
@@ -20,13 +19,13 @@ export function aikDevServer(input:string[], flags:CLIFlags) : Promise<*> {
 
   return Promise
     .all(promiseList)
-    .then(([ngrokUrl:NgrokUrl]) => {
+    .then(([ngrokUrl: NgrokUrl]) => {
       const params = createParams(filename, flags, ngrokUrl, false);
       return createWebpackDevServer(filename, flags, params)
         .then(server => [server, ngrokUrl]);
     })
     .then((results) => {
-      const [server, ngrokUrl:NgrokUrl] = results;
+      const ngrokUrl: NgrokUrl = results[1];
       if (flags.open) {
         opn(ngrokUrl ? ngrokUrl : `http://${flags.host}:${flags.port}`);
       }
@@ -37,7 +36,7 @@ export function aikDevServer(input:string[], flags:CLIFlags) : Promise<*> {
 /**
  * Aik build command
  */
-export function aikBuild(input:string[], flags:CLIFlags) : Promise<*> {
+export function aikBuild(input: string[], flags: CLIFlags) : Promise<*> {
   const [filename] = input;
   const params = createParams(filename, flags, '', true);
   return runWebpackBuilder(filename, flags, params);

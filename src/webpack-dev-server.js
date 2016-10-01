@@ -16,7 +16,7 @@ import {
 /**
  * On done handler for webpack compiler.
  */
-export function onDone(filename:string, flags:CLIFlags, params:AikParams, stats:Object) {
+export function onDone(filename: string, flags: CLIFlags, params: AikParams, stats: Object) {
   const hasErrors = stats.hasErrors();
   const hasWarnings = stats.hasWarnings();
 
@@ -41,12 +41,12 @@ export function onDone(filename:string, flags:CLIFlags, params:AikParams, stats:
     }
 
     // If errors exist, ignore warnings.
-    return formattedErrors.forEach(message => console.log('\n', message));
+    return formattedErrors.forEach(message => console.log('\n', message)); // eslint-disable-line
   }
 
   if (hasWarnings) {
     devServerCompiledWithWarningsMsg(filename, flags, params);
-    formattedWarnings.forEach(message => console.log('\n', message));
+    formattedWarnings.forEach(message => console.log('\n', message)); // eslint-disable-line
     eslintExtraWarningMsg();
   }
 }
@@ -54,7 +54,7 @@ export function onDone(filename:string, flags:CLIFlags, params:AikParams, stats:
 /**
  * Creates webpack compiler.
  */
-export function createWebpackCompiler(filename:string, flags:CLIFlags, params:AikParams, config:Object) {
+export function createWebpackCompiler(filename: string, flags: CLIFlags, params: AikParams, config: Object) {
   const compiler = webpack(config);
   compiler.plugin('invalid', devServerInvalidBuildMsg);
   compiler.plugin('done', onDone.bind(null, filename, flags, params));
@@ -64,7 +64,7 @@ export function createWebpackCompiler(filename:string, flags:CLIFlags, params:Ai
 /**
  * Creates webpack dev server.
  */
-export default function createWebpackDevServer(filename:string, flags:CLIFlags, params:AikParams) : Promise<Object> {
+export default function createWebpackDevServer(filename: string, flags: CLIFlags, params: AikParams) : Promise<Object> {
   const config = webpackConfigBuilder(filename, flags, params);
   const compiler = createWebpackCompiler(filename, flags, params, config);
   const server = new WebpackDevServer(compiler, {

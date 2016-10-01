@@ -6,10 +6,9 @@ import getTemplatePath from './get-template-path';
 /**
  * Params for Aik
  */
-export default function params(filename:string, flags:CLIFlags, ngrok:string|false, isProd:boolean) : AikParams {
+export default function params(filename: string, flags: CLIFlags, ngrok: string | false, isProd: boolean) : AikParams {
   const template = getTemplatePath(filename);
   const distShortName = typeof flags.build === 'string' ? flags.build : 'dist';
-  const dist = path.join(process.cwd(), distShortName);
 
   return {
     isProd,
@@ -22,5 +21,5 @@ export default function params(filename:string, flags:CLIFlags, ngrok:string|fal
       path: path.join(process.cwd(), distShortName),
       short: distShortName
     }
-  }
+  };
 }
