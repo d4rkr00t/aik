@@ -41,12 +41,13 @@ npm i -g aik
 aik index.js -o
 ```
 
-![aik quick start](/assets/quick-start.png)
+![aik quick start](/assets/dev.png)
 
 ## Table of Content
 
 * [Objectives](#objectives)
 * [Quick Start](#quick-start)
+* [Usage](#usage)
 * [Features](#features)
   * [Run web server with JavaScript file](#run-web-server-with-javascript-file)
   * [Automatically install npm modules](#automatically-install-npm-modules)
@@ -56,10 +57,36 @@ aik index.js -o
   * [Linting](#linting)
   * [Production ready build](#production-ready-build)
   * [Expose web server to the real world](#expose-web-server-to-the-real-world)
-* [Usage](#usage)
+  * [Great Messages](#great-messages)
 * [Alternatives](#alternatives)
 * [License](#license)
 * [Contributing](#contributing)
+
+## Usage
+
+```sh
+Usage
+  $ aik filename.js
+
+Options
+  -b  --build       Build production version for given entry point. [Default output: dist]
+  -u, --base        Base path from witch urls in build begins
+  -p, --port        Web server port. [Default: 8080]
+  -h, --host        Web server host. [Default: localhost]
+  -r, --react       Enables react hot loader.
+  -n, --ngrok       Exposes server to real world by ngrok.
+  -o, --open        Opens web server url in default browser.
+  -c, --cssmodules  Enables css modules.
+  -v, --version     Shows version.
+  --help            Shows help.
+
+Examples
+  $ aik filename.js --port 3000 -n -c -r
+  Runs aik web server on 3000 port with ngrok, css modules support and react hot loader
+
+  $ aik filename.js --build
+  Builds filename.js for production use and saves output to dist folder.
+```
 
 ## Features
 
@@ -152,31 +179,19 @@ Optionally, by providing '-n' flag you can expose web server to the real world u
 aik index.js -n # option for enabling ngrok
 ```
 
-## Usage
+### Great Messages
 
-```sh
-Usage
-  $ aik filename.js
+Highly inspired by create-react-app and some other places.
 
-Options
-  -b  --build       Build production version for given entry point. [Default output: dist]
-  -u, --base        Base path from witch urls in build begins
-  -p, --port        Web server port. [Default: 8080]
-  -h, --host        Web server host. [Default: localhost]
-  -r, --react       Enables react hot loader.
-  -n, --ngrok       Exposes server to real world by ngrok.
-  -o, --open        Opens web server url in default browser.
-  -c, --cssmodules  Enables css modules.
-  -v, --version     Shows version.
-  --help            Shows help.
+#### Dev Server Error
 
-Examples
-  $ aik filename.js --port 3000 -n -c -r
-  Runs aik web server on 3000 port with ngrok, css modules support and react hot loader
+![aik dev server error](/assets/dev-error.png)
 
-  $ aik filename.js --build
-  Builds filename.js for production use and saves output to dist folder.
-```
+#### Build Successfully Finished
+
+![aik build success](/assets/build-success.png)
+
+More examples [here](/docs/messages.md).
 
 ## Alternatives
 
