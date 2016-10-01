@@ -91,7 +91,8 @@ Examples
 
 ## Examples
 
-Repository with example usage of Aik — [aik-examples](https://github.com/d4rkr00t/aik-examples).
+* Repository with example usage of Aik — [aik-examples](https://github.com/d4rkr00t/aik-examples).
+* [English Cards](https://github.com/d4rkr00t/english-cards)
 
 ## Features
 
