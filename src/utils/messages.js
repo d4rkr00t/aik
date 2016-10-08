@@ -74,6 +74,11 @@ export function devServerBanner(filename: string, flags: CLIFlags, params: AikPa
 
   msg.push(chalk.magenta('Server:           ') + chalk.cyan(`http://${flags.host}:${flags.port}`));
 
+  if (flags.oldPort) {
+    msg.push(chalk.magenta('Port changed:     ')
+      + `${chalk.bgRed.black(' ' + flags.oldPort + ' ')} -> ${chalk.bgGreen.black(' ' + flags.port + ' ')}`);
+  }
+
   if (params.ngrok) {
     msg.push(chalk.magenta('Ngrok:            ') + chalk.cyan(params.ngrok));
   }

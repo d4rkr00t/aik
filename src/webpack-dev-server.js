@@ -1,5 +1,6 @@
 /* @flow */
 
+import detectPort from 'detect-port';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import webpackConfigBuilder from './webpack/config-builder';
@@ -66,20 +67,27 @@ export function createWebpackCompiler(filename: string, flags: CLIFlags, params:
  * Creates webpack dev server.
  */
 export default function createWebpackDevServer(filename: string, flags: CLIFlags, params: AikParams) : Promise<Object> {
-  const config = webpackConfigBuilder(filename, flags, params);
-  const compiler = createWebpackCompiler(filename, flags, params, config);
-  const server = new WebpackDevServer(compiler, {
-    historyApiFallback: true,
-    hot: true,
-    colors: true,
-    quiet: true,
-    stats: { colors: true }
-  });
+  return detectPort(flags.port).then(port => {
+    if (port !== flags.port) {
+      flags.oldPort = flags.port;
+      flags.port = port;
+    }
 
-  return new Promise((resolve, reject) => {
-    server.listen(flags.port, flags.host, (err) => {
-      if (err) return reject(err);
-      resolve(server);
+    const config = webpackConfigBuilder(filename, flags, params);
+    const compiler = createWebpackCompiler(filename, flags, params, config);
+    const server = new WebpackDevServer(compiler, {
+      historyApiFallback: true,
+      hot: true,
+      colors: true,
+      quiet: true,
+      stats: { colors: true }
+    });
+
+    return new Promise((resolve, reject) => {
+      server.listen(flags.port, flags.host, (err) => {
+        if (err) return reject(err);
+        resolve(server);
+      });
     });
   });
 }

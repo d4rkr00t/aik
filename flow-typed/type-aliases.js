@@ -3,7 +3,8 @@ declare type CLIInput = string[]
 declare type CLIFlags = {
   build: string | boolean,
   base: string | boolean,
-  port: string,
+  port: string | number,
+  oldPort: string | number,
   host: string,
   react: boolean,
   ngrok: boolean,
