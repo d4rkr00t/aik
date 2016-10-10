@@ -2,6 +2,9 @@
 test/.temp
 test/package.json
 _docs
+tests/*
+!tests/run.sh
+!tests/_package.json
 
 # Logs
 logs

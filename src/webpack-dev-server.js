@@ -4,6 +4,7 @@ import detectPort from 'detect-port';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import webpackConfigBuilder from './webpack/config-builder';
+import testUtils from './utils/test-utils';
 import { isLikelyASyntaxError, formatMessage } from './utils/error-helpers';
 import {
   clearConsole,
@@ -25,7 +26,9 @@ export function onDone(filename: string, flags: CLIFlags, params: AikParams, sta
   clearConsole(true);
 
   if (!hasErrors && !hasWarnings) {
-    return devServerCompiledSuccessfullyMsg(filename, flags, params, buildDuration);
+    devServerCompiledSuccessfullyMsg(filename, flags, params, buildDuration);
+    testUtils();
+    return;
   }
 
   const json = stats.toJson({}, true);
@@ -42,8 +45,11 @@ export function onDone(filename: string, flags: CLIFlags, params: AikParams, sta
       formattedErrors = formattedErrors.filter(isLikelyASyntaxError);
     }
 
+
     // If errors exist, ignore warnings.
-    return formattedErrors.forEach(message => console.log('\n', message)); // eslint-disable-line
+    formattedErrors.forEach(message => console.log('\n', message)); // eslint-disable-line
+    testUtils();
+    return;
   }
 
   if (hasWarnings) {
@@ -51,6 +57,8 @@ export function onDone(filename: string, flags: CLIFlags, params: AikParams, sta
     formattedWarnings.forEach(message => console.log('\n', message)); // eslint-disable-line
     eslintExtraWarningMsg();
   }
+
+  testUtils();
 }
 
 /**
