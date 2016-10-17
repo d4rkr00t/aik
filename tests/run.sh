@@ -27,11 +27,11 @@ print_header() {
 # DEV SERVER
 #
 
-print_header "Thinkin in React -r"
-AIK_TEST=1 ./../cli.js examples/thinking-in-react/src/index.js -r
+print_header "Thinkin in React -r -c"
+AIK_TEST=1 ./../cli.js examples/thinking-in-react/src/index.js -r -c
 
-print_header "Thinkin in React -r -n -o"
-AIK_TEST=1 ./../cli.js examples/thinking-in-react/src/index.js -r -n -o
+print_header "Thinkin in React -r -n -o -c"
+AIK_TEST=1 ./../cli.js examples/thinking-in-react/src/index.js -r -n -o -c
 
 print_header "Simple Counter in Cycle.js"
 AIK_TEST=1 ./../cli.js examples/simple-counter-cyclejs/src/index.js
@@ -46,11 +46,11 @@ AIK_TEST=1 ./../cli.js examples/todomvc-vue/src/index.js
 # BUILD
 #
 
-print_header "Thinkin in React --build"
-AIK_TEST=1 ./../cli.js examples/thinking-in-react/src/index.js --build
+print_header "Thinkin in React --build -c"
+AIK_TEST=1 ./../cli.js examples/thinking-in-react/src/index.js --build -c
 
-print_header "Thinkin in React --build custom"
-AIK_TEST=1 ./../cli.js examples/thinking-in-react/src/index.js --build custom
+print_header "Thinkin in React --build custom -c"
+AIK_TEST=1 ./../cli.js examples/thinking-in-react/src/index.js --build custom -c
 
 print_header "Simple Counter in Cycle.js --build custom --base \"/test/\""
 AIK_TEST=1 ./../cli.js examples/simple-counter-cyclejs/src/index.js --build custom2 --base "/test/"
