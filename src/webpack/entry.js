@@ -10,14 +10,14 @@ import resolveToCwd from './../utils/resolve-to-cwd';
  * src/index.js -> index
  * index.sth.js -> index
  */
-export function buildEntryName(filename: string) : string {
+export function buildEntryName(filename: string): string {
   return path.basename(filename).split('.')[0];
 }
 
 /**
  * Entry for production build.
  */
-export function entryProd(filename: string) : Entry {
+export function entryProd(filename: string): Entry {
   const entryName = buildEntryName(filename);
   return {
     [entryName]: [resolveToCwd(filename)]
@@ -28,7 +28,7 @@ export function entryProd(filename: string) : Entry {
 /**
  * Entry for dev server.
  */
-export function entryDev(filename: string, flags: CLIFlags) : Entry {
+export function entryDev(filename: string, flags: CLIFlags): Entry {
   const entryName = buildEntryName(filename);
   const host = flags.host === '::' ? 'localhost' : flags.host;
 
@@ -44,7 +44,7 @@ export function entryDev(filename: string, flags: CLIFlags) : Entry {
 /**
  * Setups entry part of webpack config.
  */
-export default function entry(filename: string, flags: CLIFlags, params: AikParams) : Entry {
+export default function entry(filename: string, flags: CLIFlags, params: AikParams): Entry {
   return params.isProd
     ? entryProd(filename)
     : entryDev(filename, flags);

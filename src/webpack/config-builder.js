@@ -12,7 +12,7 @@ import { preloaders, loaders } from './loaders';
 /**
  * Generates config for webpack.
  */
-export default function webpackConfigBuilder(filename: string, flags: CLIFlags, params: AikParams) : WebPackConfig {
+export default function webpackConfigBuilder(filename: string, flags: CLIFlags, params: AikParams): WebPackConfig {
   return {
     entry: entry(filename, flags, params),
     output: output(filename, flags, params),

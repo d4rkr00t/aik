@@ -6,7 +6,7 @@ import resolveToCwd from './../utils/resolve-to-cwd';
 /**
  * Output for production build.
  */
-export function outputProd(filename: string, flags: CLIFlags, params: AikParams) : Output {
+export function outputProd(filename: string, flags: CLIFlags, params: AikParams): Output {
   const base = typeof flags.base === 'string' ? flags.base : '';
   const publicPath = base.endsWith('/') ? base : base + '/';
 
@@ -21,7 +21,7 @@ export function outputProd(filename: string, flags: CLIFlags, params: AikParams)
 /**
  * Output for dev server.
  */
-export function outputDev(filename: string) : Output {
+export function outputDev(filename: string): Output {
   return {
     path: path.join(process.cwd(), path.dirname(filename)),
     filename: path.basename(filename),
@@ -32,7 +32,7 @@ export function outputDev(filename: string) : Output {
 /**
  * Setups output section of webpack config.
  */
-export default function output(filename: string, flags: CLIFlags, params: AikParams) : Output {
+export default function output(filename: string, flags: CLIFlags, params: AikParams): Output {
   return params.isProd
     ? outputProd(filename, flags, params)
     : outputDev(filename);

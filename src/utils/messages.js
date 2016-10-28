@@ -62,7 +62,7 @@ export function errorBadge() {
  *
  */
 
-export function devServerBanner(filename: string, flags: CLIFlags, params: AikParams) : string[] {
+export function devServerBanner(filename: string, flags: CLIFlags, params: AikParams): string[] {
   const msg:string[] = [
     '',
     chalk.magenta('Entry point:      ') + filename

@@ -74,7 +74,7 @@ export function createWebpackCompiler(filename: string, flags: CLIFlags, params:
 /**
  * Creates webpack dev server.
  */
-export default function createWebpackDevServer(filename: string, flags: CLIFlags, params: AikParams) : Promise<Object> {
+export default function createWebpackDevServer(filename: string, flags: CLIFlags, params: AikParams): Promise<Object> {
   return detectPort(flags.port).then(port => {
     if (port !== flags.port) {
       flags.oldPort = flags.port;

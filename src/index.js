@@ -11,7 +11,7 @@ import { devServerInvalidBuildMsg } from './utils/messages';
 /**
  * Aik dev server command
  */
-export function aikDevServer(input: string[], flags: CLIFlags) : Promise<*> {
+export function aikDevServer(input: string[], flags: CLIFlags): Promise<*> {
   devServerInvalidBuildMsg();
 
   const [filename] = input;
@@ -36,7 +36,7 @@ export function aikDevServer(input: string[], flags: CLIFlags) : Promise<*> {
 /**
  * Aik build command
  */
-export function aikBuild(input: string[], flags: CLIFlags) : Promise<*> {
+export function aikBuild(input: string[], flags: CLIFlags): Promise<*> {
   const [filename] = input;
   const params = createParams(filename, flags, '', true);
   return runWebpackBuilder(filename, flags, params);

@@ -7,7 +7,7 @@ import resolveToCwd from './resolve-to-cwd';
 /**
  * Checks whether templatePath is a file.
  */
-export function isTemplateExists(templatePath: string) : boolean {
+export function isTemplateExists(templatePath: string): boolean {
   try {
     const stats = fs.statSync(templatePath);
     return stats.isFile();
@@ -21,7 +21,7 @@ export function isTemplateExists(templatePath: string) : boolean {
  *
  * For example: index.js -> index.html
  */
-export default function getTemplatePath(filename: string = '') : string {
+export default function getTemplatePath(filename: string = ''): string {
   const basename = path.basename(filename, '.js');
   const dirname = path.dirname(filename);
   const templatePath = resolveToCwd(path.join(dirname, basename + '.html'));

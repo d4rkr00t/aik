@@ -24,7 +24,7 @@ export function npmInstallPlugin() {
 /**
  * Plugins for production build.
  */
-export function pluginsProd(template: string | false) : Array<any> {
+export function pluginsProd(template: string | false): Array<any> {
   return [
     new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"production"' }),
     htmlWebpackPlugin(template),
@@ -51,7 +51,7 @@ export function pluginsProd(template: string | false) : Array<any> {
 /**
  * Plugins for dev server.
  */
-export function pluginsDev(template: string | false) : Array<any> {
+export function pluginsDev(template: string | false): Array<any> {
   return [
     new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"development"' }),
     new webpack.HotModuleReplacementPlugin(),
@@ -63,7 +63,7 @@ export function pluginsDev(template: string | false) : Array<any> {
 /**
  * Setups plugins section for webpack config.
  */
-export default function plugins(params: AikParams) : Array<any> {
+export default function plugins(params: AikParams): Array<any> {
   return params.isProd
     ? pluginsProd(params.template.path)
     : pluginsDev(params.template.path);
