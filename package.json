@@ -75,6 +75,7 @@
     "ngrok": "^2.2.3",
     "npm-install-webpack-plugin": "^4.0.4",
     "opn": "^4.0.2",
+    "output-file": "^1.1.1",
     "postcss-loader": "^1.0.0",
     "postcss-partial-import": "^2.0.0",
     "precss": "^1.4.0",

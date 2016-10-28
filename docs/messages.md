@@ -23,3 +23,11 @@
 ### Build Error
 
 ![aik build error](/assets/build-error.png)
+
+### Create File Prompt
+
+![aik create file prompt](/assets/file-prompt.png)
+
+### File Doesn't Exist Error
+
+![aik file doesn't exist error](/assets/no-file.png)

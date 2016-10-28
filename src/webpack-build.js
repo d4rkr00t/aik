@@ -11,7 +11,8 @@ import {
   builderRemovingDistMsg,
   builderRunningBuildMsg,
   builderErrorMsg,
-  builderSuccessMsg
+  builderSuccessMsg,
+  fileDoesNotExistMsg
 } from './utils/messages';
 
 /**
@@ -25,6 +26,13 @@ export function removeDist(distPath: string): Promise<*> {
  * Builds project using webpack.
  */
 export default function runWebpackBuilder(filename: string, flags: CLIFlags, params: AikParams): Promise<*> {
+  try {
+    fs.statSync(filename);
+  } catch (error) {
+    fileDoesNotExistMsg(filename);
+    return Promise.resolve();
+  }
+
   const config = webpackConfigBuilder(filename, flags, params);
   const compiler = webpack(config);
 

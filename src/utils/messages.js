@@ -20,21 +20,6 @@ export function print(msg: string[]) {
 
 /**
  *
- * Common Messages
- *
- */
-
-export function eslintExtraWarningMsg() {
-  return print([
-    'You may use special comments to disable some warnings.',
-    'Use ' + chalk.yellow('// eslint-disable-next-line') + ' to ignore the next line.',
-    'Use ' + chalk.yellow('/* eslint-disable */') + ' to ignore all warnings in a file.'
-  ]);
-}
-
-
-/**
- *
  *
  * Helpers
  *
@@ -54,6 +39,30 @@ export function waitBadge() {
 
 export function errorBadge() {
   return chalk.bgRed.black(' ERROR ');
+}
+
+/**
+ *
+ * Common Messages
+ *
+ */
+
+export function eslintExtraWarningMsg() {
+  return print([
+    'You may use special comments to disable some warnings.',
+    'Use ' + chalk.yellow('// eslint-disable-next-line') + ' to ignore the next line.',
+    'Use ' + chalk.yellow('/* eslint-disable */') + ' to ignore all warnings in a file.'
+  ]);
+}
+
+export function fileDoesNotExistMsg(filename: string) {
+  clearConsole();
+  return print([
+    errorBadge() + chalk.red(' File doesn\'t exist.'),
+    '',
+    `You are trying to use ${chalk.yellow('"' + filename + '"')} as entry point, but this file doesn't exist.`,
+    `Please, choose existing file or create ${chalk.yellow('"' + filename + '"')} manualy.`
+  ]);
 }
 
 /**
@@ -115,6 +124,14 @@ export function devServerCompiledWithWarningsMsg(filename: string, flags: CLIFla
   msg.unshift(warningBadge() + ' ' + chalk.yellow(`Compiled with warnings in ${buildDuration}ms.`));
   msg.push('', chalk.dim('---------'));
   return print(msg);
+}
+
+export function devServerFileDoesNotExistMsg(filename: string) {
+  clearConsole();
+  return print([
+    warningBadge() + ` File "${chalk.yellow(filename)}" doesn\'t exist.`,
+    ''
+  ]);
 }
 
 /**

@@ -57,8 +57,8 @@ if (!input.length || flags.help) {
   console.log(pkg.version); // eslint-disable-line
 } else if (flags.build) {
   lib.aikBuild(input, flags)
-    .catch((err) => console.error(chalk.red(err))); // eslint-disable-line
+    .catch(err => err && console.error(chalk.red(err))); // eslint-disable-line
 } else {
   lib.aikDevServer(input, flags)
-    .catch((err) => console.error(chalk.red(err))); // eslint-disable-line
+    .catch(err => err && console.error(chalk.red(err))); // eslint-disable-line
 }
