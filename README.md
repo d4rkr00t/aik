@@ -104,6 +104,10 @@ Start playing around with new ideas is as simple as running a single command in 
 aik index.js
 ```
 
+Moreover:
+* Suggest to create a file if it's not exist.
+* Change server port automatically if default is in use.
+
 ### Automatically install npm modules
 
 Aik takes care of installing npm modules for you automatically using "[npm install webpack plugin](https://github.com/ericclemmons/npm-install-webpack-plugin)".
