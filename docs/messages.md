@@ -12,6 +12,10 @@
 
 ![aik dev server error](/assets/dev-error.png)
 
+### Dev Server Port Changed
+
+![aik dev server port changed](/assets/dev-port-changed.png)
+
 ### Build Started
 
 ![aik build started](/assets/build.png)
