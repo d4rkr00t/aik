@@ -20,7 +20,7 @@ export function aikDevServer(input: string[], flags: CLIFlags): Promise<*> {
   return new Promise((resolve, reject) => {
     try {
       fs.statSync(filename);
-      resolve(filename);
+      resolve();
     } catch (error) {
       devServerFileDoesNotExistMsg(filename);
 
@@ -32,7 +32,7 @@ export function aikDevServer(input: string[], flags: CLIFlags): Promise<*> {
       rl.question('Create it? (Y/n): ', (answer: string) => {
         rl.close();
         if (!answer || answer === 'Y' || answer === 'y') {
-          return resolve();
+          return resolve(true);
         }
 
         fileDoesNotExistMsg(filename);
@@ -41,7 +41,11 @@ export function aikDevServer(input: string[], flags: CLIFlags): Promise<*> {
       });
     }
   })
-  .then(() => new Promise((resolve, reject) => {
+  .then((createFile: ?boolean) => new Promise((resolve, reject) => {
+    if (!createFile) {
+      return resolve();
+    }
+
     outputFile(filename, '', err => {
       if (err) {
         return reject(err);
