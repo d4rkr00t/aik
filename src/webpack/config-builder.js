@@ -24,6 +24,13 @@ export default function webpackConfigBuilder(filename: string, flags: CLIFlags, 
       preLoaders: preloaders(),
       loaders: loaders(flags, params)
     },
+    resolve: {
+      modulesDirectories: [
+        path.dirname(path.resolve(process.cwd(), filename)),
+        'web_modules',
+        'node_modules'
+      ]
+    },
     eslint: {
       configFile: path.join(__dirname, '../eslint-config.js'),
       useEslintrc: false
