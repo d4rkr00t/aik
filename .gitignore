@@ -5,6 +5,7 @@ _docs
 tests/*
 !tests/run.sh
 !tests/_package.json
+packages
 
 # Logs
 logs
