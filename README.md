@@ -60,8 +60,9 @@ aik index.js -o
   * [Expose web server to the real world](#expose-web-server-to-the-real-world)
   * [Great Messages](#great-messages)
 * [Alternatives](#alternatives)
-* [License](#license)
+* [Contributors](#contributors)
 * [Contributing](#contributing)
+* [License](#license)
 
 ## Usage
 
@@ -224,12 +225,16 @@ More examples [here](/docs/messages.md).
 
 Stanislav Sysoev d4rkr00t@gmail.com https://github.com/d4rkr00t/aik
 
-## License
+## Contributors
 
-- **MIT** : http://opensource.org/licenses/MIT
+* [Amandeep](https://github.com/a-s-o)
 
 ## Contributing
 
 Contributions are highly welcome! This repo is commitizen friendly — please read about it [here](http://commitizen.github.io/cz-cli/).
 
 **I'll appreciate any grammatical or spelling corrections as I'm not a native speaker.**
+
+## License
+
+- **MIT** : http://opensource.org/licenses/MIT
