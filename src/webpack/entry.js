@@ -34,6 +34,7 @@ export function entryDev(filename: string, flags: CLIFlags): Entry {
 
   return {
     [entryName]: [
+      require.resolve('./assets/public-path.js'),
       `${require.resolve('webpack-dev-server/client')}?http://${host}:${flags.port}/`,
       require.resolve('webpack/hot/dev-server'),
       resolveToCwd(filename)
