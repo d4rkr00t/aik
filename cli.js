@@ -4,7 +4,8 @@
 
 const meow = require('meow');
 const chalk = require('chalk');
-const lib = require('./lib/');
+const aikDevServer = require('./lib/dev-server-command').default;
+const aikBuild = require('./lib/build-command').default;
 const pkg = require('./package.json');
 const cli = meow({
   help: [
@@ -56,9 +57,9 @@ if (!input.length || flags.help) {
 } else if (flags.version) {
   console.log(pkg.version); // eslint-disable-line
 } else if (flags.build) {
-  lib.aikBuild(input, flags)
+  aikBuild(input, flags)
     .catch(err => err && console.error(chalk.red(err))); // eslint-disable-line
 } else {
-  lib.aikDevServer(input, flags)
+  aikDevServer(input, flags)
     .catch(err => err && console.error(chalk.red(err))); // eslint-disable-line
 }
