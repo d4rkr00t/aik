@@ -25,6 +25,7 @@ export default function webpackConfigBuilder(filename: string, flags: CLIFlags, 
       loaders: loaders(flags, params)
     },
     resolve: {
+      alias: { 'react/lib/ReactMount': 'react-dom/lib/ReactMount' },
       modulesDirectories: [
         path.dirname(path.resolve(process.cwd(), filename)),
         'web_modules',
