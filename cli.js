@@ -4,6 +4,7 @@
 
 const meow = require('meow');
 const chalk = require('chalk');
+const insight = require('./lib/analytics');
 const aikDevServer = require('./lib/dev-server-command').default;
 const aikBuild = require('./lib/build-command').default;
 const pkg = require('./package.json');
@@ -52,14 +53,20 @@ const cli = meow({
 const input = cli.input || [];
 const flags = cli.flags || {};
 
-if (!input.length || flags.help) {
-  console.log(cli.help); // eslint-disable-line
-} else if (flags.version) {
-  console.log(pkg.version); // eslint-disable-line
-} else if (flags.build) {
-  aikBuild(input, flags)
-    .catch(err => err && console.error(chalk.red(err))); // eslint-disable-line
-} else {
-  aikDevServer(input, flags)
-    .catch(err => err && console.error(chalk.red(err))); // eslint-disable-line
-}
+insight.askPermission(() => {
+  if (!input.length || flags.help) {
+    insight.track([], input, flags);
+    console.log(cli.help); // eslint-disable-line
+  } else if (flags.version) {
+    insight.track([], input, flags);
+    console.log(pkg.version); // eslint-disable-line
+  } else if (flags.build) {
+    insight.track(['build'], input, flags);
+    aikBuild(input, flags)
+      .catch(err => err && console.error(chalk.red(err))); // eslint-disable-line
+  } else {
+    insight.track(['dev-server'], input, flags);
+    aikDevServer(input, flags)
+      .catch(err => err && console.error(chalk.red(err))); // eslint-disable-line
+  }
+});
