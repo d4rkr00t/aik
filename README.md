@@ -36,14 +36,14 @@ yarn global add aik # or install using yarn
 aik index.js -o
 ```
 
+![aik quick start](/assets/dev.png)
+
 ## Objectives
 
 This project aims to help to prototype fast and not supposed to be a part of any production-ready system.
 If you want solutions which are better for production usage you can take a look at the [alternatives](#alternatives) list down below.
 
 Aiks main goal is to be open for any JavaScript framework or library, even though it has extra features for React.
-
-![aik quick start](/assets/dev.png)
 
 ## Table of Content
 
