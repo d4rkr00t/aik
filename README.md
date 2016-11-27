@@ -27,6 +27,15 @@ Frontend Playground
   </a>
 </p>
 
+## Quick Start
+
+```sh
+npm i -g aik # install using npm cli
+yarn global add aik # or install using yarn
+
+aik index.js -o
+```
+
 ## Objectives
 
 This project aims to help to prototype fast and not supposed to be a part of any production-ready system.
@@ -34,24 +43,18 @@ If you want solutions which are better for production usage you can take a look 
 
 Aiks main goal is to be open for any JavaScript framework or library, even though it has extra features for React.
 
-## Quick Start
-
-```sh
-npm i -g aik
-aik index.js -o
-```
-
 ![aik quick start](/assets/dev.png)
 
 ## Table of Content
 
-* [Objectives](#objectives)
 * [Quick Start](#quick-start)
+* [Objectives](#objectives)
 * [Usage](#usage)
 * [Examples](#examples)
 * [Features](#features)
   * [Run web server with JavaScript file](#run-web-server-with-javascript-file)
   * [Automatically install npm modules](#automatically-install-npm-modules)
+  * [Relative Module Pathes](#relative-module-pathes)
   * [Custom templates](#custom-templates)
   * [Hot reload](#hot-reload)
   * [Latest and greatest technologies for frontend development](#latest-and-greatest-technologies-for-frontend-development)
@@ -119,6 +122,32 @@ import react from 'react';
 import ReactDOM from 'react-dom';
 ```
 
+### Relative Module Pathes
+Let's assume such project structure:
+
+```
+├── index.js
+└── components
+    ├── comp1
+        └── comp1.js
+    └── comp2
+        └── comp2.js
+```
+
+And if you want to import comp2.js from comp1.js you can do it using both these ways:
+
+```js
+// comp1.js
+
+// Import relative to the index.js
+import comp2 from 'components/comp2/comp2';
+
+// Or import relative to comp1.js
+import comp2 from '../comp2/comp2';
+```
+
+Choose the way you like more.
+
 ### Custom templates
 
 By default, Aik uses built-in into the "[html-webpack-plugin](https://github.com/ampedandwired/html-webpack-plugin)" template,
@@ -139,6 +168,19 @@ Aik sets up hot reloading for CSS and with an extra option '-r' for React compon
 ```sh
 aik index.js -r # option for enabling react hot loading
 ```
+
+#### Important
+##### !!!! Since version 0.13 hot reload for react works only with react 15.4+ !!!!**
+
+With older version you will get an error:
+
+```sh
+Error: Cannot resolve module 'react-dom/lib/ReactMount'
+```
+
+* Releated commit: [203ad3a](https://github.com/d4rkr00t/aik/commit/203ad3a5b9f6cb65090dfd2ef9e0994e8eed240a)
+* Issue in react-hot-loader: [gaearon/react-hot-loader#417](https://github.com/gaearon/react-hot-loader/issues/417#issuecomment-261548082)
+* Issue/Discussion about react-hot-loader + aik: [d4rkr00t/aik#132](https://github.com/d4rkr00t/aik/issues/132)
 
 ### Latest and greatest technologies for frontend development
 
