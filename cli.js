@@ -7,7 +7,6 @@ const chalk = require('chalk');
 const insight = require('./lib/analytics');
 const aikDevServer = require('./lib/dev-server-command').default;
 const aikBuild = require('./lib/build-command').default;
-const pkg = require('./package.json');
 const cli = meow({
   help: [
     chalk.green('Usage'),
@@ -54,12 +53,9 @@ const input = cli.input || [];
 const flags = cli.flags || {};
 
 insight.askPermission(() => {
-  if (!input.length || flags.help) {
+  if (!input.length) {
     insight.track([], input, flags);
     console.log(cli.help); // eslint-disable-line
-  } else if (flags.version) {
-    insight.track([], input, flags);
-    console.log(pkg.version); // eslint-disable-line
   } else if (flags.build) {
     insight.track(['build'], input, flags);
     aikBuild(input, flags)
