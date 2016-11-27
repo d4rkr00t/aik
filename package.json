@@ -1,6 +1,6 @@
 {
   "name": "aik",
-  "version": "0.12.1-wip",
+  "version": "0.13.0",
   "description": "Frontend Playground",
   "bin": "cli.js",
   "main": "lib/index.js",
