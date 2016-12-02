@@ -1,6 +1,7 @@
 /* @flow */
 
 import detectPort from 'detect-port';
+import historyApiFallback from 'connect-history-api-fallback';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import webpackConfigBuilder from './webpack/config-builder';
@@ -94,6 +95,12 @@ export default function createWebpackDevServer(filename: string, flags: CLIFlags
     return new Promise((resolve, reject) => {
       server.listen(flags.port, flags.host, (err) => {
         if (err) return reject(err);
+
+        server.use(historyApiFallback({
+          disableDotRule: true,
+          htmlAcceptHeaders: ['text/html']
+        }));
+
         resolve(server);
       });
     });
