@@ -38,10 +38,10 @@ declare type Output = {
 }
 
 declare type Loader = {
-  test: RegExp | string,
+  test?: RegExp | string,
   loader?: string,
   loaders?: string[],
-  exclude?: RegExp
+  exclude?: RegExp | RegExp[]
 }
 
 declare type WebPackConfig = {

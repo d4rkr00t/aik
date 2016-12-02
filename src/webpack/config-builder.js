@@ -17,7 +17,7 @@ export default function webpackConfigBuilder(filename: string, flags: CLIFlags, 
     entry: entry(filename, flags, params),
     output: output(filename, flags, params),
     debug: !params.isProd,
-    devtool: !params.isProd && 'eval',
+    devtool: !params.isProd && 'cheap-module-source-map',
     plugins: plugins(params),
     bail: params.isProd,
     module: {
@@ -26,6 +26,7 @@ export default function webpackConfigBuilder(filename: string, flags: CLIFlags, 
     },
     resolve: {
       alias: { 'react/lib/ReactMount': 'react-dom/lib/ReactMount' },
+      extensions: ['.js', '.json', '.jsx', ''],
       modulesDirectories: [
         path.dirname(path.resolve(process.cwd(), filename)),
         'web_modules',
