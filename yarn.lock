@@ -161,10 +161,6 @@ assert@^1.1.1:
   dependencies:
     util "0.10.3"
 
-ast-types@0.9.2:
-  version "0.9.2"
-  resolved "https://registry.yarnpkg.com/ast-types/-/ast-types-0.9.2.tgz#2cc19979d15c655108bf565323b8e7ee38751f6b"
-
 async-each@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/async-each/-/async-each-1.0.1.tgz#19d386a1d9edc6e7c1c85d388aedbcc56d33602d"
@@ -1793,13 +1789,6 @@ es6-symbol@~3.1, es6-symbol@~3.1.0, es6-symbol@3:
     d "~0.1.1"
     es5-ext "~0.10.11"
 
-es6-templates@^0.2.2:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/es6-templates/-/es6-templates-0.2.3.tgz#5cb9ac9fb1ded6eb1239342b81d792bbb4078ee4"
-  dependencies:
-    recast "~0.11.12"
-    through "~2.3.6"
-
 es6-weak-map@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/es6-weak-map/-/es6-weak-map-2.0.1.tgz#0d2bbd8827eb5fb4ba8f97fbfea50d43db21ea81"
@@ -1897,10 +1886,6 @@ espree@^3.3.1:
 esprima@^2.6.0:
   version "2.7.3"
   resolved "https://registry.yarnpkg.com/esprima/-/esprima-2.7.3.tgz#96e3b70d5779f6ad49cd032673d1c312767ba581"
-
-esprima@~3.1.0:
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/esprima/-/esprima-3.1.2.tgz#954b5d19321ca436092fa90f06d6798531fe8184"
 
 esrecurse@^4.1.0:
   version "4.1.0"
@@ -2454,17 +2439,7 @@ html-comment-regex@^1.1.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/html-comment-regex/-/html-comment-regex-1.1.1.tgz#668b93776eaae55ebde8f3ad464b307a4963625e"
 
-html-loader@^0.4.4:
-  version "0.4.4"
-  resolved "https://registry.yarnpkg.com/html-loader/-/html-loader-0.4.4.tgz#f2b5b9acd5e035ff3ab5fd369c13c97a7bb014da"
-  dependencies:
-    es6-templates "^0.2.2"
-    fastparse "^1.1.1"
-    html-minifier "^3.0.1"
-    loader-utils "^0.2.15"
-    object-assign "^4.1.0"
-
-html-minifier@^3.0.1, html-minifier@^3.1.0:
+html-minifier@^3.1.0:
   version "3.2.3"
   resolved "https://registry.yarnpkg.com/html-minifier/-/html-minifier-3.2.3.tgz#d2ff536e24d95726c332493d8f77d84dbed85372"
   dependencies:
@@ -2994,7 +2969,7 @@ load-json-file@^1.0.0:
     pinkie-promise "^2.0.0"
     strip-bom "^2.0.0"
 
-loader-utils@^0.2.11, loader-utils@^0.2.15, loader-utils@^0.2.16, loader-utils@^0.2.3, loader-utils@^0.2.7, loader-utils@~0.2.2, loader-utils@~0.2.5, loader-utils@0.2.x:
+loader-utils@^0.2.11, loader-utils@^0.2.16, loader-utils@^0.2.3, loader-utils@^0.2.7, loader-utils@~0.2.2, loader-utils@~0.2.5, loader-utils@0.2.x:
   version "0.2.16"
   resolved "https://registry.yarnpkg.com/loader-utils/-/loader-utils-0.2.16.tgz#f08632066ed8282835dff88dfb52704765adee6d"
   dependencies:
@@ -4251,15 +4226,6 @@ readline2@^1.0.1:
     is-fullwidth-code-point "^1.0.0"
     mute-stream "0.0.5"
 
-recast@~0.11.12:
-  version "0.11.17"
-  resolved "https://registry.yarnpkg.com/recast/-/recast-0.11.17.tgz#67e829df49ef8ea822381cc516d305411e60bad8"
-  dependencies:
-    ast-types "0.9.2"
-    esprima "~3.1.0"
-    private "~0.1.5"
-    source-map "~0.5.0"
-
 rechoir@^0.6.2:
   version "0.6.2"
   resolved "https://registry.yarnpkg.com/rechoir/-/rechoir-0.6.2.tgz#85204b54dba82d5742e28c96756ef43af50e3384"
@@ -4582,7 +4548,7 @@ source-map@^0.4.4, source-map@~0.4.1, source-map@0.4.x:
   dependencies:
     amdefine ">=0.0.4"
 
-source-map@^0.5.0, source-map@^0.5.3, source-map@^0.5.6, source-map@~0.5.0, source-map@~0.5.1, source-map@~0.5.3:
+source-map@^0.5.0, source-map@^0.5.3, source-map@^0.5.6, source-map@~0.5.1, source-map@~0.5.3:
   version "0.5.6"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.5.6.tgz#75ce38f52bf0733c5a7f0c118d81334a2bb5f412"
 
@@ -4807,7 +4773,7 @@ thenify-all@^1.0.0, thenify-all@^1.6.0:
   dependencies:
     any-promise "^1.0.0"
 
-through@^2.3.6, "through@>=2.2.7 <3", through@~2.3.6, through@2:
+through@^2.3.6, "through@>=2.2.7 <3", through@2:
   version "2.3.8"
   resolved "https://registry.yarnpkg.com/through/-/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
 
