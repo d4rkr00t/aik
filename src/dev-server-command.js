@@ -3,7 +3,7 @@
 import fs from 'fs';
 import readline from 'readline';
 import opn from 'opn';
-import outputFile from 'output-file';
+import { outputFile } from 'fs-extra';
 import createWebpackDevServer from './webpack-dev-server';
 import createNgrokTunnel from './ngrok';
 import createParams from './utils/params';
