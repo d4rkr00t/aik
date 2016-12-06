@@ -43,7 +43,8 @@
     "pp": "npm run prepare",
     "major": "pmm major",
     "minor": "pmm minor",
-    "patch": "pmm patch"
+    "patch": "pmm patch",
+    "test": "./tests/run.sh"
   },
   "author": {
     "name": "Stanislav Sysoev",
