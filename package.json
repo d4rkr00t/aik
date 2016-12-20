@@ -79,7 +79,7 @@
     "npm-install-webpack-plugin": "github:d4rkr00t/npm-install-webpack-plugin#check-exact2",
     "opn": "4.0.2",
     "postcss-loader": "1.2.1",
-    "postcss-partial-import": "2.1.0",
+    "postcss-partial-import": "3.1.0",
     "precss": "1.4.0",
     "react-hot-loader": "1.3.1",
     "style-loader": "0.13.1",
