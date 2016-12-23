@@ -55,7 +55,7 @@
     "validate"
   ],
   "dependencies": {
-    "autoprefixer": "6.5.4",
+    "autoprefixer": "6.6.0",
     "babel-core": "6.21.0",
     "babel-loader": "6.2.9",
     "babel-preset-latest": "6.16.0",
