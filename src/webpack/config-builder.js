@@ -37,9 +37,9 @@ export default function webpackConfigBuilder(filename: string, flags: CLIFlags, 
       configFile: path.join(__dirname, '../eslint-config.js'),
       useEslintrc: false
     },
-    postcss: function (wp) {
+    postcss() {
       return [
-        postcssPartialImport({ addDependencyTo: wp }),
+        postcssPartialImport(),
         autoprefixer(),
         precss()
       ];
