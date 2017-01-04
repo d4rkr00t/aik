@@ -64,7 +64,7 @@ export function createCSSLoaderDev(flags: CLIFlags): Loader {
     test: /\.css$/,
     loaders: [
       require.resolve('style-loader'),
-      require.resolve('css-loader') + '?sourceMap' + (flags.cssmodules ? '&modules&importLoaders=1' : ''),
+      require.resolve('css-loader') + (flags.cssmodules ? '?modules&importLoaders=1' : ''),
       require.resolve('postcss-loader')
     ]
   };
