@@ -99,9 +99,8 @@ export function loaders(flags: CLIFlags, params: AikParams): Loader[] {
         /\.jsx?$/,
         /\.json$/
       ],
-      loader: require.resolve('url-loader'),
+      loader: require.resolve('file-loader'),
       query: {
-        limit: 1000,
         name: isProd ? '[name].[hash:8].[ext]' : '[name].[ext]'
       }
     }
