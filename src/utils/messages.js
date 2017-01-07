@@ -8,7 +8,7 @@ import { isLikelyASyntaxError, formatMessage } from './error-helpers';
  */
 export function clearConsole(sep?: boolean) {
   sep && process.stdout.write(chalk.dim('----------------------------------\n'));
-  process.stdout.write('\x1B[2J\x1B[0f');
+  process.stdout.write(process.platform === 'win32' ? '\x1Bc' : '\x1B[2J\x1B[3J\x1B[H');
 }
 
 /**
