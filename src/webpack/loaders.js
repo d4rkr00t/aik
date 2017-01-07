@@ -92,6 +92,7 @@ export function loaders(flags: CLIFlags, params: AikParams): Loader[] {
     },
     {
       exclude: [
+        /\/$/,
         /\.html$/,
         /\.ejs$/,
         /\.css$/,
