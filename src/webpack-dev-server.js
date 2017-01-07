@@ -85,6 +85,12 @@ export default function createWebpackDevServer(filename: string, flags: CLIFlags
     const config = webpackConfigBuilder(filename, flags, params);
     const compiler = createWebpackCompiler(filename, flags, params, config);
     const server = new WebpackDevServer(compiler, {
+      // Enable gzip compression of generated files.
+      compress: true,
+
+      // Silence WebpackDevServer's own logs since they're generally not useful.
+      // It will still show compile warnings and errors with this setting.
+      clientLogLevel: 'none',
       historyApiFallback: true,
       hot: true,
       colors: true,
