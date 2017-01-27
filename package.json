@@ -75,7 +75,7 @@
     "insight": "0.8.4",
     "json-loader": "0.5.4",
     "meow": "3.7.0",
-    "ngrok": "2.2.5",
+    "ngrok": "2.2.6",
     "npm-install-webpack-plugin": "github:d4rkr00t/npm-install-webpack-plugin#check-exact2",
     "opn": "4.0.2",
     "postcss-loader": "1.2.2",
