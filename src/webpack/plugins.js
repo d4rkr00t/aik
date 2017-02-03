@@ -56,7 +56,9 @@ export function pluginsDev(template: string | false): Array<any> {
     new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"development"' }),
     new webpack.HotModuleReplacementPlugin(),
     htmlWebpackPlugin(template),
-    npmInstallPlugin()
+    npmInstallPlugin({
+      quiet: true
+    })
   ];
 }
 
