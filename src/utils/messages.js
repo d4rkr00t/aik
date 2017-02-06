@@ -162,7 +162,7 @@ export function devServerModuleDoesntExists(module: string, filename: string) {
 
 export function devServerReactRequired() {
   return print([
-    warningBadge() + ' ' + chalk.yellow(`"react" required.`),
+    warningBadge() + ' ' + chalk.yellow('"react" required.'),
     '',
     'In order to make "react-hot-loader" work, "react" and "react-dom" are required.',
     '',
