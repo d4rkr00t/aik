@@ -134,6 +134,32 @@ export function devServerFileDoesNotExistMsg(filename: string) {
   ]);
 }
 
+export function devServerRestartMsg(module: string) {
+  clearConsole(true);
+  return print([
+    warningBadge() + ' ' + chalk.yellow(`New npm module was added (${module}).`),
+    '',
+    'Restarting webpack-dev-server is requried.',
+    '',
+    'Please be patient and wait until restart completes, otherwise some changes might not be tracked.',
+    ''
+  ]);
+}
+
+export function devServerModuleDoesntExists(module: string, filename: string) {
+  clearConsole(true);
+  return print([
+    errorBadge() + ' ' + chalk.red(`Module '${module}' doesn't exists.`),
+    '',
+    `Error in ${filename}`,
+    '',
+    `Webpack tried to resolve module ${chalk.bgYellow.black(' ' + module + ' ')} which doesn't exist.`,
+    '',
+    `It's likely caused by ${chalk.yellow('typo')} in the module name.`,
+    ''
+  ]);
+}
+
 /**
  *
  * Build Messages

@@ -2,6 +2,7 @@
 
 import detectPort from 'detect-port';
 import historyApiFallback from 'connect-history-api-fallback';
+import resolveModule from 'resolve';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import webpackConfigBuilder from './webpack/config-builder';
@@ -13,13 +14,15 @@ import {
   devServerInvalidBuildMsg,
   devServerCompiledSuccessfullyMsg,
   devServerFailedToCompileMsg,
-  devServerCompiledWithWarningsMsg
+  devServerCompiledWithWarningsMsg,
+  devServerRestartMsg,
+  devServerModuleDoesntExists
 } from './utils/messages';
 
 /**
  * On done handler for webpack compiler.
  */
-export function onDone(filename: string, flags: CLIFlags, params: AikParams, stats: Object) {
+export function onDone(filename: string, flags: CLIFlags, params: AikParams, compiler: any, invalidate: Function, stats: Object) { // eslint-disable-line
   const hasErrors = stats.hasErrors();
   const hasWarnings = stats.hasWarnings();
   const buildDuration: number = stats.endTime - stats.startTime;
@@ -37,6 +40,12 @@ export function onDone(filename: string, flags: CLIFlags, params: AikParams, sta
   let formattedErrors = json.errors.map(message => 'Error in ' + formatMessage(message));
 
   if (hasErrors) {
+    if (formattedErrors.filter(err => err.match('Cannot resolve module')).length) {
+      invalidate(formattedErrors);
+      testUtils();
+      return;
+    }
+
     devServerFailedToCompileMsg();
 
     // If there are any syntax errors, show just them.
@@ -65,10 +74,10 @@ export function onDone(filename: string, flags: CLIFlags, params: AikParams, sta
 /**
  * Creates webpack compiler.
  */
-export function createWebpackCompiler(filename: string, flags: CLIFlags, params: AikParams, config: Object) {
+export function createWebpackCompiler(filename: string, flags: CLIFlags, params: AikParams, config: Object, invalidate: Function) { // eslint-disable-line
   const compiler = webpack(config);
   compiler.plugin('invalid', devServerInvalidBuildMsg);
-  compiler.plugin('done', onDone.bind(null, filename, flags, params));
+  compiler.plugin('done', onDone.bind(null, filename, flags, params, compiler, invalidate));
   return compiler;
 }
 
@@ -82,9 +91,31 @@ export default function createWebpackDevServer(filename: string, flags: CLIFlags
       flags.port = port;
     }
 
+    let server: WebpackDevServer; // eslint-disable-line
+    const invalidate = (errors: string[]) => {
+      if (!server) return;
+
+      const error = errors[0] || '';
+      const fileWithError = (error.match(/Error in (.+)\n/) || [])[1];
+      let moduleName = (error.match(/Module not found: Error: Cannot resolve module '(.+)'/) || [])[1];
+
+      if (!moduleName) return;
+
+      moduleName = moduleName.replace(/'/gmi, '');
+
+      try {
+        resolveModule.sync(moduleName, { basedir: process.cwd() });
+        devServerRestartMsg(moduleName);
+        server.close();
+        createWebpackDevServer(filename, flags, params);
+      } catch (e) { // eslint-disable-line
+        devServerModuleDoesntExists(moduleName, fileWithError);
+      }
+    };
     const config = webpackConfigBuilder(filename, flags, params);
-    const compiler = createWebpackCompiler(filename, flags, params, config);
-    const server = new WebpackDevServer(compiler, {
+    const compiler = createWebpackCompiler(filename, flags, params, config, invalidate);
+
+    server = new WebpackDevServer(compiler, {
       // Enable gzip compression of generated files.
       compress: true,
 
