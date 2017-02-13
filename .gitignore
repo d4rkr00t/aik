@@ -6,6 +6,7 @@ tests/*
 !tests/run.sh
 !tests/_package.json
 packages
+lib
 
 # Logs
 logs
