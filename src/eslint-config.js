@@ -42,6 +42,7 @@ module.exports = {
     'no-unreachable': 'warn',
     'use-isnan': 'warn',
     'valid-typeof': 'warn',
+    'require-await': 'warn',
 
     // Best practices
     'array-callback-return': 'warn',
@@ -68,6 +69,7 @@ module.exports = {
     'no-useless-call': 'warn',
     'no-useless-escape': 'warn',
     'no-useless-concat': 'warn',
+    'no-useless-return': 'warn',
     'no-void': 'warn',
     'no-with': 'warn',
 
