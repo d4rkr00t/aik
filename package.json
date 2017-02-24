@@ -66,7 +66,7 @@
     "eslint": "3.16.1",
     "eslint-loader": "1.6.3",
     "eslint-plugin-react": "6.10.0",
-    "extract-text-webpack-plugin": "2.0.0",
+    "extract-text-webpack-plugin": "1.0.1",
     "file-loader": "0.10.0",
     "fs-extra": "2.0.0",
     "gzip-size": "3.0.0",
