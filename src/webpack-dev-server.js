@@ -124,7 +124,9 @@ export default function createWebpackDevServer(filename: string, flags: CLIFlags
       clientLogLevel: 'none',
       historyApiFallback: true,
       hot: true,
-      colors: true,
+      overlay: {
+        errors: true
+      },
       quiet: true,
       stats: { colors: true }
     });
