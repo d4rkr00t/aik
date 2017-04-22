@@ -33,7 +33,6 @@ declare type Entry = Object
 declare type Output = {
   path: string,
   filename: string,
-  hash: boolean,
   publicPath?: string
 }
 
@@ -47,19 +46,12 @@ declare type Loader = {
 declare type WebPackConfig = {
   entry: Entry,
   output: Output,
-  debug: boolean,
   devtool: boolean | string,
   plugins: Array<any>,
   bail: boolean,
   module: {
-    preLoaders: Loader[],
-    loaders: Loader[]
-  },
-  eslint: {
-    configFile: string,
-    useEslintrc: boolean
-  },
-  postcss: () => Array<any>
+    rules: Loader[]
+  }
 }
 
 declare type BuildStats = {

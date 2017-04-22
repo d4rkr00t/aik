@@ -53,6 +53,7 @@ export function pluginsProd(template: string | false): Array<any> {
  */
 export function pluginsDev(template: string | false): Array<any> {
   return [
+    new webpack.LoaderOptionsPlugin({ debug: true }),
     new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"development"' }),
     new webpack.HotModuleReplacementPlugin(),
     htmlWebpackPlugin(template),

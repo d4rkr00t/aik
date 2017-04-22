@@ -13,7 +13,6 @@ export function outputProd(filename: string, flags: CLIFlags, params: AikParams)
   return {
     path: resolveToCwd(params.dist.short),
     filename: `${path.basename(filename, '.js')}.[hash:8].js`,
-    hash: true,
     publicPath
   };
 }
@@ -24,8 +23,7 @@ export function outputProd(filename: string, flags: CLIFlags, params: AikParams)
 export function outputDev(filename: string): Output {
   return {
     path: path.join(process.cwd(), path.dirname(filename)),
-    filename: path.basename(filename),
-    hash: true
+    filename: path.basename(filename)
   };
 }
 
