@@ -1,3 +1,4 @@
+// prettier-ignore
 {
   "parser": "babel-eslint",
   "env": {
@@ -157,7 +158,7 @@
     "func-names": [0],
     "func-style": [0],
     "indent": [2, 2],
-    "jsx-quotes": [2, "prefer-single"],
+    "jsx-quotes": [2, "prefer-double"],
     "key-spacing": [2, {
       "beforeColon": false,
       "afterColon": true
@@ -200,10 +201,10 @@
     }],
     "one-var-declaration-per-line": [0],
     "operator-assignment": [0],
-    "operator-linebreak": [2, "before"],
+    "operator-linebreak": [0],
     "padded-blocks": [0],
     "quote-props": [2, "as-needed"],
-    "quotes": [2, "single"],
+    "quotes": [0],
     "require-jsdoc": [0],
     "semi": [2, "always"],
     "semi-spacing": [2, {
