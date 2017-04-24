@@ -72,6 +72,21 @@ export function fileDoesNotExistMsg(filename: string) {
   ]);
 }
 
+export function foundPackageJson() {
+  return print([
+    "",
+    warningBadge() +
+      " " +
+      chalk.yellow('File "package.json" has been discovered.'),
+    "",
+    `Since ${chalk.yellow('"node_modules"')} folder doesn't exist and in order to avoid possible artifacts caused by`,
+    `accidentally updated versions of npm modules Aik will run ${chalk.yellow('"npm install"')} in current directory.`,
+    "",
+    waitBadge() + " " + chalk.blue("Installing npm modules..."),
+    ""
+  ]);
+}
+
 /**
  *
  * Dev Server Messages
@@ -193,11 +208,12 @@ export function devServerModuleDoesntExists(module: string, filename: string) {
 
 export function devServerReactRequired() {
   return print([
+    "",
     warningBadge() + " " + chalk.yellow('"react" required.'),
     "",
     'In order to make "react-hot-loader" work, "react" and "react-dom" are required.',
     "",
-    chalk.blue("Installing required modules..."),
+    waitBadge() + " " + chalk.blue("Installing required modules..."),
     ""
   ]);
 }

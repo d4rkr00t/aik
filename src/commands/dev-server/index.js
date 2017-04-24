@@ -1,5 +1,4 @@
 /* @flow */
-
 import { execSync } from "child_process";
 import fs from "fs";
 import readline from "readline";
@@ -17,6 +16,7 @@ import {
   devServerInstallingModuleMsg,
   devServerSkipInstallingModuleMsg
 } from "./../../utils/messages";
+import preinstallNpmModules from "../../preinstall-npm-modules";
 
 export function requestCreatingAnEntryPoint(
   filename: string
@@ -82,12 +82,14 @@ export default async function aikDevServer(
     const shouldCreateAnEntryPoint = await requestCreatingAnEntryPoint(
       filename
     );
+
     if (shouldCreateAnEntryPoint) {
       await createFile(filename);
     }
   }
 
   devServerInvalidBuildMsg();
+  preinstallNpmModules(process.cwd());
 
   if (flags.react) {
     devServerReactRequired();
