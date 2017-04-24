@@ -7,6 +7,6 @@ install:
   - npm install
 script:
   - npm run build
-  - npm run validate
+  - npm run ci:validate
 after_success:
-  - npm run github-release
+  - npm run ci:github-release

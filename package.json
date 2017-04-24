@@ -32,17 +32,16 @@
     "node": ">=4"
   },
   "scripts": {
-    "audit": "nsp check package",
     "prebuild": "rimraf ./lib",
     "build": "babel -d ./lib ./src",
-    "github-release": "conventional-github-releaser -p angular",
-    "lint": "eslint src",
-    "validate": "npm run lint && flow",
+    "ci:github-release": "conventional-github-releaser -p angular",
+    "ci:validate": "eslint src && flow",
+    "lint:flow": "flow",
+    "lint:staged": "lint-staged",
     "prepare": "npm run build && npm run validate",
-    "pp": "npm run prepare",
-    "major": "pmm major",
-    "minor": "pmm minor",
-    "patch": "pmm patch",
+    "release:major": "pmm major",
+    "release:minor": "pmm minor",
+    "release:patch": "pmm patch",
     "test": "./tests/run.sh"
   },
   "author": {
@@ -51,8 +50,16 @@
     "url": "https://github.com/d4rkr00t/aik"
   },
   "pre-commit": [
-    "validate"
+    "lint:flow",
+    "lint:staged"
   ],
+  "lint-staged": {
+    "*.js": [
+      "eslint",
+      "prettier --write",
+      "git add"
+    ]
+  },
   "dependencies": {
     "autoprefixer": "6.7.7",
     "babel-core": "6.24.1",
@@ -97,10 +104,10 @@
     "cz-conventional-changelog": "2.0.0",
     "eslint-plugin-flowtype": "2.32.1",
     "flow-bin": "0.44.2",
-    "nsp": "2.6.3",
+    "lint-staged": "^3.4.0",
     "pmm": "1.3.1",
     "pre-commit": "1.2.2",
-    "prettier": "^1.2.2",
+    "prettier": "1.2.2",
     "rimraf": "2.6.1"
   },
   "config": {
