@@ -35,3 +35,7 @@
 ### File Doesn't Exist Error
 
 ![aik file doesn't exist error](/assets/no-file.png)
+
+### Pre-installing NPM Modules
+
+![aik pre-installing npm modules](/assets/preinstall-npm-modules.png)
