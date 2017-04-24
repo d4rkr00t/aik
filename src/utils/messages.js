@@ -105,10 +105,6 @@ export function devServerBanner(
     msg.push(chalk.magenta("Ngrok:            ") + chalk.cyan(params.ngrok));
   }
 
-  if (flags.cssmodules) {
-    msg.push(chalk.magenta("CSS Modules:      ") + chalk.yellow("enabled"));
-  }
-
   if (flags.react) {
     msg.push(chalk.magenta("React Hot Loader: ") + chalk.yellow("enabled"));
   }
@@ -243,11 +239,6 @@ export function builderBanner(
   if (base && typeof base === "string") {
     msg.push(chalk.magenta("Base path:       ") + base);
   }
-
-  msg.push(
-    chalk.magenta("CSS Modules:     ") +
-      (flags.cssmodules ? chalk.green("enabled") : "disabled")
-  );
 
   return print(msg);
 }

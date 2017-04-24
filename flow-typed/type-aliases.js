@@ -1,4 +1,4 @@
-declare type CLIInput = string[]
+declare type CLIInput = string[];
 
 declare type CLIFlags = {
   build: string | boolean,
@@ -9,9 +9,8 @@ declare type CLIFlags = {
   react: boolean,
   ngrok: boolean,
   open: boolean,
-  cssmodules: boolean,
-  version: boolean,
-}
+  version: boolean
+};
 
 declare type AikParams = {
   isProd: boolean,
@@ -24,24 +23,24 @@ declare type AikParams = {
     path: string,
     short: string
   }
-}
+};
 
-declare type NgrokUrl = string | false
+declare type NgrokUrl = string | false;
 
-declare type Entry = Object
+declare type Entry = Object;
 
 declare type Output = {
   path: string,
   filename: string,
   publicPath?: string
-}
+};
 
 declare type Loader = {
   test?: RegExp | string,
   loader?: string,
   loaders?: string[],
   exclude?: RegExp | RegExp[]
-}
+};
 
 declare type WebPackConfig = {
   entry: Entry,
@@ -52,15 +51,15 @@ declare type WebPackConfig = {
   module: {
     rules: Loader[]
   }
-}
+};
 
 declare type BuildStats = {
   buildDuration: number,
   assets: BuildStatAsset[]
-}
+};
 
 declare type BuildStatAsset = {
   name: string,
   size: number,
   sizeGz: number
-}
+};

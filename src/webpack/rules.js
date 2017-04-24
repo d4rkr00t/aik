@@ -1,9 +1,9 @@
 /* @flow */
-import path from 'path';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import autoprefixer from 'autoprefixer';
-import precss from 'precss';
-import postcssPartialImport from 'postcss-partial-import';
+import path from "path";
+import ExtractTextPlugin from "extract-text-webpack-plugin";
+import autoprefixer from "autoprefixer";
+import precss from "precss";
+import postcssPartialImport from "postcss-partial-import";
 
 /**
  * Creates loader for JavaScript files and add some extra features for dev server, like hot reloading.
@@ -11,16 +11,19 @@ import postcssPartialImport from 'postcss-partial-import';
 export function createJSLoader(flags: CLIFlags, isProd: boolean): any[] {
   const jsLoaders: { loader: string, query?: any }[] = [
     {
-      loader: require.resolve('babel-loader'),
+      loader: require.resolve("babel-loader"),
       query: {
-        presets: [require.resolve('babel-preset-react'), require.resolve('babel-preset-latest')]
+        presets: [
+          require.resolve("babel-preset-react"),
+          require.resolve("babel-preset-latest")
+        ]
       }
     }
   ];
 
   if (!isProd && flags.react) {
     jsLoaders.unshift({
-      loader: require.resolve('react-hot-loader')
+      loader: require.resolve("react-hot-loader")
     });
   }
 
@@ -30,29 +33,24 @@ export function createJSLoader(flags: CLIFlags, isProd: boolean): any[] {
 /**
  * Creates production loader for CSS files.
  */
-export function createCSSLoaderProd(flags: CLIFlags): Loader {
+export function createCSSLoaderProd(): Loader {
   return {
     test: /\.css$/,
     use: ExtractTextPlugin.extract({
-      fallback: require.resolve('style-loader'),
+      fallback: require.resolve("style-loader"),
       use: [
         {
-          loader: require.resolve('css-loader'),
+          loader: require.resolve("css-loader"),
           options: {
-            modules: flags.cssmodules,
             importLoaders: 1,
             minimize: true
           }
         },
         {
-          loader: require.resolve('postcss-loader'),
+          loader: require.resolve("postcss-loader"),
           options: {
             plugins() {
-              return [
-                postcssPartialImport(),
-                autoprefixer(),
-                precss()
-              ];
+              return [postcssPartialImport(), autoprefixer(), precss()];
             }
           }
         }
@@ -64,32 +62,27 @@ export function createCSSLoaderProd(flags: CLIFlags): Loader {
 /**
  * Creates dev server loader for CSS files.
  */
-export function createCSSLoaderDev(flags: CLIFlags): Loader {
+export function createCSSLoaderDev(): Loader {
   return {
     test: /\.css$/,
     use: [
       {
-        loader: require.resolve('style-loader'),
+        loader: require.resolve("style-loader"),
         options: {
           convertToAbsoluteUrls: true
         }
       },
       {
-        loader: require.resolve('css-loader'),
+        loader: require.resolve("css-loader"),
         options: {
-          modules: flags.cssmodules,
           importLoaders: 1
         }
       },
       {
-        loader: require.resolve('postcss-loader'),
+        loader: require.resolve("postcss-loader"),
         options: {
           plugins() {
-            return [
-              postcssPartialImport(),
-              autoprefixer(),
-              precss()
-            ];
+            return [postcssPartialImport(), autoprefixer(), precss()];
           }
         }
       }
@@ -105,16 +98,14 @@ export function rules(flags: CLIFlags, params: AikParams): Loader[] {
   const jsLoaders = createJSLoader(flags, isProd);
 
   return [
-    isProd
-      ? createCSSLoaderProd(flags)
-      : createCSSLoaderDev(flags),
+    isProd ? createCSSLoaderProd() : createCSSLoaderDev(),
     {
       test: /\.jsx?$/,
-      enforce: 'pre',
+      enforce: "pre",
       exclude: /(node_modules|bower_components)/,
-      loader: require.resolve('eslint-loader'),
+      loader: require.resolve("eslint-loader"),
       options: {
-        configFile: path.join(__dirname, '..', 'eslint-config.js'),
+        configFile: path.join(__dirname, "..", "eslint-config.js"),
         useEslintrc: false
       }
     },
@@ -125,20 +116,13 @@ export function rules(flags: CLIFlags, params: AikParams): Loader[] {
     },
     {
       test: /\.json$/,
-      use: require.resolve('json-loader')
+      use: require.resolve("json-loader")
     },
     {
-      exclude: [
-        /\/$/,
-        /\.html$/,
-        /\.ejs$/,
-        /\.css$/,
-        /\.jsx?$/,
-        /\.json$/
-      ],
-      loader: require.resolve('file-loader'),
+      exclude: [/\/$/, /\.html$/, /\.ejs$/, /\.css$/, /\.jsx?$/, /\.json$/],
+      loader: require.resolve("file-loader"),
       query: {
-        name: isProd ? '[name].[hash:8].[ext]' : '[name].[ext]'
+        name: isProd ? "[name].[hash:8].[ext]" : "[name].[ext]"
       }
     }
   ];
