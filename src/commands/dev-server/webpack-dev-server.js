@@ -4,10 +4,13 @@ import historyApiFallback from "connect-history-api-fallback";
 import resolveModule from "resolve";
 import webpack from "webpack";
 import WebpackDevServer from "webpack-dev-server";
-import webpackConfigBuilder from "./webpack/config-builder";
-import detectPort from "./utils/detect-port";
-import testUtils from "./utils/test-utils";
-import { isLikelyASyntaxError, formatMessage } from "./utils/error-helpers";
+import webpackConfigBuilder from "./../../webpack/config-builder";
+import detectPort from "./../../utils/detect-port";
+import testUtils from "./../../utils/test-utils";
+import {
+  isLikelyASyntaxError,
+  formatMessage
+} from "./../../utils/error-helpers";
 import {
   clearConsole,
   eslintExtraWarningMsg,
@@ -17,7 +20,7 @@ import {
   devServerCompiledWithWarningsMsg,
   devServerRestartMsg,
   devServerModuleDoesntExists
-} from "./utils/messages";
+} from "./../../utils/messages";
 
 /**
  * On done handler for webpack compiler.

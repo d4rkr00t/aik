@@ -1,6 +1,6 @@
 /* @flow */
 import runWebpackBuilder from "./webpack-build";
-import createParams from "./utils/params";
+import createParams from "./../../utils/params";
 
 /**
  * Aik build command

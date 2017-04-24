@@ -5,8 +5,8 @@
 const meow = require("meow");
 const chalk = require("chalk");
 const insight = require("./lib/analytics");
-const aikDevServer = require("./lib/dev-server-command").default;
-const aikBuild = require("./lib/build-command").default;
+const aikDevServer = require("./lib/commands/dev-server").default;
+const aikBuild = require("./lib/commands/build").default;
 const cli = meow(
   {
     help: [

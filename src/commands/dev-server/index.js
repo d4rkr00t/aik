@@ -8,7 +8,7 @@ import { outputFile } from "fs-extra";
 import resolveModule from "resolve";
 import createWebpackDevServer from "./webpack-dev-server";
 import createNgrokTunnel from "./ngrok";
-import createParams from "./utils/params";
+import createParams from "./../../utils/params";
 import {
   devServerFileDoesNotExistMsg,
   devServerInvalidBuildMsg,
@@ -16,7 +16,7 @@ import {
   devServerReactRequired,
   devServerInstallingModuleMsg,
   devServerSkipInstallingModuleMsg
-} from "./utils/messages";
+} from "./../../utils/messages";
 
 export function requestCreatingAnEntryPoint(
   filename: string

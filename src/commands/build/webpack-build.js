@@ -1,10 +1,10 @@
 /* @flow */
 
-import fs from 'fs-extra';
-import path from 'path';
-import webpack from 'webpack';
-import gzipSize from 'gzip-size';
-import webpackConfigBuilder from './webpack/config-builder';
+import fs from "fs-extra";
+import path from "path";
+import webpack from "webpack";
+import gzipSize from "gzip-size";
+import webpackConfigBuilder from "./../../webpack/config-builder";
 import {
   builderBanner,
   builderRemovingDistMsg,
@@ -12,7 +12,7 @@ import {
   builderErrorMsg,
   builderSuccessMsg,
   fileDoesNotExistMsg
-} from './utils/messages';
+} from "./../../utils/messages";
 
 /**
  * Removes distribute folder to prevent duplicates.
@@ -24,7 +24,11 @@ export function removeDist(distPath: string): Promise<*> {
 /**
  * Builds project using webpack.
  */
-export default async function runWebpackBuilder(filename: string, flags: CLIFlags, params: AikParams): Promise<*> {
+export default async function runWebpackBuilder(
+  filename: string,
+  flags: CLIFlags,
+  params: AikParams
+): Promise<*> {
   try {
     fs.statSync(filename);
   } catch (error) {
@@ -51,8 +55,11 @@ export default async function runWebpackBuilder(filename: string, flags: CLIFlag
 
       const json = stats.toJson({}, true);
       const buildDuration: number = stats.endTime - stats.startTime;
-      const assets:BuildStatAsset[] = json.assets.map(item => {
-        const content: string = fs.readFileSync(path.join(params.dist.path, item.name), 'utf-8');
+      const assets: BuildStatAsset[] = json.assets.map(item => {
+        const content: string = fs.readFileSync(
+          path.join(params.dist.path, item.name),
+          "utf-8"
+        );
         return {
           name: item.name,
           size: item.size / 1024,
