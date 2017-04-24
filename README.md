@@ -43,7 +43,7 @@ aik index.js -o
 This project aims to help to prototype fast and not supposed to be a part of any production-ready system.
 If you want solutions which are better for production usage you can take a look at the [alternatives](#alternatives) list down below.
 
-Aiks main goal is to be open for any JavaScript framework or library, even though it has extra features for React.
+Aik's main goal is to be open for any JavaScript framework or a library, even though it has extra features for React.
 
 ## Table of Content
 
@@ -53,7 +53,7 @@ Aiks main goal is to be open for any JavaScript framework or library, even thoug
 * [Examples](#examples)
 * [Features](#features)
   * [Run web server with JavaScript file](#run-web-server-with-javascript-file)
-  * [Automatically install npm modules](#automatically-install-npm-modules)
+  * [NPM Modules](#npm-modules)
   * [Relative Module Pathes](#relative-module-pathes)
   * [Custom templates](#custom-templates)
   * [Hot reload](#hot-reload)
@@ -81,13 +81,12 @@ Options
   -r, --react       Enables react hot loader.
   -n, --ngrok       Exposes server to real world by ngrok.
   -o, --open        Opens web server url in default browser.
-  -c, --cssmodules  Enables css modules.
   -v, --version     Shows version.
   --help            Shows help.
 
 Examples
   $ aik filename.js --port 3000 -n -c -r
-  Runs aik web server on 3000 port with ngrok, css modules support and react hot loader
+  Runs aik web server on 3000 port with ngrok and react hot loader
 
   $ aik filename.js --build
   Builds filename.js for production use and saves output to dist folder.
@@ -100,7 +99,7 @@ Examples
 
 ## Features
 
-### Run web server with JavaScript file
+### Run web server with a JavaScript file
 
 Start playing around with new ideas is as simple as running a single command in your terminal:
 
@@ -109,18 +108,27 @@ aik index.js
 ```
 
 Moreover:
-* Suggest to create a file if it's not exist.
-* Change server port automatically if default is in use.
+* Creating an entry point if it doesn't exist.
+* Choosing server port automatically if default is in use.
+* Showing an error overlay, so you don't have to look at your terminal window.
 
-### Automatically install npm modules
+### NPM Modules
 
-Aik takes care of installing npm modules for you automatically using "[npm install webpack plugin](https://github.com/ericclemmons/npm-install-webpack-plugin)".
-Just add require or import statement in the JavaScript file and you are ready to go.
+In order to simplify work with npm modules Aik takes care of:
+
+#### Automatically installing npm modules
+
+Just add require or import statement in the JavaScript file and you are ready to go (thanks to [npm install webpack plugin](https://github.com/ericclemmons/npm-install-webpack-plugin)).
 
 ```js
 import react from 'react';
 import ReactDOM from 'react-dom';
 ```
+
+#### Pre-installing NPM Modules
+
+If project contains `package.json`, Aik will automatically pre-install npm modules defined in it
+if needed before trying to compile an entry point.
 
 ### Relative Module Pathes
 Let's assume such project structure:
@@ -146,7 +154,7 @@ import comp2 from 'components/comp2/comp2';
 import comp2 from '../comp2/comp2';
 ```
 
-Choose the way you like more.
+Choose the way you prefer the most.
 
 ### Custom templates
 
@@ -190,7 +198,6 @@ Moreover, there is a little bit of syntactic sugar over CSS provided by PostCSS 
 
 * Modern javascript with [Babel](https://babeljs.io/) using [Latest](http://babeljs.io/docs/plugins/preset-latest/) and [React](http://babeljs.io/docs/plugins/preset-react/) presets
 * [PostCSS](https://github.com/postcss/postcss) with [Autoprefixer](https://github.com/postcss/autoprefixer) and [PreCSS](https://github.com/jonathantneal/precss)
-* [Optional] — [css-modules](https://github.com/css-modules/css-modules)
 
 ### Linting
 
