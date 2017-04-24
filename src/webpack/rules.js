@@ -120,6 +120,10 @@ export function rules(flags: CLIFlags, params: AikParams): Loader[] {
       use: require.resolve("json-loader")
     },
     {
+      test: /\.html$/,
+      use: require.resolve("html-loader")
+    },
+    {
       exclude: [/\/$/, /\.html$/, /\.ejs$/, /\.css$/, /\.jsx?$/, /\.json$/],
       loader: require.resolve("file-loader"),
       query: {
