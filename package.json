@@ -38,7 +38,7 @@
     "ci:validate": "eslint src && flow",
     "lint:flow": "flow",
     "lint:staged": "lint-staged",
-    "prepare": "npm run build && npm run validate",
+    "prepare": "npm run build && npm run ci:validate",
     "release:major": "pmm major",
     "release:minor": "pmm minor",
     "release:patch": "pmm patch",
