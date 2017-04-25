@@ -48,12 +48,13 @@ export default async function runWebpackBuilder(
 
   return new Promise((resolve, reject) => {
     compiler.run((err, stats) => {
-      if (err) {
-        builderErrorMsg(err);
+      const json = stats.toJson({}, true);
+
+      if (err || stats.hasErrors()) {
+        builderErrorMsg(err || json.errors);
         return reject();
       }
 
-      const json = stats.toJson({}, true);
       const buildDuration: number = stats.endTime - stats.startTime;
       const assets: BuildStatAsset[] = json.assets.map(item => {
         const content: string = fs.readFileSync(
