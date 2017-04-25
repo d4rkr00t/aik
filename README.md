@@ -62,6 +62,7 @@ Aik's main goal is to be open for any JavaScript framework or a library, even th
   * [Production ready build](#production-ready-build)
   * [Expose web server to the real world](#expose-web-server-to-the-real-world)
   * [Great Messages](#great-messages)
+* [Other resources](#other-resources)
 * [Alternatives](#alternatives)
 * [Contributors](#contributors)
 * [Contributing](#contributing)
@@ -252,6 +253,10 @@ Highly inspired by create-react-app and some other places.
 ![aik build success](/assets/build-success.png)
 
 More examples [here](/docs/messages.md).
+
+## Other resources
+
+* Slides for SydJS talk: ["Aik – Painless Prototyping"](http://sysoev.org/talks/aik/)
 
 ## Alternatives
 
