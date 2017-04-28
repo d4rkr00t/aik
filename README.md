@@ -29,6 +29,8 @@ Frontend Playground
 
 ## Quick Start
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/d4rkr00t/aik.svg)](https://greenkeeper.io/)
+
 ```sh
 npm i -g aik # install using npm cli
 yarn global add aik # or install using yarn
