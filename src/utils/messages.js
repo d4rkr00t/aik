@@ -222,12 +222,6 @@ export function devServerInstallingModuleMsg(moduleName: string) {
   return print([`Installing module "${chalk.yellow(moduleName)}" ...`]);
 }
 
-export function devServerSkipInstallingModuleMsg(moduleName: string) {
-  return print([
-    `Module "${chalk.yellow(moduleName)}" has already been installed ${chalk.dim("[skipping].")}`
-  ]);
-}
-
 /**
  *
  * Build Messages

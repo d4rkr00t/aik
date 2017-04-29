@@ -1,3 +1,3 @@
-declare module 'precss' {
-  declare module.exports: Function
+declare module "precss" {
+  declare module.exports: Function;
 }

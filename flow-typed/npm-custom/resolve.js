@@ -1,3 +1,3 @@
-declare module 'resolve' {
-  declare module.exports: any
+declare module "resolve" {
+  declare module.exports: any;
 }

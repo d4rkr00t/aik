@@ -1,3 +1,3 @@
-declare module 'connect-history-api-fallback' {
-  declare module.exports: Function
+declare module "connect-history-api-fallback" {
+  declare module.exports: Function;
 }

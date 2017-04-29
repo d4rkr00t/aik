@@ -1,3 +1,3 @@
-declare module 'rimraf' {
-  declare module.exports: (path:string, callback:Function) => {}
+declare module "rimraf" {
+  declare module.exports: (path: string, callback: Function) => {};
 }

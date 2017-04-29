@@ -13,8 +13,7 @@ import {
   devServerInvalidBuildMsg,
   fileDoesNotExistMsg,
   devServerReactRequired,
-  devServerInstallingModuleMsg,
-  devServerSkipInstallingModuleMsg
+  devServerInstallingModuleMsg
 } from "./../../utils/messages";
 import preinstallNpmModules from "../../preinstall-npm-modules";
 
@@ -51,18 +50,18 @@ export function createFile(filename: string): Promise<*> {
   });
 }
 
-function installModule(moduleName: string) {
-  return new Promise(resolve => {
-    try {
-      resolveModule.sync(moduleName, { basedir: process.cwd() });
-      devServerSkipInstallingModuleMsg(moduleName);
-    } catch (e) {
-      execSync(`npm install ${moduleName} --silent`, { cwd: process.cwd() });
-      devServerInstallingModuleMsg(moduleName);
-    }
+function ifNeedToInstallModule(moduleName: string): boolean {
+  try {
+    resolveModule.sync(moduleName, { basedir: process.cwd() });
+    return false;
+  } catch (e) {
+    return true;
+  }
+}
 
-    resolve();
-  });
+function installModule(moduleName: string) {
+  execSync(`npm install ${moduleName} --silent`, { cwd: process.cwd() });
+  devServerInstallingModuleMsg(moduleName);
 }
 
 /**
@@ -92,9 +91,15 @@ export default async function aikDevServer(
   preinstallNpmModules(process.cwd());
 
   if (flags.react) {
-    devServerReactRequired();
-    await installModule("react");
-    await installModule("react-dom");
+    const needReact = ifNeedToInstallModule("react");
+    const needReactDom = ifNeedToInstallModule("react-dom");
+
+    if (needReact || needReactDom) {
+      devServerReactRequired();
+    }
+
+    needReact && installModule("react");
+    needReactDom && installModule("react-dom");
   }
 
   const ngrokUrl: NgrokUrl = flags.ngrok && (await createNgrokTunnel(flags));

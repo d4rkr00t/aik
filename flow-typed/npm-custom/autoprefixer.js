@@ -1,3 +1,3 @@
-declare module 'autoprefixer' {
-  declare module.exports: Function
+declare module "autoprefixer" {
+  declare module.exports: Function;
 }

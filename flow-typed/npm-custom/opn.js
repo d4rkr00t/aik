@@ -1,3 +1,3 @@
-declare module 'opn' {
-  declare module.exports: Function
+declare module "opn" {
+  declare module.exports: Function;
 }

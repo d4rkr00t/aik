@@ -1,3 +1,3 @@
-declare module 'insight' {
-  declare module.exports: Function
+declare module "insight" {
+  declare module.exports: Function;
 }
