@@ -43,3 +43,9 @@ export function installAllModules(cwd: string) {
   foundPackageJson();
   spawnSync("npm", ["install", "--silent"], { cwd, stdio: "inherit" });
 }
+
+export function resolveModuleToCwd(moduleName: string) {
+  return path.dirname(
+    resolveModule.sync(moduleName, { basedir: process.cwd() })
+  );
+}
