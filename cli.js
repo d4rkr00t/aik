@@ -2,6 +2,8 @@
 
 /* @flow */
 
+require("babel-polyfill");
+
 const meow = require("meow");
 const chalk = require("chalk");
 const insight = require("./lib/analytics");

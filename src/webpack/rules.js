@@ -15,7 +15,12 @@ export function createJSLoader(flags: CLIFlags, isProd: boolean): any[] {
       query: {
         presets: [
           require.resolve("babel-preset-react"),
-          require.resolve("babel-preset-latest")
+          [
+            require.resolve("babel-preset-env"),
+            {
+              targets: { ie: 11 }
+            }
+          ]
         ]
       }
     }

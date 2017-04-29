@@ -1,4 +1,17 @@
 {
-  "presets": ["es2015-node4"],
-  "plugins": ["syntax-flow", "transform-flow-strip-types", "transform-async-to-generator"]
+  "presets": [
+    [
+      "env",
+      {
+        "target": {
+          "node": 4
+        }
+      }
+    ]
+  ],
+  "plugins": [
+    "syntax-flow",
+    "transform-flow-strip-types",
+    "transform-async-to-generator"
+  ]
 }
