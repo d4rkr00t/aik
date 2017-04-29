@@ -1,6 +1,7 @@
 /* @flow */
 
 import path from "path";
+import aliases from "./aliases";
 import entry from "./entry";
 import output from "./output";
 import plugins from "./plugins";
@@ -22,7 +23,7 @@ export default function webpackConfigBuilder(
     bail: params.isProd,
     module: { rules: rules(flags, params) },
     resolve: {
-      alias: { "react/lib/ReactMount": "react-dom/lib/ReactMount" },
+      alias: aliases(filename, flags),
       extensions: [".js", ".jsx", ".json"],
       modules: [
         path.dirname(path.resolve(process.cwd(), filename)),

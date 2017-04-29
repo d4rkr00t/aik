@@ -9,28 +9,26 @@ import postcssPartialImport from "postcss-partial-import";
  * Creates loader for JavaScript files and add some extra features for dev server, like hot reloading.
  */
 export function createJSLoader(flags: CLIFlags, isProd: boolean): any[] {
+  const presets = [
+    require.resolve("babel-preset-react"),
+    [
+      require.resolve("babel-preset-env"),
+      {
+        targets: { ie: 11 }
+      }
+    ]
+  ];
+
+  if (flags.react && !isProd) {
+    presets.push(require.resolve("babel-preset-react-hmre"));
+  }
+
   const jsLoaders: { loader: string, query?: any }[] = [
     {
       loader: require.resolve("babel-loader"),
-      query: {
-        presets: [
-          require.resolve("babel-preset-react"),
-          [
-            require.resolve("babel-preset-env"),
-            {
-              targets: { ie: 11 }
-            }
-          ]
-        ]
-      }
+      query: { presets }
     }
   ];
-
-  if (!isProd && flags.react) {
-    jsLoaders.unshift({
-      loader: require.resolve("react-hot-loader")
-    });
-  }
 
   return jsLoaders;
 }
@@ -108,7 +106,7 @@ export function rules(flags: CLIFlags, params: AikParams): Loader[] {
     {
       test: /\.jsx?$/,
       enforce: "pre",
-      exclude: /(node_modules|bower_components)/,
+      exclude: /(node_modules|bower_components|aik\/lib\/webpack)/,
       loader: require.resolve("eslint-loader"),
       options: {
         configFile: path.join(__dirname, "..", "eslint-config.js"),
