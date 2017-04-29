@@ -87,6 +87,10 @@ export function foundPackageJson() {
   ]);
 }
 
+export function installingModuleMsg(moduleName: string) {
+  return print([`Installing module "${chalk.yellow(moduleName)}" ...`]);
+}
+
 /**
  *
  * Dev Server Messages
@@ -216,10 +220,6 @@ export function devServerReactRequired() {
     waitBadge() + " " + chalk.blue("Installing required modules..."),
     ""
   ]);
-}
-
-export function devServerInstallingModuleMsg(moduleName: string) {
-  return print([`Installing module "${chalk.yellow(moduleName)}" ...`]);
 }
 
 /**

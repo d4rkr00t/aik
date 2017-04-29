@@ -1,10 +1,8 @@
 /* @flow */
-import { execSync } from "child_process";
 import fs from "fs";
 import readline from "readline";
 import opn from "opn";
 import { outputFile } from "fs-extra";
-import resolveModule from "resolve";
 import createWebpackDevServer from "./webpack-dev-server";
 import createNgrokTunnel from "./ngrok";
 import createParams from "./../../utils/params";
@@ -12,10 +10,13 @@ import {
   devServerFileDoesNotExistMsg,
   devServerInvalidBuildMsg,
   fileDoesNotExistMsg,
-  devServerReactRequired,
-  devServerInstallingModuleMsg
+  devServerReactRequired
 } from "./../../utils/messages";
-import preinstallNpmModules from "../../preinstall-npm-modules";
+import {
+  installAllModules,
+  isModuleInstalled,
+  installModule
+} from "../../utils/npm";
 
 export function requestCreatingAnEntryPoint(
   filename: string
@@ -50,29 +51,7 @@ export function createFile(filename: string): Promise<*> {
   });
 }
 
-function ifNeedToInstallModule(moduleName: string): boolean {
-  try {
-    resolveModule.sync(moduleName, { basedir: process.cwd() });
-    return false;
-  } catch (e) {
-    return true;
-  }
-}
-
-function installModule(moduleName: string) {
-  execSync(`npm install ${moduleName} --silent`, { cwd: process.cwd() });
-  devServerInstallingModuleMsg(moduleName);
-}
-
-/**
- * Aik dev server command
- */
-export default async function aikDevServer(
-  input: string[],
-  flags: CLIFlags
-): Promise<*> {
-  const [filename] = input;
-
+async function prepareEntryPoint(filename: string) {
   try {
     fs.statSync(filename);
   } catch (error) {
@@ -86,20 +65,36 @@ export default async function aikDevServer(
       await createFile(filename);
     }
   }
+}
+
+function prepareForReact() {
+  const needReact = !isModuleInstalled("react");
+  const needReactDom = !isModuleInstalled("react-dom");
+
+  if (needReact || needReactDom) {
+    devServerReactRequired();
+  }
+
+  needReact && installModule("react");
+  needReactDom && installModule("react-dom");
+}
+
+/**
+ * Aik dev server command
+ */
+export default async function aikDevServer(
+  input: string[],
+  flags: CLIFlags
+): Promise<*> {
+  const [filename] = input;
+
+  await prepareEntryPoint(filename);
 
   devServerInvalidBuildMsg();
-  preinstallNpmModules(process.cwd());
+  installAllModules(process.cwd());
 
   if (flags.react) {
-    const needReact = ifNeedToInstallModule("react");
-    const needReactDom = ifNeedToInstallModule("react-dom");
-
-    if (needReact || needReactDom) {
-      devServerReactRequired();
-    }
-
-    needReact && installModule("react");
-    needReactDom && installModule("react-dom");
+    prepareForReact();
   }
 
   const ngrokUrl: NgrokUrl = flags.ngrok && (await createNgrokTunnel(flags));
