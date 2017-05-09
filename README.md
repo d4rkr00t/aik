@@ -193,11 +193,11 @@ Error: Cannot resolve module 'react-dom/lib/ReactMount'
 
 ### Latest and greatest technologies for frontend development
 
-There are (an opinionated) set of technologies that will help you prototype faster. Aik uses [preset-latest](http://babeljs.io/docs/plugins/preset-latest/) for babel which contains all yearly presets.
+There are (an opinionated) set of technologies that will help you prototype faster. Aik uses [preset-env](http://babeljs.io/docs/plugins/preset-env/) for babel which contains all yearly presets.
 And also you don't have to worry about all these messy prefixes in CSS because there is an autoprefixer which will do it for you.
 Moreover, there is a little bit of syntactic sugar over CSS provided by PostCSS and PreCSS.
 
-* Modern javascript with [Babel](https://babeljs.io/) using [Latest](http://babeljs.io/docs/plugins/preset-latest/) and [React](http://babeljs.io/docs/plugins/preset-react/) presets
+* Modern javascript with [Babel](https://babeljs.io/) using [Env](http://babeljs.io/docs/plugins/preset-env/) and [React](http://babeljs.io/docs/plugins/preset-react/) presets
 * [PostCSS](https://github.com/postcss/postcss) with [Autoprefixer](https://github.com/postcss/autoprefixer) and [PreCSS](https://github.com/jonathantneal/precss)
 
 ### Linting
