@@ -1,0 +1,191 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Build Messages #builderBanner all flags and params 1`] = `
+"[44m[30m WAIT [39m[49m [34mBuilding...[39m
+
+[35mEntry point:     [39m./src/index.js
+[35mCustom template: [39mindex.html
+[35mBase path:       [39m/subfolder/"
+`;
+
+exports[`Build Messages #builderBanner basic 1`] = `
+"[44m[30m WAIT [39m[49m [34mBuilding...[39m
+
+[35mEntry point:     [39m./src/index.js"
+`;
+
+exports[`Build Messages #builderBanner no base 1`] = `
+"[44m[30m WAIT [39m[49m [34mBuilding...[39m
+
+[35mEntry point:     [39m./src/index.js
+[35mCustom template: [39mindex.html"
+`;
+
+exports[`Build Messages #builderBanner no template 1`] = `
+"[44m[30m WAIT [39m[49m [34mBuilding...[39m
+
+[35mEntry point:     [39m./src/index.js
+[35mBase path:       [39m/subfolder/"
+`;
+
+exports[`Build Messages #builderErrorMsg? Custom Error message 1`] = `
+"[41m[30m ERROR [39m[49m [31mFailed to create a production build. Reason:[39m
+
+Some error message"
+`;
+
+exports[`Build Messages #builderErrorMsg? Syntax Error 1`] = `
+"[41m[30m ERROR [39m[49m [31mFailed to create a production build. Reason:[39m
+
+[31mError:[39m
+
+[2m|[22m  Syntax Error: Unexpected token (20:7)
+
+[33mWhere:[39m ./thinking-in-react/src/components/product-table/product-table.js
+
+[0m [90m 18 | [39m  [36mreturn[39m (
+ [90m 19 | [39m    [33m<[39m[33mdiv[39m className[33m=[39m[32m\\"productTable\\"[39m[33m>[39m
+[31m[1m>[22m[39m[90m 20 | [39m      [33m<<[39m[33mtable[39m[33m>[39m
+ [90m    | [39m       [31m[1m^[22m[39m
+ [90m 21 | [39m        [33m<[39m[33mthead[39m[33m>[39m
+ [90m 22 | [39m          [33m<[39m[33mtr[39m[33m>[39m
+ [90m 23 | [39m            [33m<[39m[33mth[39m[33m>[39m[33mName[39m[33m<[39m[33m/[39m[33mth[39m[33m>[39m[0m"
+`;
+
+exports[`Build Messages #builderRemovingDistMsg 1`] = `"[33mRemoving folder: [39m./dist"`;
+
+exports[`Build Messages #builderRunningBuildMsg 1`] = `"[33mRunning webpack production build...[39m"`;
+
+exports[`Build Messages #builderSuccessMsg 1`] = `
+"[42m[30m DONE [39m[49m in 3892ms
+
+[32mAik has successfully generated a bundle in the [36m\\"./dist\\"[32m folder![39m
+[32mThe bundle is optimized and ready to be deployed to production.[39m
+
+[45m[30m ASSETS [39m[49m
+
+[35mindex.2b2f089a.js: [39m 22.90kb, 7.33kb gzip
+[35mindex.1027be30.css:[39m 0.67kb, 0.31kb gzip
+[35mindex.html:        [39m 0.34kb, 0.24kb gzip"
+`;
+
+exports[`Common Messages #eslintExtraWarningMsg 1`] = `
+"You may use special comments to disable some warnings.
+Use [33m// eslint-disable-next-line[39m to ignore the next line.
+Use [33m/* eslint-disable */[39m to ignore all warnings in a file."
+`;
+
+exports[`Common Messages #fileDoesNotExistMsg 1`] = `
+"[41m[30m ERROR [39m[49m[31m File doesn't exist.[39m
+
+You are trying to use [33m\\"./src/index.js\\"[39m as an entry point, but this file doesn't exist.
+Please, choose an existing file or create [33m\\"./src/index.js\\"[39m manualy."
+`;
+
+exports[`Common Messages #foundPackageJson 1`] = `
+"[43m[30m WARNING [39m[49m [33mFile \\"package.json\\" has been discovered.[39m
+
+Since [33m\\"node_modules\\"[39m folder doesn't exist and in order to avoid possible artifacts caused by
+accidentally updated versions of npm modules Aik will run [33m\\"npm install\\"[39m in current directory.
+
+[44m[30m WAIT [39m[49m [34mInstalling npm modules...[39m"
+`;
+
+exports[`Common Messages #installingModuleMsg 1`] = `"Installing module \\"[33mreact[39m\\" ..."`;
+
+exports[`Dev Server Messages #devServerBanner all flags enabled 1`] = `
+"[35mEntry point:      [39m./src/index.js
+[35mCustom template:  [39mindex.html
+[35mPort changed:     [39m[41m[30m 3333 [39m[49m -> [42m[30m 3334 [39m[49m
+[35mServer:           [39m[36mhttp://localhost:3334[39m
+[35mNgrok:            [39m[36mhttp://43kd92j3h.ngrok.com[39m
+[35mReact Hot Loader: [39m[33menabled[39m"
+`;
+
+exports[`Dev Server Messages #devServerBanner no ngrok 1`] = `
+"[35mEntry point:      [39m./src/index.js
+[35mCustom template:  [39mindex.html
+[35mPort changed:     [39m[41m[30m 3333 [39m[49m -> [42m[30m 3334 [39m[49m
+[35mServer:           [39m[36mhttp://localhost:3334[39m
+[35mReact Hot Loader: [39m[33menabled[39m"
+`;
+
+exports[`Dev Server Messages #devServerBanner no old port 1`] = `
+"[35mEntry point:      [39m./src/index.js
+[35mCustom template:  [39mindex.html
+[35mServer:           [39m[36mhttp://localhost:3334[39m
+[35mNgrok:            [39m[36mhttp://43kd92j3h.ngrok.com[39m
+[35mReact Hot Loader: [39m[33menabled[39m"
+`;
+
+exports[`Dev Server Messages #devServerBanner no react 1`] = `
+"[35mEntry point:      [39m./src/index.js
+[35mCustom template:  [39mindex.html
+[35mPort changed:     [39m[41m[30m 3333 [39m[49m -> [42m[30m 3334 [39m[49m
+[35mServer:           [39m[36mhttp://localhost:3334[39m
+[35mNgrok:            [39m[36mhttp://43kd92j3h.ngrok.com[39m"
+`;
+
+exports[`Dev Server Messages #devServerBanner no template 1`] = `
+"[35mEntry point:      [39m./src/index.js
+[35mPort changed:     [39m[41m[30m 3333 [39m[49m -> [42m[30m 3334 [39m[49m
+[35mServer:           [39m[36mhttp://localhost:3334[39m
+[35mNgrok:            [39m[36mhttp://43kd92j3h.ngrok.com[39m
+[35mReact Hot Loader: [39m[33menabled[39m"
+`;
+
+exports[`Dev Server Messages #devServerCompiledSuccessfullyMsg 1`] = `
+"[42m[30m DONE [39m[49m [32mCompiled successfully in 5800ms![39m
+
+[35mEntry point:      [39m./src/index.js
+[35mCustom template:  [39mindex.html
+[35mPort changed:     [39m[41m[30m 3333 [39m[49m -> [42m[30m 3334 [39m[49m
+[35mServer:           [39m[36mhttp://localhost:3334[39m
+[35mNgrok:            [39m[36mhttp://43kd92j3h.ngrok.com[39m
+[35mReact Hot Loader: [39m[33menabled[39m"
+`;
+
+exports[`Dev Server Messages #devServerCompiledWithWarningsMsg 1`] = `
+"[43m[30m WARNING [39m[49m [33mCompiled with warnings in 5800ms.[39m
+
+[35mEntry point:      [39m./src/index.js
+[35mCustom template:  [39mindex.html
+[35mPort changed:     [39m[41m[30m 3333 [39m[49m -> [42m[30m 3334 [39m[49m
+[35mServer:           [39m[36mhttp://localhost:3334[39m
+[35mNgrok:            [39m[36mhttp://43kd92j3h.ngrok.com[39m
+[35mReact Hot Loader: [39m[33menabled[39m
+
+[2m---------[22m"
+`;
+
+exports[`Dev Server Messages #devServerFailedToCompileMsg 1`] = `"[41m[30m ERROR [39m[49m [31mFailed to compile.[39m"`;
+
+exports[`Dev Server Messages #devServerFileDoesNotExistMsg 1`] = `"[43m[30m WARNING [39m[49m[33m File \\"./src/index.js\\" doesn't exist.[39m"`;
+
+exports[`Dev Server Messages #devServerInvalidBuildMsg 1`] = `"[44m[30m WAIT [39m[49m [34mCompiling...[39m"`;
+
+exports[`Dev Server Messages #devServerModuleDoesntExists 1`] = `
+"[41m[30m ERROR [39m[49m [31mModule 'react' doesn't exists.[39m
+
+Error in [33m./src/index.js[39m
+
+Webpack tried to resolve module [43m[30m react [39m[49m which doesn't exist.
+
+It's likely caused by a [33mtypo[39m in the module name."
+`;
+
+exports[`Dev Server Messages #devServerReactRequired 1`] = `
+"[43m[30m WARNING [39m[49m [33m\\"react\\" required.[39m
+
+In order to make [33m\\"react-hot-loader\\"[39m work, [33m\\"react\\"[39m and [33m\\"react-dom\\"[39m are required.
+
+[44m[30m WAIT [39m[49m [34mInstalling required modules...[39m"
+`;
+
+exports[`Dev Server Messages #devServerRestartMsg 1`] = `
+"[43m[30m WARNING [39m[49m [33mNew npm module was added (react).[39m
+
+Restarting of the [33m\\"webpack-dev-server\\"[39m is requried.
+
+Please be patient and wait until restart completes, otherwise some changes might not be tracked."
+`;

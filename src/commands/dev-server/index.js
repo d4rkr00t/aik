@@ -7,6 +7,8 @@ import createWebpackDevServer from "./webpack-dev-server";
 import createNgrokTunnel from "./ngrok";
 import createParams from "./../../utils/params";
 import {
+  print,
+  addBottomSpace,
   devServerFileDoesNotExistMsg,
   devServerInvalidBuildMsg,
   fileDoesNotExistMsg,
@@ -33,7 +35,7 @@ export function requestCreatingAnEntryPoint(
         return resolve(true);
       }
 
-      fileDoesNotExistMsg(filename);
+      print(fileDoesNotExistMsg(filename), /* clear console */ true);
 
       reject();
     });
@@ -55,7 +57,10 @@ async function prepareEntryPoint(filename: string) {
   try {
     fs.statSync(filename);
   } catch (error) {
-    devServerFileDoesNotExistMsg(filename);
+    print(
+      addBottomSpace(devServerFileDoesNotExistMsg(filename)),
+      /* clear console */ true
+    );
 
     const shouldCreateAnEntryPoint = await requestCreatingAnEntryPoint(
       filename
@@ -72,7 +77,7 @@ function prepareForReact() {
   const needReactDom = !isModuleInstalled("react-dom");
 
   if (needReact || needReactDom) {
-    devServerReactRequired();
+    print(devServerReactRequired());
   }
 
   needReact && installModule("react");
@@ -90,7 +95,7 @@ export default async function aikDevServer(
 
   await prepareEntryPoint(filename);
 
-  devServerInvalidBuildMsg();
+  print(devServerInvalidBuildMsg(), /* clear console */ true);
   installAllModules(process.cwd());
 
   if (flags.react) {

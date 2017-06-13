@@ -15,11 +15,9 @@ export function htmlWebpackPlugin(template: string | false) {
 }
 
 export function npmInstallPlugin(options?: Object = {}) {
-  return new NpmInstallPlugin({
-    dev: true,
-    peerDependencies: true,
-    ...options
-  });
+  return new NpmInstallPlugin(
+    Object.assign({ dev: true, peerDependencies: true }, options)
+  );
 }
 
 /**
