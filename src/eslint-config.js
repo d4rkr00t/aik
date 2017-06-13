@@ -97,17 +97,21 @@ module.exports = {
     "require-yield": "warn",
 
     // https://github.com/yannickcr/eslint-plugin-react
-    "react/jsx-key": "warn",
     "react/jsx-no-comment-textnodes": "warn",
     "react/jsx-no-duplicate-props": ["warn", { ignoreCase: true }],
     "react/jsx-no-undef": "warn",
+
+    "react/jsx-key": "warn",
     "react/jsx-pascal-case": ["warn", { allowAllCaps: true }],
     "react/jsx-uses-react": "warn",
     "react/jsx-uses-vars": "warn",
+
     "react/no-danger-with-children": "warn",
     "react/no-deprecated": "warn",
     "react/no-direct-mutation-state": "warn",
     "react/no-is-mounted": "warn",
+    "react/no-string-refs": "warn",
+
     "react/react-in-jsx-scope": "warn",
     "react/require-render-return": "warn",
     "react/style-prop-object": "warn"
