@@ -4,5 +4,5 @@ declare module "webpack-dev-server" {
     use: Function
   };
 
-  declare module.exports: () => WebpackDevServer;
+  declare module.exports: (compiler: any, options: Object) => WebpackDevServer;
 }
