@@ -1,23 +1,24 @@
 /* @flow */
 
-import path from 'path';
-import webpack from 'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import NpmInstallPlugin from 'npm-install-webpack-plugin';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import last from '../utils/last';
+import path from "path";
+import webpack from "webpack";
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import NpmInstallPlugin from "npm-install-webpack-plugin";
+import ExtractTextPlugin from "extract-text-webpack-plugin";
+import last from "../utils/last";
 
 export function htmlWebpackPlugin(template: string | false) {
   return new HtmlWebpackPlugin({
     title: last(process.cwd().split(path.sep)),
-    template: template ? template : require.resolve('../../template/index.ejs')
+    template: template ? template : require.resolve("../../template/index.ejs")
   });
 }
 
-export function npmInstallPlugin() {
+export function npmInstallPlugin(options?: Object = {}) {
   return new NpmInstallPlugin({
     dev: true,
-    peerDependencies: true
+    peerDependencies: true,
+    ...options
   });
 }
 
@@ -26,7 +27,7 @@ export function npmInstallPlugin() {
  */
 export function pluginsProd(template: string | false): Array<any> {
   return [
-    new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"production"' }),
+    new webpack.DefinePlugin({ "process.env.NODE_ENV": '"production"' }),
     htmlWebpackPlugin(template),
     npmInstallPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
@@ -44,7 +45,7 @@ export function pluginsProd(template: string | false): Array<any> {
         screw_ie8: true
       }
     }),
-    new ExtractTextPlugin('[name].[contenthash:8].css')
+    new ExtractTextPlugin("[name].[contenthash:8].css")
   ];
 }
 
@@ -54,7 +55,7 @@ export function pluginsProd(template: string | false): Array<any> {
 export function pluginsDev(template: string | false): Array<any> {
   return [
     new webpack.LoaderOptionsPlugin({ debug: true }),
-    new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"development"' }),
+    new webpack.DefinePlugin({ "process.env.NODE_ENV": '"development"' }),
     new webpack.HotModuleReplacementPlugin(),
     htmlWebpackPlugin(template),
     npmInstallPlugin({
