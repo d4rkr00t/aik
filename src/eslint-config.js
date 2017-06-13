@@ -80,6 +80,9 @@ module.exports = {
     "no-undef": "warn",
     "no-unused-vars": "warn",
 
+    // Stylistic Issues
+    "nonblock-statement-body-position": "warn",
+
     // ECMAScript 6
     "constructor-super": "warn",
     "no-class-assign": "warn",
