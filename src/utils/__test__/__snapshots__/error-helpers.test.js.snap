@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#formatMessages Format ESLint Warnings 1`] = `
+" [2m5:16[22m  [33mwarning[39m  React.createClass is deprecated since React 15.5.0, use the npm module create-react-class instead  [2mreact/no-deprecated[22m
+[2m40:11[22m  [33mwarning[39m  No duplicate props allowed                                                                         [2mreact/jsx-no-duplicate-props[22m
+
+[33mWhere:[39m ./thinking-in-react/src/components/filtered-product-table/filtered-product-table.js
+
+
+[2m16:11[22m  [33mwarning[39m  No duplicate props allowed  [2mreact/jsx-no-duplicate-props[22m
+
+[33mWhere:[39m ./thinking-in-react/src/components/product-table/product-table.js"
+`;
+
+exports[`#formatMessages Format Syntax Error 1`] = `
+"[31mError:[39m
+
+[2m|[22m  Syntax Error: Unexpected token (20:7)
+
+[33mWhere:[39m ./thinking-in-react/src/components/product-table/product-table.js
+
+[0m [90m 18 | [39m  [36mreturn[39m (
+ [90m 19 | [39m    [33m<[39m[33mdiv[39m className[33m=[39m[32m\\"productTable\\"[39m[33m>[39m
+[31m[1m>[22m[39m[90m 20 | [39m      [33m<<[39m[33mtable[39m[33m>[39m
+ [90m    | [39m       [31m[1m^[22m[39m
+ [90m 21 | [39m        [33m<[39m[33mthead[39m[33m>[39m
+ [90m 22 | [39m          [33m<[39m[33mtr[39m[33m>[39m
+ [90m 23 | [39m            [33m<[39m[33mth[39m[33m>[39m[33mName[39m[33m<[39m[33m/[39m[33mth[39m[33m>[39m[0m"
+`;
+
+exports[`#formatMessages Format Webpack Warnings 1`] = `""`;
+
+exports[`#formatMessages Unknown messages 1`] = `
+Array [
+  "some",
+  "custom",
+  "messages",
+]
+`;

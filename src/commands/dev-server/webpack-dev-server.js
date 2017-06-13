@@ -7,11 +7,13 @@ import WebpackDevServer from "webpack-dev-server";
 import webpackConfigBuilder from "./../../webpack/config-builder";
 import detectPort from "./../../utils/detect-port";
 import testUtils from "./../../utils/test-utils";
+import { formatMessages } from "./../../utils/error-helpers";
 import {
-  isLikelyASyntaxError,
-  formatMessage
-} from "./../../utils/error-helpers";
-import {
+  print,
+  addTopSpace,
+  joinWithSpace,
+  joinWithSeparator,
+  separator,
   clearConsole,
   eslintExtraWarningMsg,
   devServerInvalidBuildMsg,
@@ -41,18 +43,16 @@ export function onDone(
   clearConsole(true);
 
   if (!hasErrors && !hasWarnings) {
-    devServerCompiledSuccessfullyMsg(filename, flags, params, buildDuration);
+    print(
+      devServerCompiledSuccessfullyMsg(filename, flags, params, buildDuration)
+    );
     testUtils();
     return;
   }
 
   const json = stats.toJson({}, true);
-  const formattedWarnings = json.warnings.map(
-    message => "Warning in " + formatMessage(message)
-  );
-  let formattedErrors = json.errors.map(
-    message => "Error in " + formatMessage(message)
-  );
+  const formattedWarnings = formatMessages(json.warnings);
+  const formattedErrors = formatMessages(json.errors);
 
   if (hasErrors) {
     if (
@@ -63,25 +63,39 @@ export function onDone(
       return;
     }
 
-    devServerFailedToCompileMsg();
-
-    // If there are any syntax errors, show just them.
-    // This prevents a confusing ESLint parsing error
-    // preceding a much more useful Babel syntax error.
-    if (formattedErrors.some(isLikelyASyntaxError)) {
-      formattedErrors = formattedErrors.filter(isLikelyASyntaxError);
-    }
+    print(
+      devServerFailedToCompileMsg(),
+      /* clear console */ true,
+      /* add sep */ true
+    );
 
     // If errors exist, ignore warnings.
-    formattedErrors.forEach(message => console.log("\n", message)); // eslint-disable-line
-    testUtils();
-    return;
+    if (formattedErrors.length) {
+      print(
+        addTopSpace(
+          joinWithSeparator(`\n\n${separator()}\n\n`, formattedErrors)
+        )
+      );
+      testUtils();
+      return;
+    }
   }
 
-  if (hasWarnings) {
-    devServerCompiledWithWarningsMsg(filename, flags, params, buildDuration);
-    formattedWarnings.forEach(message => console.log("\n", message)); // eslint-disable-line
-    eslintExtraWarningMsg();
+  if (hasWarnings && formattedWarnings.length) {
+    print(
+      joinWithSeparator(`\n${separator()}\n`, [
+        joinWithSpace([
+          devServerCompiledWithWarningsMsg(
+            filename,
+            flags,
+            params,
+            buildDuration
+          ),
+          formattedWarnings.join(`\n\n${separator()}\n\n`)
+        ]),
+        eslintExtraWarningMsg()
+      ])
+    );
   }
 
   testUtils();
@@ -97,9 +111,10 @@ export function createWebpackCompiler(
   config: Object,
   invalidate: Function
 ) {
-  // eslint-disable-line
   const compiler = webpack(config);
-  compiler.plugin("invalid", devServerInvalidBuildMsg);
+  compiler.plugin("invalid", () =>
+    print(devServerInvalidBuildMsg(), /* clear console */ true)
+  );
   compiler.plugin(
     "done",
     onDone.bind(null, filename, flags, params, compiler, invalidate)
@@ -138,12 +153,19 @@ export default async function createWebpackDevServer(
 
     try {
       resolveModule.sync(moduleName, { basedir: process.cwd() });
-      devServerRestartMsg(moduleName);
+      print(
+        devServerRestartMsg(moduleName),
+        /* clear console */ true,
+        /* add sep */ true
+      );
       server.close();
       createWebpackDevServer(filename, flags, params);
     } catch (e) {
-      // eslint-disable-line
-      devServerModuleDoesntExists(moduleName, fileWithError);
+      print(
+        devServerModuleDoesntExists(moduleName, fileWithError),
+        /* clear console */ true,
+        /* add sep */ true
+      );
     }
   };
 

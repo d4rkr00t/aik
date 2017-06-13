@@ -6,6 +6,8 @@ import webpack from "webpack";
 import gzipSize from "gzip-size";
 import webpackConfigBuilder from "./../../webpack/config-builder";
 import {
+  print,
+  addTopSpace,
   builderBanner,
   builderRemovingDistMsg,
   builderRunningBuildMsg,
@@ -32,26 +34,31 @@ export default async function runWebpackBuilder(
   try {
     fs.statSync(filename);
   } catch (error) {
-    fileDoesNotExistMsg(filename);
+    print(fileDoesNotExistMsg(filename), /* clear console */ true);
     return;
   }
 
   const config = webpackConfigBuilder(filename, flags, params);
   const compiler = webpack(config);
 
-  builderBanner(filename, flags, params);
-  builderRemovingDistMsg(params.dist.path);
+  print(builderBanner(filename, flags, params), /* clear console */ true);
+  print(addTopSpace(builderRemovingDistMsg(params.dist.path)));
 
   await removeDist(params.dist.path);
 
-  builderRunningBuildMsg();
+  print(builderRunningBuildMsg());
 
   return new Promise((resolve, reject) => {
     compiler.run((err, stats) => {
       const json = stats.toJson({}, true);
 
       if (err || stats.hasErrors()) {
-        builderErrorMsg(err || json.errors);
+        print(
+          builderErrorMsg(err || json.errors),
+          /* clear console */ true,
+          /* add sep */ true
+        );
+
         return reject();
       }
 
@@ -67,7 +74,13 @@ export default async function runWebpackBuilder(
           sizeGz: gzipSize.sync(content) / 1024
         };
       });
-      builderSuccessMsg(params.dist.short, { buildDuration, assets });
+
+      print(
+        builderSuccessMsg(params.dist.short, { buildDuration, assets }),
+        /* clear console */ true,
+        /* add sep */ true
+      );
+
       resolve(compiler);
     });
   });

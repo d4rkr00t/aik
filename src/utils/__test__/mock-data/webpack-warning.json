@@ -1,0 +1,4 @@
+[
+  "./~/jsondiffpatch/src/main.js\n56:20-50 Critical dependency: the request of a dependency is an expression",
+  "./~/jsondiffpatch/src/main.js\n61:19-47 Critical dependency: the request of a dependency is an expression"
+]

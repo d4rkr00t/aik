@@ -8,6 +8,10 @@
     "browser": false
   },
 
+  "parserOptions": {
+    "sourceType": "module"
+  },
+
   "plugins": [
     "flowtype"
   ],

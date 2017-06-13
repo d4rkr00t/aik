@@ -3,7 +3,12 @@ import { execSync, spawnSync } from "child_process";
 import fs from "fs";
 import path from "path";
 import resolveModule from "resolve";
-import { installingModuleMsg, foundPackageJson } from "./messages";
+import {
+  print,
+  addBottomSpace,
+  installingModuleMsg,
+  foundPackageJson
+} from "./messages";
 
 export function isModuleInstalled(moduleName: string): boolean {
   try {
@@ -16,7 +21,7 @@ export function isModuleInstalled(moduleName: string): boolean {
 
 export function installModule(moduleName: string) {
   execSync(`npm install ${moduleName} --silent`, { cwd: process.cwd() });
-  installingModuleMsg(moduleName);
+  print(installingModuleMsg(moduleName));
 }
 
 export function hasPackageJson(cwd: string) {
@@ -40,7 +45,7 @@ export function hasNodeModules(cwd: string) {
 export function installAllModules(cwd: string) {
   if (!hasPackageJson(cwd)) return;
   if (hasNodeModules(cwd)) return;
-  foundPackageJson();
+  print(addBottomSpace(foundPackageJson()), /* clear console */ true);
   spawnSync("npm", ["install", "--silent"], { cwd, stdio: "inherit" });
 }
 
