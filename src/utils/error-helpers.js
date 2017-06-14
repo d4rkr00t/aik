@@ -34,6 +34,10 @@ export function isDependencyAnExpression(message: string): boolean {
   return !!message.match("the request of a dependency is an expression");
 }
 
+export function isPrebuildFileWarning(message: string): boolean {
+  return !!message.match("This seems to be a pre-built javascript file");
+}
+
 export function findMessagesToFormat(messages: string[]): string[] {
   return messages.filter(message => {
     if (isEslintParseError(message)) {
@@ -41,6 +45,10 @@ export function findMessagesToFormat(messages: string[]): string[] {
     }
 
     if (isDependencyAnExpression(message)) {
+      return false;
+    }
+
+    if (isPrebuildFileWarning(message)) {
       return false;
     }
 

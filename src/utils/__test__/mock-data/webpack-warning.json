@@ -1,4 +1,5 @@
 [
   "./~/jsondiffpatch/src/main.js\n56:20-50 Critical dependency: the request of a dependency is an expression",
-  "./~/jsondiffpatch/src/main.js\n61:19-47 Critical dependency: the request of a dependency is an expression"
+  "./~/jsondiffpatch/src/main.js\n61:19-47 Critical dependency: the request of a dependency is an expression",
+  "../~/jasmine-promises/dist/jasmine-promises.js\nCritical dependencies: This seems to be a pre-built javascript file. Though this is possible, it's not recommended. Try to require the original source to get better results."
 ]
