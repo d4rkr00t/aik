@@ -44,7 +44,9 @@ export function onDone(
 
   if (!hasErrors && !hasWarnings) {
     print(
-      devServerCompiledSuccessfullyMsg(filename, flags, params, buildDuration)
+      devServerCompiledSuccessfullyMsg(filename, flags, params, buildDuration),
+      /* clear console */ true,
+      /* add sep */ true
     );
     testUtils();
     return;
@@ -94,7 +96,9 @@ export function onDone(
           formattedWarnings.join(`\n\n${separator()}\n\n`)
         ]),
         eslintExtraWarningMsg()
-      ])
+      ]),
+      /* clear console */ true,
+      /* add sep */ true
     );
   }
 
