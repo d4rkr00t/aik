@@ -3,7 +3,7 @@
 import path from "path";
 import webpack from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
-import NpmInstallPlugin from "npm-install-webpack-plugin";
+import NpmInstallPlugin from "npm-install-webpack2-plugin";
 import ExtractTextPlugin from "extract-text-webpack-plugin";
 import last from "../utils/last";
 

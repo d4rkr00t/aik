@@ -86,7 +86,7 @@
     "json-loader": "0.5.4",
     "meow": "3.7.0",
     "ngrok": "2.2.9",
-    "npm-install-webpack-plugin": "github:webpack-contrib/npm-install-webpack-plugin#b21bd32dce7470d5169c0964ac4be15b2899a005",
+    "npm-install-webpack2-plugin": "4.1.0",
     "opn": "github:sindresorhus/opn#b792b3bc3ad8a1f1090bffc5ef8f7e01f4a24697",
     "postcss-loader": "2.0.5",
     "postcss-partial-import": "4.1.0",
