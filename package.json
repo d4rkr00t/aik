@@ -87,7 +87,7 @@
     "meow": "3.7.0",
     "ngrok": "2.2.9",
     "npm-install-webpack2-plugin": "4.1.0",
-    "opn": "github:sindresorhus/opn#b792b3bc3ad8a1f1090bffc5ef8f7e01f4a24697",
+    "opn": "5.1.0",
     "postcss-loader": "2.0.5",
     "postcss-partial-import": "4.1.0",
     "precss": "1.4.0",
