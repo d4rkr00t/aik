@@ -6,6 +6,7 @@ import {
   fileDoesNotExistMsg,
   foundPackageJson,
   installingModuleMsg,
+  packageJsonHasNotBeenFound,
   devServerBanner,
   devServerInvalidBuildMsg,
   devServerCompiledSuccessfullyMsg,
@@ -75,6 +76,10 @@ describe("Common Messages", () => {
 
   test("#installingModuleMsg", () => {
     expect(print(installingModuleMsg("react"))).toMatchSnapshot();
+  });
+
+  test("#packageJsonHasNotBeenFound", () => {
+    expect(print(packageJsonHasNotBeenFound())).toMatchSnapshot();
   });
 });
 
