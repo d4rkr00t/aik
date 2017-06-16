@@ -124,6 +124,20 @@ export function foundPackageJson(): string[] {
   ];
 }
 
+export function packageJsonHasNotBeenFound(): string[] {
+  return [
+    warningBadge() +
+      " " +
+      chalk.yellow('File "package.json" hasn\'t been found.'),
+    "",
+    `In order to make subsequent builds more ${chalk.yellow(
+      "predictable"
+    )} Aik needs to create one.`,
+    "",
+    waitBadge() + " " + chalk.blue("Creating package.json...")
+  ];
+}
+
 export function installingModuleMsg(moduleName: string): string[] {
   return [`Installing module "${chalk.yellow(moduleName)}" ...`];
 }

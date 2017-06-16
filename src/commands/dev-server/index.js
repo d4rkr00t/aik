@@ -17,7 +17,8 @@ import {
 import {
   installAllModules,
   isModuleInstalled,
-  installModule
+  installModule,
+  createPackageJson
 } from "../../utils/npm";
 
 export function requestCreatingAnEntryPoint(
@@ -96,6 +97,8 @@ export default async function aikDevServer(
   await prepareEntryPoint(filename);
 
   print(devServerInvalidBuildMsg(), /* clear console */ true);
+
+  createPackageJson(process.cwd());
   installAllModules(process.cwd());
 
   if (flags.react) {

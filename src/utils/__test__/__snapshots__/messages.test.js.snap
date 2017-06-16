@@ -93,6 +93,14 @@ accidentally updated versions of npm modules Aik will run [33m\\"npm install\\"
 
 exports[`Common Messages #installingModuleMsg 1`] = `"Installing module \\"[33mreact[39m\\" ..."`;
 
+exports[`Common Messages #packageJsonHasNotBeenFound 1`] = `
+"[43m[30m WARNING [39m[49m [33mFile \\"package.json\\" hasn't been found.[39m
+
+In order to make subsequent builds more [33mpredictable[39m Aik needs to create one.
+
+[44m[30m WAIT [39m[49m [34mCreating package.json...[39m"
+`;
+
 exports[`Dev Server Messages #devServerBanner all flags enabled 1`] = `
 "[35mEntry point:      [39m./src/index.js
 [35mCustom template:  [39mindex.html
