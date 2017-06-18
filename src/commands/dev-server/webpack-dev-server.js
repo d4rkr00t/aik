@@ -193,6 +193,7 @@ export default async function createWebpackDevServer(
     historyApiFallback: true,
     hot: true,
     quiet: true,
+    disableHostCheck: true,
     overlay: { errors: true },
     stats: { colors: true }
   });
