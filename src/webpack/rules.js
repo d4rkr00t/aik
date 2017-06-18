@@ -14,7 +14,8 @@ export function createJSLoader(flags: CLIFlags, isProd: boolean): any[] {
     [
       require.resolve("babel-preset-env"),
       {
-        targets: { ie: 11 }
+        targets: { ie: 11 },
+        modules: false
       }
     ]
   ];
