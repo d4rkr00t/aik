@@ -165,7 +165,7 @@
     "eol-last": [2],
     "func-names": [0],
     "func-style": [0],
-    "indent": [2, 2],
+    "indent": [0],
     "jsx-quotes": [2, "prefer-double"],
     "key-spacing": [2, {
       "beforeColon": false,
