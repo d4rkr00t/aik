@@ -22,7 +22,8 @@
   ],
 
   "globals": {
-    "expect": true
+    "expect": true,
+    "gemini": true
   },
 
   "rules": {
@@ -223,7 +224,7 @@
     "sort-vars": [0],
     "space-before-blocks": [2, "always"],
     "space-before-function-paren": [2, {
-      "anonymous": "always",
+      "anonymous": "never",
       "named": "never"
     }],
     "space-in-parens": [2, "never"],

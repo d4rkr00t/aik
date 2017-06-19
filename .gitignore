@@ -2,9 +2,10 @@
 test/.temp
 test/package.json
 _docs
-tests/*
-!tests/run.sh
-!tests/_package.json
+tests/heavy/*
+!tests/heavy/run.sh
+!tests/heavy/_package.json
+tests/visual-regression/reports
 packages
 lib
 
