@@ -4,6 +4,9 @@ cache:
     - node_modules
 notifications:
   email: false
+env:
+  global:
+    - CXX=g++-4.8
 node_js:
   - "4"
   - "6"
@@ -19,3 +22,10 @@ script:
   - npm run ci:coverage
 after_success:
   - npm run ci:github-release
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-4.8
+      - g++-4.8
