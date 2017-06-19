@@ -112,6 +112,7 @@
     "conventional-github-releaser": "1.1.11",
     "coveralls": "2.13.1",
     "cz-conventional-changelog": "2.0.0",
+    "eslint-config-prettier": "^2.2.0",
     "eslint-plugin-flowtype": "2.34.0",
     "flow-bin": "0.48.0",
     "gemini": "5.0.0-alpha.3",

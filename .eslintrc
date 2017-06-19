@@ -18,7 +18,8 @@
 
   "extends": [
     // https://github.com/gajus/eslint-plugin-flowtype#configuration
-    "plugin:flowtype/recommended"
+    "plugin:flowtype/recommended",
+    "prettier"
   ],
 
   "globals": {
