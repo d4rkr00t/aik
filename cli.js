@@ -17,25 +17,21 @@ const cli = meow(
       "",
       chalk.green("Options"),
       `  ${chalk.yellow("-b, --build")}       Build production version for given entry point. [Default output: dist]`,
-      `  ${chalk.yellow("-u, --base")}        Base path from witch urls in build begins`,
+      `  ${chalk.yellow("-u, --base")}        Base path with which URLs in build begins`,
       `  ${chalk.yellow("-p, --port")}        Web server port. ${chalk.dim("[Default: 4444]")}`,
       `  ${chalk.yellow("-h, --host")}        Web server host. ${chalk.dim("[Default: localhost]")}`,
       `  ${chalk.yellow("-r, --react")}       Enables react hot loader.`,
-      `  ${chalk.yellow("-n, --ngrok")}       Exposes server to real world by ngrok.`,
-      `  ${chalk.yellow("-o, --open")}        Opens web server url in default browser.`,
+      `  ${chalk.yellow("-n, --ngrok")}       Exposes server to the real world by ngrok.`,
+      `  ${chalk.yellow("-o, --open")}        Opens web server URL in the default browser.`,
       `  ${chalk.yellow("-v, --version")}     Shows version.`,
       `  ${chalk.yellow("--help")}            Shows help.`,
       "",
       chalk.green("Examples"),
       "  $ aik filename.js --port 3000 -n -r",
-      chalk.dim(
-        "  Runs aik web server on 3000 port with ngrok and react hot loader"
-      ),
+      chalk.dim("  Runs aik web server on 3000 port with ngrok and react hot loader"),
       "",
       "  $ aik filename.js --build",
-      chalk.dim(
-        "  Builds filename.js for production use and saves output to dist folder."
-      )
+      chalk.dim("  Builds filename.js for production use and saves the output to dist folder.")
     ]
   },
   {
