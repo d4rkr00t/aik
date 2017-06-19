@@ -10,10 +10,7 @@ const ESLINT_PARSE_ERROR = "Parsing error:";
  * Checks whether error is syntax error.
  */
 export function isSyntaxError(message: string): boolean {
-  return (
-    message.indexOf(SYNTAX_ERROR_LABEL) !== -1 ||
-    message.indexOf(SYNTAX_ERROR_LABEL_HUMAN_FRIENDLY) !== -1
-  );
+  return message.indexOf(SYNTAX_ERROR_LABEL) !== -1 || message.indexOf(SYNTAX_ERROR_LABEL_HUMAN_FRIENDLY) !== -1;
 }
 
 /**
@@ -81,14 +78,9 @@ export function formatSyntaxError(message: string): string {
   const filePath = removeLinePadding(padding, messageByLine[0]);
   const error = removeLinePadding(
     padding,
-    messageByLine[1].replace(
-      "Module build failed: SyntaxError:",
-      SYNTAX_ERROR_LABEL_HUMAN_FRIENDLY
-    )
+    messageByLine[1].replace("Module build failed: SyntaxError:", SYNTAX_ERROR_LABEL_HUMAN_FRIENDLY)
   );
-  const snippet = messageByLine
-    .filter(isFileSnippetLine)
-    .map(removeLinePadding.bind(null, padding));
+  const snippet = messageByLine.filter(isFileSnippetLine).map(removeLinePadding.bind(null, padding));
 
   return `${chalk.red("Error:")}
 
@@ -106,9 +98,7 @@ export function formatEslintWarning(message: string): string {
   const messageByLine = message.split("\n");
   const padding = getLinePadding(messageByLine[0]);
   const filePath = removeLinePadding(padding, messageByLine[0]);
-  const rule = messageByLine
-    .filter(isEslintWarningRuleLine)
-    .map(removeLinePadding.bind(null, padding + 2));
+  const rule = messageByLine.filter(isEslintWarningRuleLine).map(removeLinePadding.bind(null, padding + 2));
 
   return `${rule.join("\n")}
 
