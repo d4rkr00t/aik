@@ -41,7 +41,7 @@ aik index.js -o
 ## Objectives
 
 This project aims to help to prototype fast and not supposed to be a part of any production-ready system.
-If you want solutions which are better for production usage you can take a look at the [alternatives](#alternatives) list down below.
+If you want solutions which are better for production use you can take a look at the [alternatives](#alternatives) list down below.
 
 Aik's main goal is to be open for any JavaScript framework or a library, even though it has extra features for React.
 
@@ -54,9 +54,10 @@ Aik's main goal is to be open for any JavaScript framework or a library, even th
 * [Features](#features)
   * [Run web server with JavaScript file](#run-web-server-with-javascript-file)
   * [NPM Modules](#npm-modules)
-  * [Relative Module Pathes](#relative-module-pathes)
+  * [Relative Module Paths](#relative-module-paths)
   * [Custom templates](#custom-templates)
   * [Hot reload](#hot-reload)
+  * [Quick Commands](#quick-commands)
   * [Latest and greatest technologies for frontend development](#latest-and-greatest-technologies-for-frontend-development)
   * [Linting](#linting)
   * [Production ready build](#production-ready-build)
@@ -76,21 +77,21 @@ Usage
 
 Options
   -b  --build       Build production version for given entry point. [Default output: dist]
-  -u, --base        Base path from witch urls in build begins
+  -u, --base        Base path with which URLs in build begins
   -p, --port        Web server port. [Default: 8080]
   -h, --host        Web server host. [Default: localhost]
   -r, --react       Enables react hot loader.
-  -n, --ngrok       Exposes server to real world by ngrok.
-  -o, --open        Opens web server url in default browser.
+  -n, --ngrok       Exposes server to the real world by ngrok.
+  -o, --open        Opens web server URL in the default browser.
   -v, --version     Shows version.
   --help            Shows help.
 
 Examples
-  $ aik filename.js --port 3000 -n -c -r
+  $ aik filename.js --port 3000 -n -r
   Runs aik web server on 3000 port with ngrok and react hot loader
 
   $ aik filename.js --build
-  Builds filename.js for production use and saves output to dist folder.
+  Builds filename.js for production use and saves the output to dist folder.
 ```
 
 ## Examples
@@ -110,7 +111,7 @@ aik index.js
 
 Moreover:
 * Creating an entry point if it doesn't exist.
-* Choosing server port automatically if default is in use.
+* Choosing server port automatically if a default one is in use.
 * Showing an error overlay, so you don't have to look at your terminal window.
 
 ### NPM Modules
@@ -128,10 +129,10 @@ import ReactDOM from 'react-dom';
 
 #### Pre-installing NPM Modules
 
-If project contains `package.json`, Aik will automatically pre-install npm modules defined in it
+If a project contains `package.json`, Aik will automatically pre-install npm modules defined in it
 if needed before trying to compile an entry point.
 
-### Relative Module Pathes
+### Relative Module Paths
 Let's assume such project structure:
 
 ```
@@ -190,6 +191,41 @@ Error: Cannot resolve module 'react-dom/lib/ReactMount'
 * Releated commit: [203ad3a](https://github.com/d4rkr00t/aik/commit/203ad3a5b9f6cb65090dfd2ef9e0994e8eed240a)
 * Issue in react-hot-loader: [gaearon/react-hot-loader#417](https://github.com/gaearon/react-hot-loader/issues/417#issuecomment-261548082)
 * Issue/Discussion about react-hot-loader + aik: [d4rkr00t/aik#132](https://github.com/d4rkr00t/aik/issues/132)
+
+#### React Hot Loader 3
+
+Aik uses [react-hot-loader@3](https://github.com/gaearon/react-hot-loader/tree/next) which requires some additional wiring. In order to hide this additional complexity Aik wraps main react component of your application in RHL compatible wrapper, but to do so you need to use [Quick Commands](#quick-commands) feature otherwise hot loading won't work.
+
+Also, you can manually wrap your component in react-hot-loader wrapper as described in [Migration to 3.0](https://github.com/gaearon/react-hot-loader/tree/master/docs#migration-to-30) guide.
+
+### Quick Commands
+
+For some frameworks Aik provides additional support in the way of quick commands:
+
+#### React
+
+In order to use quick commands feature with react and enable hot loading entry point of an application should export react component:
+
+```js
+import React from "react";
+
+export default function App() {
+  return (
+    <div>My React App.</div>
+  );
+}
+```
+
+Also, you need to run aik with `-r` flag:
+
+```sh
+aik index.js -r
+```
+
+This will wrap react component in RHL compatible wrapper enabling hot reloading for react components and also mounts component to an element with id `app`.
+
+#### Important
+##### If you are using this feature you need to use `-r` flag when you want to `--build` your app.
 
 ### Latest and greatest technologies for frontend development
 
