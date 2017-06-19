@@ -15,9 +15,7 @@ export function htmlWebpackPlugin(template: string | false) {
 }
 
 export function npmInstallPlugin(options?: Object = {}) {
-  return new NpmInstallPlugin(
-    Object.assign({ dev: true, peerDependencies: true }, options)
-  );
+  return new NpmInstallPlugin(Object.assign({ dev: true, peerDependencies: true }, options));
 }
 
 /**
@@ -26,6 +24,7 @@ export function npmInstallPlugin(options?: Object = {}) {
 export function pluginsProd(template: string | false): Array<any> {
   return [
     new webpack.DefinePlugin({ "process.env.NODE_ENV": '"production"' }),
+    new webpack.optimize.ModuleConcatenationPlugin(),
     htmlWebpackPlugin(template),
     npmInstallPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
@@ -66,7 +65,5 @@ export function pluginsDev(template: string | false): Array<any> {
  * Setups plugins section for webpack config.
  */
 export default function plugins(params: AikParams): Array<any> {
-  return params.isProd
-    ? pluginsProd(params.template.path)
-    : pluginsDev(params.template.path);
+  return params.isProd ? pluginsProd(params.template.path) : pluginsDev(params.template.path);
 }
