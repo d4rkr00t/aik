@@ -1,3 +1,5 @@
+import stripAnsi from "strip-ansi";
+
 import syntaxErrorMock from "./mock-data/syntax-error.json";
 import buildStatsMock from "./mock-data/build-stats.json";
 
@@ -28,22 +30,18 @@ import {
 
 const print = msg => {
   // console.log(msg.join("\n"));
-  return msg.join("\n");
+  return stripAnsi(msg.join("\n"));
 };
 
 const filename = "./src/index.js";
 
 describe("Helpers", () => {
   test("#addTopSpace", () => {
-    expect(addTopSpace(["msg", "content"]).join("")).toBe(
-      ["", "msg", "content"].join("")
-    );
+    expect(addTopSpace(["msg", "content"]).join("")).toBe(["", "msg", "content"].join(""));
   });
 
   test("#addBottomSpace", () => {
-    expect(addBottomSpace(["msg", "content"]).join("")).toBe(
-      ["msg", "content", ""].join("")
-    );
+    expect(addBottomSpace(["msg", "content"]).join("")).toBe(["msg", "content", ""].join(""));
   });
 
   describe("#joinWithSeparator", () => {
@@ -54,9 +52,9 @@ describe("Helpers", () => {
     });
 
     test("array of string arrays", () => {
-      expect(
-        joinWithSeparator("|", [["msg", "content"], ["here"]]).join("")
-      ).toBe(["msg", "content", "|", "here"].join(""));
+      expect(joinWithSeparator("|", [["msg", "content"], ["here"]]).join("")).toBe(
+        ["msg", "content", "|", "here"].join("")
+      );
     });
   });
 });
@@ -143,9 +141,7 @@ describe("Dev Server Messages", () => {
       ngrok: "http://43kd92j3h.ngrok.com"
     };
 
-    expect(
-      print(devServerCompiledSuccessfullyMsg(filename, flags, params, 5800))
-    ).toMatchSnapshot();
+    expect(print(devServerCompiledSuccessfullyMsg(filename, flags, params, 5800))).toMatchSnapshot();
   });
 
   test("#devServerCompiledWithWarningsMsg", () => {
@@ -163,9 +159,7 @@ describe("Dev Server Messages", () => {
       ngrok: "http://43kd92j3h.ngrok.com"
     };
 
-    expect(
-      print(devServerCompiledWithWarningsMsg(filename, flags, params, 5800))
-    ).toMatchSnapshot();
+    expect(print(devServerCompiledWithWarningsMsg(filename, flags, params, 5800))).toMatchSnapshot();
   });
 
   test("#devServerInvalidBuildMsg", () => {
@@ -185,9 +179,7 @@ describe("Dev Server Messages", () => {
   });
 
   test("#devServerModuleDoesntExists", () => {
-    expect(
-      print(devServerModuleDoesntExists("react", filename))
-    ).toMatchSnapshot();
+    expect(print(devServerModuleDoesntExists("react", filename))).toMatchSnapshot();
   });
 
   test("#devServerReactRequired", () => {
@@ -226,9 +218,7 @@ describe("Build Messages", () => {
     });
 
     test("basic", () => {
-      expect(
-        print(builderBanner(filename, {}, { template: {} }))
-      ).toMatchSnapshot();
+      expect(print(builderBanner(filename, {}, { template: {} }))).toMatchSnapshot();
     });
   });
 
@@ -251,8 +241,6 @@ describe("Build Messages", () => {
   });
 
   test("#builderSuccessMsg", () => {
-    expect(
-      print(builderSuccessMsg("./dist", buildStatsMock))
-    ).toMatchSnapshot();
+    expect(print(builderSuccessMsg("./dist", buildStatsMock))).toMatchSnapshot();
   });
 });

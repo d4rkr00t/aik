@@ -1,199 +1,199 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Build Messages #builderBanner all flags and params 1`] = `
-"[44m[30m WAIT [39m[49m [34mBuilding...[39m
+" WAIT  Building...
 
-[35mEntry point:     [39m./src/index.js
-[35mCustom template: [39mindex.html
-[35mBase path:       [39m/subfolder/"
+Entry point:     ./src/index.js
+Custom template: index.html
+Base path:       /subfolder/"
 `;
 
 exports[`Build Messages #builderBanner basic 1`] = `
-"[44m[30m WAIT [39m[49m [34mBuilding...[39m
+" WAIT  Building...
 
-[35mEntry point:     [39m./src/index.js"
+Entry point:     ./src/index.js"
 `;
 
 exports[`Build Messages #builderBanner no base 1`] = `
-"[44m[30m WAIT [39m[49m [34mBuilding...[39m
+" WAIT  Building...
 
-[35mEntry point:     [39m./src/index.js
-[35mCustom template: [39mindex.html"
+Entry point:     ./src/index.js
+Custom template: index.html"
 `;
 
 exports[`Build Messages #builderBanner no template 1`] = `
-"[44m[30m WAIT [39m[49m [34mBuilding...[39m
+" WAIT  Building...
 
-[35mEntry point:     [39m./src/index.js
-[35mBase path:       [39m/subfolder/"
+Entry point:     ./src/index.js
+Base path:       /subfolder/"
 `;
 
 exports[`Build Messages #builderErrorMsg? Custom Error message 1`] = `
-"[41m[30m ERROR [39m[49m [31mFailed to create a production build. Reason:[39m
+" ERROR  Failed to create a production build. Reason:
 
 Some error message"
 `;
 
 exports[`Build Messages #builderErrorMsg? Syntax Error 1`] = `
-"[41m[30m ERROR [39m[49m [31mFailed to create a production build. Reason:[39m
+" ERROR  Failed to create a production build. Reason:
 
-[31mError:[39m
+Error:
 
-[2m|[22m  Syntax Error: Unexpected token (20:7)
+|  Syntax Error: Unexpected token (20:7)
 
-[33mWhere:[39m ./thinking-in-react/src/components/product-table/product-table.js
+Where: ./thinking-in-react/src/components/product-table/product-table.js
 
-[0m [90m 18 | [39m  [36mreturn[39m (
- [90m 19 | [39m    [33m<[39m[33mdiv[39m className[33m=[39m[32m\\"productTable\\"[39m[33m>[39m
-[31m[1m>[22m[39m[90m 20 | [39m      [33m<<[39m[33mtable[39m[33m>[39m
- [90m    | [39m       [31m[1m^[22m[39m
- [90m 21 | [39m        [33m<[39m[33mthead[39m[33m>[39m
- [90m 22 | [39m          [33m<[39m[33mtr[39m[33m>[39m
- [90m 23 | [39m            [33m<[39m[33mth[39m[33m>[39m[33mName[39m[33m<[39m[33m/[39m[33mth[39m[33m>[39m[0m"
+  18 |   return (
+  19 |     <div className=\\"productTable\\">
+> 20 |       <<table>
+     |        ^
+  21 |         <thead>
+  22 |           <tr>
+  23 |             <th>Name</th>"
 `;
 
-exports[`Build Messages #builderRemovingDistMsg 1`] = `"[33mRemoving folder: [39m./dist"`;
+exports[`Build Messages #builderRemovingDistMsg 1`] = `"Removing folder: ./dist"`;
 
-exports[`Build Messages #builderRunningBuildMsg 1`] = `"[33mRunning webpack production build...[39m"`;
+exports[`Build Messages #builderRunningBuildMsg 1`] = `"Running webpack production build..."`;
 
 exports[`Build Messages #builderSuccessMsg 1`] = `
-"[42m[30m DONE [39m[49m in 3892ms
+" DONE  in 3892ms
 
-[32mAik has successfully generated a bundle in the [36m\\"./dist\\"[32m folder![39m
-[32mThe bundle is optimized and ready to be deployed to production.[39m
+Aik has successfully generated a bundle in the \\"./dist\\" folder!
+The bundle is optimized and ready to be deployed to production.
 
-[45m[30m ASSETS [39m[49m
+ ASSETS 
 
-[35mindex.2b2f089a.js: [39m 22.90kb, 7.33kb gzip
-[35mindex.1027be30.css:[39m 0.67kb, 0.31kb gzip
-[35mindex.html:        [39m 0.34kb, 0.24kb gzip"
+index.2b2f089a.js:  22.90kb, 7.33kb gzip
+index.1027be30.css: 0.67kb, 0.31kb gzip
+index.html:         0.34kb, 0.24kb gzip"
 `;
 
 exports[`Common Messages #eslintExtraWarningMsg 1`] = `
 "You may use special comments to disable some warnings.
-Use [33m// eslint-disable-next-line[39m to ignore the next line.
-Use [33m/* eslint-disable */[39m to ignore all warnings in a file."
+Use // eslint-disable-next-line to ignore the next line.
+Use /* eslint-disable */ to ignore all warnings in a file."
 `;
 
 exports[`Common Messages #fileDoesNotExistMsg 1`] = `
-"[41m[30m ERROR [39m[49m[31m File doesn't exist.[39m
+" ERROR  File doesn't exist.
 
-You are trying to use [33m\\"./src/index.js\\"[39m as an entry point, but this file doesn't exist.
-Please, choose an existing file or create [33m\\"./src/index.js\\"[39m manualy."
+You are trying to use \\"./src/index.js\\" as an entry point, but this file doesn't exist.
+Please, choose an existing file or create \\"./src/index.js\\" manualy."
 `;
 
 exports[`Common Messages #foundPackageJson 1`] = `
-"[43m[30m WARNING [39m[49m [33mFile \\"package.json\\" has been discovered.[39m
+" WARNING  File \\"package.json\\" has been discovered.
 
-Since [33m\\"node_modules\\"[39m folder doesn't exist and in order to avoid possible artifacts caused by
-accidentally updated versions of npm modules Aik will run [33m\\"npm install\\"[39m in current directory.
+Since \\"node_modules\\" folder doesn't exist and in order to avoid possible artifacts caused by
+accidentally updated versions of npm modules Aik will run \\"npm install\\" in current directory.
 
-[44m[30m WAIT [39m[49m [34mInstalling npm modules...[39m"
+ WAIT  Installing npm modules..."
 `;
 
-exports[`Common Messages #installingModuleMsg 1`] = `"Installing module \\"[33mreact[39m\\" ..."`;
+exports[`Common Messages #installingModuleMsg 1`] = `"Installing module \\"react\\" ..."`;
 
 exports[`Common Messages #packageJsonHasNotBeenFound 1`] = `
-"[43m[30m WARNING [39m[49m [33mFile \\"package.json\\" hasn't been found.[39m
+" WARNING  File \\"package.json\\" hasn't been found.
 
-In order to make subsequent builds more [33mpredictable[39m Aik needs to create one.
+In order to make subsequent builds more predictable Aik needs to create one.
 
-[44m[30m WAIT [39m[49m [34mCreating package.json...[39m"
+ WAIT  Creating package.json..."
 `;
 
 exports[`Dev Server Messages #devServerBanner all flags enabled 1`] = `
-"[35mEntry point:      [39m./src/index.js
-[35mCustom template:  [39mindex.html
-[35mPort changed:     [39m[41m[30m 3333 [39m[49m -> [42m[30m 3334 [39m[49m
-[35mServer:           [39m[36mhttp://localhost:3334[39m
-[35mNgrok:            [39m[36mhttp://43kd92j3h.ngrok.com[39m
-[35mReact Hot Loader: [39m[33menabled[39m"
+"Entry point:      ./src/index.js
+Custom template:  index.html
+Port changed:      3333  ->  3334 
+Server:           http://localhost:3334
+Ngrok:            http://43kd92j3h.ngrok.com
+React Hot Loader: enabled"
 `;
 
 exports[`Dev Server Messages #devServerBanner no ngrok 1`] = `
-"[35mEntry point:      [39m./src/index.js
-[35mCustom template:  [39mindex.html
-[35mPort changed:     [39m[41m[30m 3333 [39m[49m -> [42m[30m 3334 [39m[49m
-[35mServer:           [39m[36mhttp://localhost:3334[39m
-[35mReact Hot Loader: [39m[33menabled[39m"
+"Entry point:      ./src/index.js
+Custom template:  index.html
+Port changed:      3333  ->  3334 
+Server:           http://localhost:3334
+React Hot Loader: enabled"
 `;
 
 exports[`Dev Server Messages #devServerBanner no old port 1`] = `
-"[35mEntry point:      [39m./src/index.js
-[35mCustom template:  [39mindex.html
-[35mServer:           [39m[36mhttp://localhost:3334[39m
-[35mNgrok:            [39m[36mhttp://43kd92j3h.ngrok.com[39m
-[35mReact Hot Loader: [39m[33menabled[39m"
+"Entry point:      ./src/index.js
+Custom template:  index.html
+Server:           http://localhost:3334
+Ngrok:            http://43kd92j3h.ngrok.com
+React Hot Loader: enabled"
 `;
 
 exports[`Dev Server Messages #devServerBanner no react 1`] = `
-"[35mEntry point:      [39m./src/index.js
-[35mCustom template:  [39mindex.html
-[35mPort changed:     [39m[41m[30m 3333 [39m[49m -> [42m[30m 3334 [39m[49m
-[35mServer:           [39m[36mhttp://localhost:3334[39m
-[35mNgrok:            [39m[36mhttp://43kd92j3h.ngrok.com[39m"
+"Entry point:      ./src/index.js
+Custom template:  index.html
+Port changed:      3333  ->  3334 
+Server:           http://localhost:3334
+Ngrok:            http://43kd92j3h.ngrok.com"
 `;
 
 exports[`Dev Server Messages #devServerBanner no template 1`] = `
-"[35mEntry point:      [39m./src/index.js
-[35mPort changed:     [39m[41m[30m 3333 [39m[49m -> [42m[30m 3334 [39m[49m
-[35mServer:           [39m[36mhttp://localhost:3334[39m
-[35mNgrok:            [39m[36mhttp://43kd92j3h.ngrok.com[39m
-[35mReact Hot Loader: [39m[33menabled[39m"
+"Entry point:      ./src/index.js
+Port changed:      3333  ->  3334 
+Server:           http://localhost:3334
+Ngrok:            http://43kd92j3h.ngrok.com
+React Hot Loader: enabled"
 `;
 
 exports[`Dev Server Messages #devServerCompiledSuccessfullyMsg 1`] = `
-"[42m[30m DONE [39m[49m [32mCompiled successfully in 5800ms![39m
+" DONE  Compiled successfully in 5800ms!
 
-[35mEntry point:      [39m./src/index.js
-[35mCustom template:  [39mindex.html
-[35mPort changed:     [39m[41m[30m 3333 [39m[49m -> [42m[30m 3334 [39m[49m
-[35mServer:           [39m[36mhttp://localhost:3334[39m
-[35mNgrok:            [39m[36mhttp://43kd92j3h.ngrok.com[39m
-[35mReact Hot Loader: [39m[33menabled[39m"
+Entry point:      ./src/index.js
+Custom template:  index.html
+Port changed:      3333  ->  3334 
+Server:           http://localhost:3334
+Ngrok:            http://43kd92j3h.ngrok.com
+React Hot Loader: enabled"
 `;
 
 exports[`Dev Server Messages #devServerCompiledWithWarningsMsg 1`] = `
-"[43m[30m WARNING [39m[49m [33mCompiled with warnings in 5800ms.[39m
+" WARNING  Compiled with warnings in 5800ms.
 
-[35mEntry point:      [39m./src/index.js
-[35mCustom template:  [39mindex.html
-[35mPort changed:     [39m[41m[30m 3333 [39m[49m -> [42m[30m 3334 [39m[49m
-[35mServer:           [39m[36mhttp://localhost:3334[39m
-[35mNgrok:            [39m[36mhttp://43kd92j3h.ngrok.com[39m
-[35mReact Hot Loader: [39m[33menabled[39m
+Entry point:      ./src/index.js
+Custom template:  index.html
+Port changed:      3333  ->  3334 
+Server:           http://localhost:3334
+Ngrok:            http://43kd92j3h.ngrok.com
+React Hot Loader: enabled
 
-[2m---------[22m"
+---------"
 `;
 
-exports[`Dev Server Messages #devServerFailedToCompileMsg 1`] = `"[41m[30m ERROR [39m[49m [31mFailed to compile.[39m"`;
+exports[`Dev Server Messages #devServerFailedToCompileMsg 1`] = `" ERROR  Failed to compile."`;
 
-exports[`Dev Server Messages #devServerFileDoesNotExistMsg 1`] = `"[43m[30m WARNING [39m[49m[33m File \\"./src/index.js\\" doesn't exist.[39m"`;
+exports[`Dev Server Messages #devServerFileDoesNotExistMsg 1`] = `" WARNING  File \\"./src/index.js\\" doesn't exist."`;
 
-exports[`Dev Server Messages #devServerInvalidBuildMsg 1`] = `"[44m[30m WAIT [39m[49m [34mCompiling...[39m"`;
+exports[`Dev Server Messages #devServerInvalidBuildMsg 1`] = `" WAIT  Compiling..."`;
 
 exports[`Dev Server Messages #devServerModuleDoesntExists 1`] = `
-"[41m[30m ERROR [39m[49m [31mModule 'react' doesn't exists.[39m
+" ERROR  Module 'react' doesn't exists.
 
-Error in [33m./src/index.js[39m
+Error in ./src/index.js
 
-Webpack tried to resolve module [43m[30m react [39m[49m which doesn't exist.
+Webpack tried to resolve module  react  which doesn't exist.
 
-It's likely caused by a [33mtypo[39m in the module name."
+It's likely caused by a typo in the module name."
 `;
 
 exports[`Dev Server Messages #devServerReactRequired 1`] = `
-"[43m[30m WARNING [39m[49m [33m\\"react\\" required.[39m
+" WARNING  \\"react\\" required.
 
-In order to make [33m\\"react-hot-loader\\"[39m work, [33m\\"react\\"[39m and [33m\\"react-dom\\"[39m are required.
+In order to make \\"react-hot-loader\\" work, \\"react\\" and \\"react-dom\\" are required.
 
-[44m[30m WAIT [39m[49m [34mInstalling required modules...[39m"
+ WAIT  Installing required modules..."
 `;
 
 exports[`Dev Server Messages #devServerRestartMsg 1`] = `
-"[43m[30m WARNING [39m[49m [33mNew npm module was added (react).[39m
+" WARNING  New npm module was added (react).
 
-Restarting of the [33m\\"webpack-dev-server\\"[39m is requried.
+Restarting of the \\"webpack-dev-server\\" is requried.
 
 Please be patient and wait until restart completes, otherwise some changes might not be tracked."
 `;
