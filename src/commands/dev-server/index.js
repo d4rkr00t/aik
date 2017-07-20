@@ -6,24 +6,18 @@ import { outputFile } from "fs-extra";
 import createWebpackDevServer from "./webpack-dev-server";
 import createNgrokTunnel from "./ngrok";
 import createParams from "./../../utils/params";
+import detectPort from "./../../utils/detect-port";
+import { updateFrameworkFlags } from "./../../utils/framework-detectors";
 import {
   print,
   addBottomSpace,
   devServerFileDoesNotExistMsg,
   devServerInvalidBuildMsg,
-  fileDoesNotExistMsg,
-  devServerReactRequired
+  fileDoesNotExistMsg
 } from "./../../utils/messages";
-import {
-  installAllModules,
-  isModuleInstalled,
-  installModule,
-  createPackageJson
-} from "../../utils/npm";
+import { installAllModules, createPackageJson } from "../../utils/npm";
 
-export function requestCreatingAnEntryPoint(
-  filename: string
-): Promise<boolean> {
+export function requestCreatingAnEntryPoint(filename: string): Promise<boolean> {
   return new Promise((resolve, reject) => {
     const rl = readline.createInterface({
       input: process.stdin,
@@ -58,14 +52,9 @@ async function prepareEntryPoint(filename: string) {
   try {
     fs.statSync(filename);
   } catch (error) {
-    print(
-      addBottomSpace(devServerFileDoesNotExistMsg(filename)),
-      /* clear console */ true
-    );
+    print(addBottomSpace(devServerFileDoesNotExistMsg(filename)), /* clear console */ true);
 
-    const shouldCreateAnEntryPoint = await requestCreatingAnEntryPoint(
-      filename
-    );
+    const shouldCreateAnEntryPoint = await requestCreatingAnEntryPoint(filename);
 
     if (shouldCreateAnEntryPoint) {
       await createFile(filename);
@@ -73,26 +62,27 @@ async function prepareEntryPoint(filename: string) {
   }
 }
 
-function prepareForReact() {
-  const needReact = !isModuleInstalled("react");
-  const needReactDom = !isModuleInstalled("react-dom");
-
-  if (needReact || needReactDom) {
-    print(devServerReactRequired());
+/**
+ * Updates port if specified one has already been taken
+ */
+export async function updatePort(flags: CLIFlags): Promise<CLIFlags> {
+  const port = await detectPort(parseInt(flags.port, 10), flags.host);
+  if (port !== flags.port) {
+    return Object.assign({}, flags, {
+      oldPort: flags.port,
+      port
+    });
   }
 
-  needReact && installModule("react");
-  needReactDom && installModule("react-dom");
+  return flags;
 }
 
 /**
  * Aik dev server command
  */
-export default async function aikDevServer(
-  input: string[],
-  flags: CLIFlags
-): Promise<*> {
+export default async function aikDevServer(input: string[], rawFlags: CLIFlags): Promise<*> {
   const [filename] = input;
+  let flags = rawFlags;
 
   await prepareEntryPoint(filename);
 
@@ -101,15 +91,17 @@ export default async function aikDevServer(
   createPackageJson(process.cwd());
   installAllModules(process.cwd());
 
-  if (flags.react) {
-    prepareForReact();
-  }
+  flags = await updatePort(flags);
+  flags = updateFrameworkFlags(filename, flags);
 
   const ngrokUrl: NgrokUrl = flags.ngrok && (await createNgrokTunnel(flags));
   const params: AikParams = createParams(filename, flags, ngrokUrl, false);
-  await createWebpackDevServer(filename, flags, params);
 
-  if (flags.open) {
-    opn(ngrokUrl ? ngrokUrl : `http://${flags.host}:${flags.port}`);
-  }
+  return new Promise(async function(resolve, reject) {
+    createWebpackDevServer(filename, flags, params, reject);
+
+    if (flags.open) {
+      opn(ngrokUrl ? ngrokUrl : `http://${flags.host}:${flags.port}`);
+    }
+  });
 }

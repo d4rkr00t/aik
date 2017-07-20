@@ -17,6 +17,7 @@ import {
   devServerFileDoesNotExistMsg,
   devServerRestartMsg,
   devServerModuleDoesntExists,
+  devServerFrameworkDetectedRestartMsg,
   devServerReactRequired,
   builderBanner,
   builderRemovingDistMsg,
@@ -180,6 +181,10 @@ describe("Dev Server Messages", () => {
 
   test("#devServerModuleDoesntExists", () => {
     expect(print(devServerModuleDoesntExists("react", filename))).toMatchSnapshot();
+  });
+
+  test("#devServerFrameworkDetectedRestartMsg", () => {
+    expect(print(devServerFrameworkDetectedRestartMsg("react"))).toMatchSnapshot();
   });
 
   test("#devServerReactRequired", () => {

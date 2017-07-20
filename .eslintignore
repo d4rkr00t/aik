@@ -3,3 +3,4 @@ test/mocks
 lib/
 assets/
 flow-typed/
+**/__test__/mock-data

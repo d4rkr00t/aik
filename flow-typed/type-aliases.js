@@ -25,6 +25,10 @@ declare type AikParams = {
   }
 };
 
+declare type FrameworkFlags = {
+  react?: boolean
+};
+
 declare type NgrokUrl = string | false;
 
 declare type Entry = Object;

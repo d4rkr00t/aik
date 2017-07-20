@@ -7,21 +7,14 @@ import { formatMessages } from "./error-helpers";
  * Moves current line to the most top of console.
  */
 export function clearConsole(sep?: boolean) {
-  sep &&
-    process.stdout.write(chalk.dim("----------------------------------\n"));
-  process.stdout.write(
-    process.platform === "win32" ? "\x1Bc" : "\x1B[2J\x1B[3J\x1B[H"
-  );
+  sep && process.stdout.write(chalk.dim("----------------------------------\n"));
+  process.stdout.write(process.platform === "win32" ? "\x1Bc" : "\x1B[2J\x1B[3J\x1B[H");
 }
 
 /**
  * Actually prints message to the console
  */
-export function print(
-  msg: string[],
-  clear?: boolean = false,
-  clearWithSep?: boolean = false
-) {
+export function print(msg: string[], clear?: boolean = false, clearWithSep?: boolean = false) {
   if (clear) clearConsole(clearWithSep);
   return console.log(msg.join("\n")); // eslint-disable-line
 }
@@ -85,12 +78,8 @@ export function separator() {
 export function eslintExtraWarningMsg(): string[] {
   return [
     "You may use special comments to disable some warnings.",
-    "Use " +
-      chalk.yellow("// eslint-disable-next-line") +
-      " to ignore the next line.",
-    "Use " +
-      chalk.yellow("/* eslint-disable */") +
-      " to ignore all warnings in a file."
+    "Use " + chalk.yellow("// eslint-disable-next-line") + " to ignore the next line.",
+    "Use " + chalk.yellow("/* eslint-disable */") + " to ignore all warnings in a file."
   ];
 }
 
@@ -98,27 +87,17 @@ export function fileDoesNotExistMsg(filename: string): string[] {
   return [
     errorBadge() + chalk.red(" File doesn't exist."),
     "",
-    `You are trying to use ${chalk.yellow(
-      '"' + filename + '"'
-    )} as an entry point, but this file doesn't exist.`,
-    `Please, choose an existing file or create ${chalk.yellow(
-      '"' + filename + '"'
-    )} manualy.`
+    `You are trying to use ${chalk.yellow('"' + filename + '"')} as an entry point, but this file doesn't exist.`,
+    `Please, choose an existing file or create ${chalk.yellow('"' + filename + '"')} manualy.`
   ];
 }
 
 export function foundPackageJson(): string[] {
   return [
-    warningBadge() +
-      " " +
-      chalk.yellow('File "package.json" has been discovered.'),
+    warningBadge() + " " + chalk.yellow('File "package.json" has been discovered.'),
     "",
-    `Since ${chalk.yellow(
-      '"node_modules"'
-    )} folder doesn't exist and in order to avoid possible artifacts caused by`,
-    `accidentally updated versions of npm modules Aik will run ${chalk.yellow(
-      '"npm install"'
-    )} in current directory.`,
+    `Since ${chalk.yellow('"node_modules"')} folder doesn't exist and in order to avoid possible artifacts caused by`,
+    `accidentally updated versions of npm modules Aik will run ${chalk.yellow('"npm install"')} in current directory.`,
     "",
     waitBadge() + " " + chalk.blue("Installing npm modules...")
   ];
@@ -126,13 +105,9 @@ export function foundPackageJson(): string[] {
 
 export function packageJsonHasNotBeenFound(): string[] {
   return [
-    warningBadge() +
-      " " +
-      chalk.yellow('File "package.json" hasn\'t been found.'),
+    warningBadge() + " " + chalk.yellow('File "package.json" hasn\'t been found.'),
     "",
-    `In order to make subsequent builds more ${chalk.yellow(
-      "predictable"
-    )} Aik needs to create one.`,
+    `In order to make subsequent builds more ${chalk.yellow("predictable")} Aik needs to create one.`,
     "",
     waitBadge() + " " + chalk.blue("Creating package.json...")
   ];
@@ -148,11 +123,7 @@ export function installingModuleMsg(moduleName: string): string[] {
  *
  */
 
-export function devServerBanner(
-  filename: string,
-  flags: CLIFlags,
-  params: AikParams
-): string[] {
+export function devServerBanner(filename: string, flags: CLIFlags, params: AikParams): string[] {
   const msg: string[] = [chalk.magenta("Entry point:      ") + filename];
 
   if (params.template.short) {
@@ -162,16 +133,11 @@ export function devServerBanner(
   if (flags.oldPort) {
     msg.push(
       chalk.magenta("Port changed:     ") +
-        `${chalk.bgRed.black(
-          " " + flags.oldPort + " "
-        )} -> ${chalk.bgGreen.black(" " + flags.port + " ")}`
+        `${chalk.bgRed.black(" " + flags.oldPort + " ")} -> ${chalk.bgGreen.black(" " + flags.port + " ")}`
     );
   }
 
-  msg.push(
-    chalk.magenta("Server:           ") +
-      chalk.cyan(`http://${flags.host}:${flags.port}`)
-  );
+  msg.push(chalk.magenta("Server:           ") + chalk.cyan(`http://${flags.host}:${flags.port}`));
 
   if (params.ngrok) {
     msg.push(chalk.magenta("Ngrok:            ") + chalk.cyan(params.ngrok));
@@ -196,11 +162,7 @@ export function devServerCompiledSuccessfullyMsg(
 ): string[] {
   const msg = devServerBanner(filename, flags, params);
   msg.unshift("");
-  msg.unshift(
-    doneBadge() +
-      " " +
-      chalk.green(`Compiled successfully in ${buildDuration}ms!`)
-  );
+  msg.unshift(doneBadge() + " " + chalk.green(`Compiled successfully in ${buildDuration}ms!`));
   return msg;
 }
 
@@ -217,11 +179,7 @@ export function devServerCompiledWithWarningsMsg(
 ): string[] {
   const msg = devServerBanner(filename, flags, params);
   msg.unshift("");
-  msg.unshift(
-    warningBadge() +
-      " " +
-      chalk.yellow(`Compiled with warnings in ${buildDuration}ms.`)
-  );
+  msg.unshift(warningBadge() + " " + chalk.yellow(`Compiled with warnings in ${buildDuration}ms.`));
   msg.push("", separator());
   return msg;
 }
@@ -232,9 +190,7 @@ export function devServerFileDoesNotExistMsg(filename: string): string[] {
 
 export function devServerRestartMsg(module: string): string[] {
   return [
-    warningBadge() +
-      " " +
-      chalk.yellow(`New npm module was added (${module}).`),
+    warningBadge() + " " + chalk.yellow(`New npm module was added (${module}).`),
     "",
     `Restarting of the ${chalk.yellow('"webpack-dev-server"')} is requried.`,
     "",
@@ -242,20 +198,25 @@ export function devServerRestartMsg(module: string): string[] {
   ];
 }
 
-export function devServerModuleDoesntExists(
-  module: string,
-  filename: string
-): string[] {
+export function devServerModuleDoesntExists(module: string, filename: string): string[] {
   return [
     errorBadge() + " " + chalk.red(`Module '${module}' doesn't exists.`),
     "",
     `Error in ${chalk.yellow(filename)}`,
     "",
-    `Webpack tried to resolve module ${chalk.bgYellow.black(
-      " " + module + " "
-    )} which doesn't exist.`,
+    `Webpack tried to resolve module ${chalk.bgYellow.black(" " + module + " ")} which doesn't exist.`,
     "",
     `It's likely caused by a ${chalk.yellow("typo")} in the module name.`
+  ];
+}
+
+export function devServerFrameworkDetectedRestartMsg(framework: string): string[] {
+  return [
+    warningBadge() + " " + chalk.yellow(`Usage of '${framework}' detected.`),
+    "",
+    `Restarting ${chalk.yellow('"webpack-dev-server"')}...`,
+    "",
+    "Please be patient and wait until restart completes, otherwise some changes might not be tracked."
   ];
 }
 
@@ -263,9 +224,7 @@ export function devServerReactRequired(): string[] {
   return [
     warningBadge() + " " + chalk.yellow('"react" required.'),
     "",
-    `In order to make ${chalk.yellow(
-      '"react-hot-loader"'
-    )} work, ${chalk.yellow('"react"')} and ${chalk.yellow(
+    `In order to make ${chalk.yellow('"react-hot-loader"')} work, ${chalk.yellow('"react"')} and ${chalk.yellow(
       '"react-dom"'
     )} are required.`,
     "",
@@ -279,16 +238,8 @@ export function devServerReactRequired(): string[] {
  *
  */
 
-export function builderBanner(
-  filename: string,
-  flags: CLIFlags,
-  params: AikParams
-): string[] {
-  const msg = [
-    waitBadge() + " " + chalk.blue("Building..."),
-    "",
-    chalk.magenta("Entry point:     ") + filename
-  ];
+export function builderBanner(filename: string, flags: CLIFlags, params: AikParams): string[] {
+  const msg = [waitBadge() + " " + chalk.blue("Building..."), "", chalk.magenta("Entry point:     ") + filename];
 
   if (params.template.short) {
     msg.push(chalk.magenta("Custom template: ") + params.template.short);
@@ -313,39 +264,20 @@ export function builderRunningBuildMsg(): string[] {
 export function builderErrorMsg(err: string[]): string[] {
   const msg = formatMessages(err);
 
-  return [
-    errorBadge() +
-      " " +
-      chalk.red("Failed to create a production build. Reason:"),
-    ""
-  ].concat(msg);
+  return [errorBadge() + " " + chalk.red("Failed to create a production build. Reason:"), ""].concat(msg);
 }
 
-export function builderSuccessMsg(
-  distShortName: string,
-  buildStats: BuildStats
-): string[] {
+export function builderSuccessMsg(distShortName: string, buildStats: BuildStats): string[] {
   const assets = buildStats.assets;
-  const longestNameSize =
-    assets.reduce(
-      (acc, item) => (item.name.length > acc ? item.name.length : acc),
-      0
-    ) + 1;
+  const longestNameSize = assets.reduce((acc, item) => (item.name.length > acc ? item.name.length : acc), 0) + 1;
   const padStringPlaceholder = " ".repeat(longestNameSize);
-  const padString = (placeholder: string, str: string) =>
-    (str + placeholder).substr(0, placeholder.length);
+  const padString = (placeholder: string, str: string) => (str + placeholder).substr(0, placeholder.length);
 
   return [
     doneBadge() + ` in ${buildStats.buildDuration}ms`,
     "",
-    chalk.green(
-      `Aik has successfully generated a bundle in the ${chalk.cyan(
-        '"' + distShortName + '"'
-      )} folder!`
-    ),
-    chalk.green(
-      "The bundle is optimized and ready to be deployed to production."
-    ),
+    chalk.green(`Aik has successfully generated a bundle in the ${chalk.cyan('"' + distShortName + '"')} folder!`),
+    chalk.green("The bundle is optimized and ready to be deployed to production."),
     "",
     chalk.bgMagenta.black(" ASSETS "),
     "",

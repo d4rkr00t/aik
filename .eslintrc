@@ -1,4 +1,3 @@
-// prettier-ignore
 {
   "parser": "babel-eslint",
   "env": {
@@ -138,7 +137,6 @@
     "no-undef-init": [2],
     "no-undefined": [2],
     "no-unused-vars": [2],
-    "no-use-before-define": [2],
 
     // node.js
     "callback-return": [0],
@@ -179,7 +177,6 @@
       "beforeBlockComment": true
     }],
     "max-depth": [2, 4],
-    "max-len": [2, 120, 4],
     "max-nested-callbacks": [2, 4],
     "max-params": [0],
     "max-statements": [0],

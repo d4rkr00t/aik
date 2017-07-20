@@ -170,6 +170,14 @@ exports[`Dev Server Messages #devServerFailedToCompileMsg 1`] = `" ERROR  Failed
 
 exports[`Dev Server Messages #devServerFileDoesNotExistMsg 1`] = `" WARNING  File \\"./src/index.js\\" doesn't exist."`;
 
+exports[`Dev Server Messages #devServerFrameworkDetectedRestartMsg 1`] = `
+" WARNING  Usage of 'react' detected.
+
+Restarting \\"webpack-dev-server\\"...
+
+Please be patient and wait until restart completes, otherwise some changes might not be tracked."
+`;
+
 exports[`Dev Server Messages #devServerInvalidBuildMsg 1`] = `" WAIT  Compiling..."`;
 
 exports[`Dev Server Messages #devServerModuleDoesntExists 1`] = `
