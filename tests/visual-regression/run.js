@@ -6,7 +6,7 @@ const proq = require("proq");
 const tests = [
   {
     pattern: "Thinking in React",
-    args: ["examples/thinking-in-react/src/index.js", "-r"]
+    args: ["examples/thinking-in-react/src/index.js"]
   },
   {
     pattern: "Simple Counter in Cycle.js",
@@ -44,14 +44,11 @@ function startPhantom(cb) {
 
 function runGeminiForPattern(pattern) {
   try {
-    execSync(
-      `./node_modules/.bin/gemini ${command} --grep "${pattern}" --reporter flat`,
-      {
-        env: process.env,
-        cwd: process.cwd(),
-        stdio: "inherit"
-      }
-    );
+    execSync(`./node_modules/.bin/gemini ${command} --grep "${pattern}" --reporter flat`, {
+      env: process.env,
+      cwd: process.cwd(),
+      stdio: "inherit"
+    });
   } catch (error) {
     return pattern;
   }
@@ -59,11 +56,7 @@ function runGeminiForPattern(pattern) {
 
 function runSingleTest(testConfig, result) {
   // eslint-disable-next-line
-  console.log(
-    `${chalk.blue("Running visual regression tests for:")} ${chalk.yellow(
-      testConfig.pattern
-    )}`
-  );
+  console.log(`${chalk.blue("Running visual regression tests for:")} ${chalk.yellow(testConfig.pattern)}`);
   console.log(); // eslint-disable-line
 
   return new Promise(resolve => {
@@ -87,13 +80,9 @@ function runSingleTest(testConfig, result) {
 
 function main() {
   startPhantom(phatomProcess => {
-    const selectedTests = suite
-      ? tests.filter(t => t.pattern.startsWith(suite))
-      : tests;
+    const selectedTests = suite ? tests.filter(t => t.pattern.startsWith(suite)) : tests;
 
-    const promiseList = selectedTests.map(test => result =>
-      runSingleTest(test, result)
-    );
+    const promiseList = selectedTests.map(test => result => runSingleTest(test, result));
 
     proq(promiseList, []).then(rawResults => {
       phatomProcess.kill("SIGTERM");
