@@ -4,7 +4,11 @@
   "description": "Frontend Playground",
   "bin": "cli.js",
   "main": "lib/index.js",
-  "files": ["cli.js", "lib/", "template/"],
+  "files": [
+    "cli.js",
+    "lib/",
+    "template/"
+  ],
   "keywords": [
     "node",
     "frontend",
@@ -51,14 +55,25 @@
     "email": "d4rkr00t@gmail.com",
     "url": "https://github.com/d4rkr00t/aik"
   },
-  "pre-commit": ["lint:flow", "lint:staged", "test"],
+  "pre-commit": [
+    "lint:flow",
+    "lint:staged",
+    "test"
+  ],
   "lint-staged": {
-    "*.js": ["eslint", "prettier --write --print-width 120", "git add"]
+    "*.js": [
+      "eslint",
+      "prettier --write --print-width 120",
+      "git add"
+    ]
   },
   "dependencies": {
     "autoprefixer": "7.1.2",
     "babel-core": "6.25.0",
+    "babel-eslint": "^7.2.3",
     "babel-loader": "7.1.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-polyfill": "6.23.0",
     "babel-preset-env": "1.6.0",
     "babel-preset-react": "6.24.1",
@@ -123,7 +138,11 @@
     }
   },
   "jest": {
-    "roots": ["./src"],
-    "collectCoverageFrom": ["src/**/*.js"]
+    "roots": [
+      "./src"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ]
   }
 }

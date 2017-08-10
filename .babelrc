@@ -9,9 +9,5 @@
       }
     ]
   ],
-  "plugins": [
-    "syntax-flow",
-    "transform-flow-strip-types",
-    "transform-async-to-generator"
-  ]
+  "plugins": ["syntax-flow", "transform-flow-strip-types", "transform-async-to-generator"]
 }

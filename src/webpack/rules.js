@@ -20,6 +20,11 @@ export function createJSLoader(flags: CLIFlags, isProd: boolean): any[] {
     ]
   ];
 
+  const plugins = [
+    [require.resolve("babel-plugin-transform-object-rest-spread"), { useBuiltIns: true }],
+    require.resolve("babel-plugin-transform-class-properties")
+  ];
+
   if (flags.react && !isProd) {
     presets.push(require.resolve("babel-preset-react-hmre"));
   }
@@ -27,7 +32,7 @@ export function createJSLoader(flags: CLIFlags, isProd: boolean): any[] {
   const jsLoaders: { loader: string, query?: any }[] = [
     {
       loader: require.resolve("babel-loader"),
-      query: { presets }
+      query: { presets, plugins }
     }
   ];
 

@@ -8,15 +8,7 @@ module.exports = {
     node: true
   },
 
-  parserOptions: {
-    ecmaVersion: 2017,
-    sourceType: "module",
-    impliedStrict: true,
-    ecmaFeatures: {
-      jsx: true,
-      generators: true
-    }
-  },
+  parser: "babel-eslint",
 
   plugins: ["react"],
 
