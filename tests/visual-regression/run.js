@@ -2,7 +2,9 @@ const { spawn, execSync } = require("child_process");
 const { join } = require("path");
 const chalk = require("chalk");
 const proq = require("proq");
+const stripAnsi = require("strip-ansi");
 
+const TIMEOUT = 10000;
 const tests = [
   {
     pattern: "Thinking in React",
@@ -22,7 +24,7 @@ const command = process.argv[2] === "update" ? "update" : "test";
 const suite = command === "update" ? null : process.argv[2];
 
 function isReady(data) {
-  return data && data.match(/Compiled/) && data.match(/Server:/);
+  return data && data.match(/Open/);
 }
 
 function startPhantom(cb) {
@@ -59,14 +61,21 @@ function runSingleTest(testConfig, result) {
   console.log(`${chalk.blue("Running visual regression tests for:")} ${chalk.yellow(testConfig.pattern)}`);
   console.log(); // eslint-disable-line
 
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     const aikProcess = spawn("./../../cli.js", testConfig.args, {
       env: process.env,
       cwd: join(process.cwd(), "tests", "heavy")
     });
 
+    const timeout = setTimeout(() => {
+      aikProcess.kill("SIGTERM");
+      reject(new Error(`Timeout for test: "${testConfig.pattern}"`));
+    }, TIMEOUT);
+
     aikProcess.stdout.on("data", data => {
-      if (isReady(data.toString())) {
+      if (isReady(stripAnsi(data.toString()))) {
+        clearTimeout(timeout);
+
         result.push(runGeminiForPattern(testConfig.pattern));
         aikProcess.kill("SIGTERM");
 
