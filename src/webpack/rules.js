@@ -10,7 +10,6 @@ import postcssPartialImport from "postcss-partial-import";
  */
 export function createJSLoader(flags: CLIFlags, isProd: boolean): any[] {
   const presets = [
-    require.resolve("babel-preset-react"),
     [
       require.resolve("babel-preset-env"),
       {
@@ -25,8 +24,9 @@ export function createJSLoader(flags: CLIFlags, isProd: boolean): any[] {
     require.resolve("babel-plugin-transform-class-properties")
   ];
 
-  if (flags.react && !isProd) {
-    presets.push(require.resolve("babel-preset-react-hmre"));
+  if (flags.react) {
+    presets.push(require.resolve("babel-preset-react"));
+    !isProd && presets.push(require.resolve("babel-preset-react-hmre"));
   }
 
   const jsLoaders: { loader: string, query?: any }[] = [
