@@ -49,20 +49,36 @@ export function joinWithSpace(msg: any): string[] {
   return joinWithSeparator("", msg);
 }
 
-export function doneBadge() {
-  return chalk.bgGreen.black(" DONE ");
+export function greenBadge(label: string): string {
+  return chalk.bgGreen.black(` ${label} `);
 }
 
-export function warningBadge() {
-  return chalk.bgYellow.black(" WARNING ");
+export function yellowBadge(label: string): string {
+  return chalk.bgYellow.black(` ${label} `);
 }
 
-export function waitBadge() {
-  return chalk.bgBlue.black(" WAIT ");
+export function blueBadge(label: string): string {
+  return chalk.bgBlue.black(` ${label} `);
 }
 
-export function errorBadge() {
-  return chalk.bgRed.black(" ERROR ");
+export function redBadge(label: string): string {
+  return chalk.bgRed.black(` ${label} `);
+}
+
+export function doneBadge(): string {
+  return greenBadge("DONE");
+}
+
+export function warningBadge(): string {
+  return yellowBadge("WARNING");
+}
+
+export function waitBadge(): string {
+  return blueBadge("WAIT");
+}
+
+export function errorBadge(): string {
+  return redBadge("ERROR");
 }
 
 export function separator() {
@@ -124,27 +140,24 @@ export function installingModuleMsg(moduleName: string): string[] {
  */
 
 export function devServerBanner(filename: string, flags: CLIFlags, params: AikParams): string[] {
-  const msg: string[] = [chalk.magenta("Entry point:      ") + filename];
-
-  if (params.template.short) {
-    msg.push(chalk.magenta("Custom template:  ") + params.template.short);
-  }
+  const serverUrl = `http://${flags.host}:${flags.port}`;
+  const msg: string[] = [
+    chalk.bold(
+      `> Open ${chalk.yellow(serverUrl)}` +
+        (params.ngrok ? ` or ${chalk.yellow(params.ngrok)} ${chalk.grey("[ngrok]")}` : "")
+    )
+  ];
 
   if (flags.oldPort) {
     msg.push(
-      chalk.magenta("Port changed:     ") +
-        `${chalk.bgRed.black(" " + flags.oldPort + " ")} -> ${chalk.bgGreen.black(" " + flags.port + " ")}`
+      `${chalk.bold("> Port changed")} ${redBadge(flags.oldPort.toString())} → ${greenBadge(flags.port.toString())}`
     );
   }
 
-  msg.push(chalk.magenta("Server:           ") + chalk.cyan(`http://${flags.host}:${flags.port}`));
+  msg.push("", chalk.magenta("Entry point:     ") + filename);
 
-  if (params.ngrok) {
-    msg.push(chalk.magenta("Ngrok:            ") + chalk.cyan(params.ngrok));
-  }
-
-  if (flags.react) {
-    msg.push(chalk.magenta("React Hot Loader: ") + chalk.yellow("enabled"));
+  if (params.template.short) {
+    msg.push(chalk.magenta("Custom template: ") + params.template.short);
   }
 
   return msg;
@@ -167,7 +180,6 @@ export function devServerCompiledSuccessfullyMsg(
 }
 
 export function devServerFailedToCompileMsg(): string[] {
-  // clearConsole(true);
   return [errorBadge() + " " + chalk.red("Failed to compile.")];
 }
 
@@ -204,7 +216,7 @@ export function devServerModuleDoesntExists(module: string, filename: string): s
     "",
     `Error in ${chalk.yellow(filename)}`,
     "",
-    `Webpack tried to resolve module ${chalk.bgYellow.black(" " + module + " ")} which doesn't exist.`,
+    `Webpack tried to resolve module ${yellowBadge(module)} which doesn't exist.`,
     "",
     `It's likely caused by a ${chalk.yellow("typo")} in the module name.`
   ];
@@ -274,7 +286,7 @@ export function builderSuccessMsg(distShortName: string, buildStats: BuildStats)
   const padString = (placeholder: string, str: string) => (str + placeholder).substr(0, placeholder.length);
 
   return [
-    doneBadge() + ` in ${buildStats.buildDuration}ms`,
+    doneBadge() + chalk.green(` in ${buildStats.buildDuration}ms`),
     "",
     chalk.green(`Aik has successfully generated a bundle in the ${chalk.cyan('"' + distShortName + '"')} folder!`),
     chalk.green("The bundle is optimized and ready to be deployed to production."),

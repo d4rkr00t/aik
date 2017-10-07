@@ -102,66 +102,61 @@ In order to make subsequent builds more predictable Aik needs to create one.
 `;
 
 exports[`Dev Server Messages #devServerBanner all flags enabled 1`] = `
-"Entry point:      ./src/index.js
-Custom template:  index.html
-Port changed:      3333  ->  3334 
-Server:           http://localhost:3334
-Ngrok:            http://43kd92j3h.ngrok.com
-React Hot Loader: enabled"
+"> Open http://localhost:3334 or http://43kd92j3h.ngrok.com [ngrok]
+> Port changed  3333  →  3334 
+
+Entry point:     ./src/index.js
+Custom template: index.html"
 `;
 
 exports[`Dev Server Messages #devServerBanner no ngrok 1`] = `
-"Entry point:      ./src/index.js
-Custom template:  index.html
-Port changed:      3333  ->  3334 
-Server:           http://localhost:3334
-React Hot Loader: enabled"
+"> Open http://localhost:3334
+> Port changed  3333  →  3334 
+
+Entry point:     ./src/index.js
+Custom template: index.html"
 `;
 
 exports[`Dev Server Messages #devServerBanner no old port 1`] = `
-"Entry point:      ./src/index.js
-Custom template:  index.html
-Server:           http://localhost:3334
-Ngrok:            http://43kd92j3h.ngrok.com
-React Hot Loader: enabled"
+"> Open http://localhost:3334 or http://43kd92j3h.ngrok.com [ngrok]
+
+Entry point:     ./src/index.js
+Custom template: index.html"
 `;
 
 exports[`Dev Server Messages #devServerBanner no react 1`] = `
-"Entry point:      ./src/index.js
-Custom template:  index.html
-Port changed:      3333  ->  3334 
-Server:           http://localhost:3334
-Ngrok:            http://43kd92j3h.ngrok.com"
+"> Open http://localhost:3334 or http://43kd92j3h.ngrok.com [ngrok]
+> Port changed  3333  →  3334 
+
+Entry point:     ./src/index.js
+Custom template: index.html"
 `;
 
 exports[`Dev Server Messages #devServerBanner no template 1`] = `
-"Entry point:      ./src/index.js
-Port changed:      3333  ->  3334 
-Server:           http://localhost:3334
-Ngrok:            http://43kd92j3h.ngrok.com
-React Hot Loader: enabled"
+"> Open http://localhost:3334 or http://43kd92j3h.ngrok.com [ngrok]
+> Port changed  3333  →  3334 
+
+Entry point:     ./src/index.js"
 `;
 
 exports[`Dev Server Messages #devServerCompiledSuccessfullyMsg 1`] = `
 " DONE  Compiled successfully in 5800ms!
 
-Entry point:      ./src/index.js
-Custom template:  index.html
-Port changed:      3333  ->  3334 
-Server:           http://localhost:3334
-Ngrok:            http://43kd92j3h.ngrok.com
-React Hot Loader: enabled"
+> Open http://localhost:3334 or http://43kd92j3h.ngrok.com [ngrok]
+> Port changed  3333  →  3334 
+
+Entry point:     ./src/index.js
+Custom template: index.html"
 `;
 
 exports[`Dev Server Messages #devServerCompiledWithWarningsMsg 1`] = `
 " WARNING  Compiled with warnings in 5800ms.
 
-Entry point:      ./src/index.js
-Custom template:  index.html
-Port changed:      3333  ->  3334 
-Server:           http://localhost:3334
-Ngrok:            http://43kd92j3h.ngrok.com
-React Hot Loader: enabled
+> Open http://localhost:3334 or http://43kd92j3h.ngrok.com [ngrok]
+> Port changed  3333  →  3334 
+
+Entry point:     ./src/index.js
+Custom template: index.html
 
 ---------"
 `;
