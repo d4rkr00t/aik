@@ -6,9 +6,8 @@ import webpack from "webpack";
 import WebpackDevServer from "webpack-dev-server";
 import webpackConfigBuilder from "./../../webpack/config-builder";
 import testUtils from "./../../utils/test-utils";
-import detectFramework, { getFrameworkNameFromFlags } from "./../../utils/framework-detectors";
+import { detectFramework } from "./../../utils/framework-detectors";
 import { formatMessages } from "./../../utils/error-helpers";
-import isEmptyObject from "./../../utils/is-empty-object";
 import {
   print,
   addTopSpace,
@@ -33,14 +32,7 @@ import { isModuleInstalled, installModule } from "../../utils/npm";
 /**
  * On done handler for webpack compiler.
  */
-export function onDone(
-  filename: string,
-  flags: CLIFlags,
-  params: AikParams,
-  compiler: any,
-  invalidate: Function,
-  stats: Object
-) {
+export function onDone(params: AikParams, compiler: any, invalidate: Function, stats: Object) {
   const hasErrors = stats.hasErrors();
   const hasWarnings = stats.hasWarnings();
   const buildDuration: number = stats.endTime - stats.startTime;
@@ -54,9 +46,9 @@ export function onDone(
   // and if it is then Aik has to restart webpack-dev-server.
   //
 
-  const framework = detectFramework(filename, flags);
-  if (!isEmptyObject(framework)) {
-    invalidate([], Object.assign({}, flags, framework));
+  const framework = detectFramework(params.filename);
+  if (framework !== params.framework) {
+    invalidate([], Object.assign({}, params, { framework }));
     testUtils();
     return;
   }
@@ -66,11 +58,7 @@ export function onDone(
   //
 
   if (!hasErrors && !hasWarnings) {
-    print(
-      devServerCompiledSuccessfullyMsg(filename, flags, params, buildDuration),
-      /* clear console */ true,
-      /* add sep */ true
-    );
+    print(devServerCompiledSuccessfullyMsg(params, buildDuration), /* clear console */ true, /* add sep */ true);
     testUtils();
     return;
   }
@@ -104,7 +92,7 @@ export function onDone(
     print(
       joinWithSeparator(`\n${separator()}\n`, [
         joinWithSpace([
-          devServerCompiledWithWarningsMsg(filename, flags, params, buildDuration),
+          devServerCompiledWithWarningsMsg(params, buildDuration),
           formattedWarnings.join(`\n\n${separator()}\n\n`)
         ]),
         eslintExtraWarningMsg()
@@ -117,14 +105,13 @@ export function onDone(
   testUtils();
 }
 
+// eslint-disable-next-line
 export function onInvalidate(
-  filename: string,
   params: AikParams,
-  flags: CLIFlags,
   server: WebpackDevServer,
   errors: string[],
   reject: Function,
-  updatedFlags?: CLIFlags
+  updatedParams?: AikParams
 ) {
   if (!server) return;
 
@@ -134,15 +121,14 @@ export function onInvalidate(
   // If flags has been updated we need to restart webpack-dev-server
   //
 
-  if (updatedFlags) {
+  if (updatedParams) {
     server.close();
-    const frameworkName = getFrameworkNameFromFlags(updatedFlags);
     print(
-      addBottomSpace(devServerFrameworkDetectedRestartMsg(frameworkName)),
+      addBottomSpace(devServerFrameworkDetectedRestartMsg(params.framework)),
       /* clear console */ true,
       /* add sep */ true
     );
-    createWebpackDevServer(filename, updatedFlags, params, reject);
+    createWebpackDevServer(params, reject);
     return;
   }
 
@@ -166,7 +152,7 @@ export function onInvalidate(
     server.close();
     resolveModule.sync(moduleName, { basedir: process.cwd() });
     print(devServerRestartMsg(moduleName), /* clear console */ true, /* add sep */ true);
-    createWebpackDevServer(filename, flags, params, reject);
+    createWebpackDevServer(params, reject);
   } catch (e) {
     print(devServerModuleDoesntExists(moduleName, fileWithError), /* clear console */ true, /* add sep */ true);
   }
@@ -175,16 +161,10 @@ export function onInvalidate(
 /**
  * Creates webpack compiler.
  */
-export function createWebpackCompiler(
-  filename: string,
-  flags: CLIFlags,
-  params: AikParams,
-  config: Object,
-  invalidate: Function
-) {
+export function createWebpackCompiler(params: AikParams, config: Object, invalidate: Function) {
   const compiler = webpack(config);
   compiler.plugin("invalid", () => print(devServerInvalidBuildMsg(), /* clear console */ true));
-  compiler.plugin("done", onDone.bind(null, filename, flags, params, compiler, invalidate));
+  compiler.plugin("done", onDone.bind(null, params, compiler, invalidate));
   return compiler;
 }
 
@@ -206,14 +186,14 @@ export function prepareForReact() {
 /**
  * Creates webpack dev server.
  */
-function createWebpackDevServer(filename: string, flags: CLIFlags, params: AikParams, reject: Function): void {
+function createWebpackDevServer(params: AikParams, reject: Function): void {
   let server: WebpackDevServer; // eslint-disable-line
 
   //
   // Additional steps Aik needs to perform before setting up webpack-dev-server
   //
 
-  if (flags.react) {
+  if (params.framework === "react") {
     prepareForReact();
   }
 
@@ -221,12 +201,12 @@ function createWebpackDevServer(filename: string, flags: CLIFlags, params: AikPa
   // Set up everything that's required for webpack-dev-server
   //
 
-  const invalidate = (errors: string[], updatedFlags?: CLIFlags) => {
-    onInvalidate(filename, params, flags, server, errors, reject, updatedFlags);
+  const invalidate = (errors: string[], updatedParams?: AikParams) => {
+    onInvalidate(params, server, errors, reject, updatedParams);
   };
 
-  const config = webpackConfigBuilder(filename, flags, params);
-  const compiler = createWebpackCompiler(filename, flags, params, config, invalidate);
+  const webpackConfig = webpackConfigBuilder(params);
+  const compiler = createWebpackCompiler(params, webpackConfig, invalidate);
 
   //
   // Starting Webpack Dev Server
@@ -248,7 +228,7 @@ function createWebpackDevServer(filename: string, flags: CLIFlags, params: AikPa
     stats: { colors: true }
   });
 
-  server.listen(flags.port, flags.host, err => {
+  server.listen(params.port, params.host, err => {
     if (err) {
       reject(err);
     }

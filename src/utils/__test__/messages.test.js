@@ -84,17 +84,15 @@ describe("Common Messages", () => {
 
 describe("Dev Server Messages", () => {
   describe("#devServerBanner", () => {
-    let flags, params;
+    let params;
 
     beforeEach(() => {
-      flags = {
+      params = {
+        filename,
         host: "localhost",
         port: 3334,
         oldPort: 3333,
-        react: true
-      };
-
-      params = {
+        framework: "react",
         template: {
           short: "index.html"
         },
@@ -103,64 +101,55 @@ describe("Dev Server Messages", () => {
     });
 
     test("all flags enabled", () => {
-      expect(print(devServerBanner(filename, flags, params))).toMatchSnapshot();
+      expect(print(devServerBanner(params))).toMatchSnapshot();
     });
 
     test("no template", () => {
       params.template = {};
-      expect(print(devServerBanner(filename, flags, params))).toMatchSnapshot();
+      expect(print(devServerBanner(params))).toMatchSnapshot();
     });
 
     test("no old port", () => {
-      flags.oldPort = false;
-      expect(print(devServerBanner(filename, flags, params))).toMatchSnapshot();
+      params.oldPort = false;
+      expect(print(devServerBanner(params))).toMatchSnapshot();
     });
 
     test("no ngrok", () => {
       params.ngrok = false;
-      expect(print(devServerBanner(filename, flags, params))).toMatchSnapshot();
-    });
-
-    test("no react", () => {
-      flags.react = false;
-      expect(print(devServerBanner(filename, flags, params))).toMatchSnapshot();
+      expect(print(devServerBanner(params))).toMatchSnapshot();
     });
   });
 
   test("#devServerCompiledSuccessfullyMsg", () => {
-    const flags = {
+    const params = {
+      filename,
       host: "localhost",
       port: 3334,
       oldPort: 3333,
-      react: true
-    };
-
-    const params = {
+      framework: "react",
       template: {
         short: "index.html"
       },
       ngrok: "http://43kd92j3h.ngrok.com"
     };
 
-    expect(print(devServerCompiledSuccessfullyMsg(filename, flags, params, 5800))).toMatchSnapshot();
+    expect(print(devServerCompiledSuccessfullyMsg(params, 5800))).toMatchSnapshot();
   });
 
   test("#devServerCompiledWithWarningsMsg", () => {
-    const flags = {
+    const params = {
+      filename,
       host: "localhost",
       port: 3334,
       oldPort: 3333,
-      react: true
-    };
-
-    const params = {
+      framework: "react",
       template: {
         short: "index.html"
       },
       ngrok: "http://43kd92j3h.ngrok.com"
     };
 
-    expect(print(devServerCompiledWithWarningsMsg(filename, flags, params, 5800))).toMatchSnapshot();
+    expect(print(devServerCompiledWithWarningsMsg(params, 5800))).toMatchSnapshot();
   });
 
   test("#devServerInvalidBuildMsg", () => {
@@ -194,14 +183,12 @@ describe("Dev Server Messages", () => {
 
 describe("Build Messages", () => {
   describe("#builderBanner", () => {
-    let flags, params;
+    let params;
 
     beforeEach(() => {
-      flags = {
-        base: "/subfolder/"
-      };
-
       params = {
+        filename,
+        base: "/subfolder/",
         template: {
           short: "index.html"
         }
@@ -209,21 +196,21 @@ describe("Build Messages", () => {
     });
 
     test("all flags and params", () => {
-      expect(print(builderBanner(filename, flags, params))).toMatchSnapshot();
+      expect(print(builderBanner(params))).toMatchSnapshot();
     });
 
     test("no template", () => {
       params.template = {};
-      expect(print(builderBanner(filename, flags, params))).toMatchSnapshot();
+      expect(print(builderBanner(params))).toMatchSnapshot();
     });
 
     test("no base", () => {
-      flags.base = false;
-      expect(print(builderBanner(filename, flags, params))).toMatchSnapshot();
+      params.base = "";
+      expect(print(builderBanner(params))).toMatchSnapshot();
     });
 
     test("basic", () => {
-      expect(print(builderBanner(filename, {}, { template: {} }))).toMatchSnapshot();
+      expect(print(builderBanner({ filename, template: {} }))).toMatchSnapshot();
     });
   });
 

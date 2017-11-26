@@ -44,10 +44,6 @@ const cli = meow(
       n: "ngrok",
       o: "open",
       v: "version"
-    },
-    default: {
-      port: 4444,
-      host: "localhost"
     }
   }
 );
@@ -67,7 +63,7 @@ flagDeprecationWarnings(flags, () => {
       insight.track(["dev-server"], input, flags);
       aikDevServer(input, flags).catch(
         // eslint-disable-next-line
-        err => err && console.error(chalk.red(err))
+        err => err && console.error(chalk.red(err.stack))
       );
     }
   });

@@ -8,7 +8,7 @@ import postcssPartialImport from "postcss-partial-import";
 /**
  * Creates loader for JavaScript files and add some extra features for dev server, like hot reloading.
  */
-export function createJSLoader(flags: CLIFlags, isProd: boolean): any[] {
+export function createJSLoader({ framework, isProd }: AikParams): any[] {
   const presets = [
     [
       require.resolve("babel-preset-env"),
@@ -24,7 +24,7 @@ export function createJSLoader(flags: CLIFlags, isProd: boolean): any[] {
     require.resolve("babel-plugin-transform-class-properties")
   ];
 
-  if (flags.react) {
+  if (framework === "react") {
     presets.push(require.resolve("babel-preset-react"));
     !isProd && presets.push(require.resolve("babel-preset-react-hmre"));
   }
@@ -103,9 +103,9 @@ export function createCSSLoaderDev(): Loader {
 /**
  * Setups loaders for webpack.
  */
-export function rules(flags: CLIFlags, params: AikParams): Loader[] {
+export function rules(params: AikParams): Loader[] {
   const { isProd } = params;
-  const jsLoaders = createJSLoader(flags, isProd);
+  const jsLoaders = createJSLoader(params);
 
   return [
     isProd ? createCSSLoaderProd() : createCSSLoaderDev(),

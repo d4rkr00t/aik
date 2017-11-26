@@ -105,38 +105,30 @@ exports[`Dev Server Messages #devServerBanner all flags enabled 1`] = `
 "> Open http://localhost:3334 or http://43kd92j3h.ngrok.com [ngrok]
 > Port changed  3333  →  3334 
 
-Entry point:     ./src/index.js
-Custom template: index.html"
+Entry point: ./src/index.js
+Template:    index.html"
 `;
 
 exports[`Dev Server Messages #devServerBanner no ngrok 1`] = `
 "> Open http://localhost:3334
 > Port changed  3333  →  3334 
 
-Entry point:     ./src/index.js
-Custom template: index.html"
+Entry point: ./src/index.js
+Template:    index.html"
 `;
 
 exports[`Dev Server Messages #devServerBanner no old port 1`] = `
 "> Open http://localhost:3334 or http://43kd92j3h.ngrok.com [ngrok]
 
-Entry point:     ./src/index.js
-Custom template: index.html"
-`;
-
-exports[`Dev Server Messages #devServerBanner no react 1`] = `
-"> Open http://localhost:3334 or http://43kd92j3h.ngrok.com [ngrok]
-> Port changed  3333  →  3334 
-
-Entry point:     ./src/index.js
-Custom template: index.html"
+Entry point: ./src/index.js
+Template:    index.html"
 `;
 
 exports[`Dev Server Messages #devServerBanner no template 1`] = `
 "> Open http://localhost:3334 or http://43kd92j3h.ngrok.com [ngrok]
 > Port changed  3333  →  3334 
 
-Entry point:     ./src/index.js"
+Entry point: ./src/index.js"
 `;
 
 exports[`Dev Server Messages #devServerCompiledSuccessfullyMsg 1`] = `
@@ -145,8 +137,8 @@ exports[`Dev Server Messages #devServerCompiledSuccessfullyMsg 1`] = `
 > Open http://localhost:3334 or http://43kd92j3h.ngrok.com [ngrok]
 > Port changed  3333  →  3334 
 
-Entry point:     ./src/index.js
-Custom template: index.html"
+Entry point: ./src/index.js
+Template:    index.html"
 `;
 
 exports[`Dev Server Messages #devServerCompiledWithWarningsMsg 1`] = `
@@ -155,8 +147,8 @@ exports[`Dev Server Messages #devServerCompiledWithWarningsMsg 1`] = `
 > Open http://localhost:3334 or http://43kd92j3h.ngrok.com [ngrok]
 > Port changed  3333  →  3334 
 
-Entry point:     ./src/index.js
-Custom template: index.html
+Entry point: ./src/index.js
+Template:    index.html
 
 ---------"
 `;

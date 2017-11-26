@@ -4,10 +4,7 @@ import readline from "readline";
 import opn from "opn";
 import { outputFile } from "fs-extra";
 import createWebpackDevServer from "./webpack-dev-server";
-import createNgrokTunnel from "./ngrok";
 import createParams from "./../../utils/params";
-import detectPort from "./../../utils/detect-port";
-import { updateFrameworkFlags } from "./../../utils/framework-detectors";
 import {
   print,
   addBottomSpace,
@@ -63,26 +60,10 @@ async function prepareEntryPoint(filename: string) {
 }
 
 /**
- * Updates port if specified one has already been taken
- */
-export async function updatePort(flags: CLIFlags): Promise<CLIFlags> {
-  const port = await detectPort(parseInt(flags.port, 10), flags.host);
-  if (port !== flags.port) {
-    return Object.assign({}, flags, {
-      oldPort: flags.port,
-      port
-    });
-  }
-
-  return flags;
-}
-
-/**
  * Aik dev server command
  */
-export default async function aikDevServer(input: string[], rawFlags: CLIFlags): Promise<*> {
+export default async function aikDevServer(input: string[], flags: CLIFlags): Promise<*> {
   const [filename] = input;
-  let flags = rawFlags;
 
   await prepareEntryPoint(filename);
 
@@ -91,17 +72,13 @@ export default async function aikDevServer(input: string[], rawFlags: CLIFlags):
   createPackageJson(process.cwd());
   installAllModules(process.cwd());
 
-  flags = await updatePort(flags);
-  flags = updateFrameworkFlags(filename, flags);
-
-  const ngrokUrl: NgrokUrl = flags.ngrok && (await createNgrokTunnel(flags));
-  const params: AikParams = createParams(filename, flags, ngrokUrl, false);
+  const params: AikParams = await createParams({ filename, flags, isProd: false });
 
   return new Promise(async function(resolve, reject) {
-    createWebpackDevServer(filename, flags, params, reject);
+    createWebpackDevServer(params, reject);
 
-    if (flags.open) {
-      opn(ngrokUrl ? ngrokUrl : `http://${flags.host}:${flags.port}`);
+    if (params.open) {
+      opn(params.ngrok ? params.ngrok : `http://${params.host}:${params.port}`);
     }
   });
 }

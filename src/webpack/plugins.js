@@ -64,6 +64,6 @@ export function pluginsDev(template: string | false): Array<any> {
 /**
  * Setups plugins section for webpack config.
  */
-export default function plugins(params: AikParams): Array<any> {
-  return params.isProd ? pluginsProd(params.template.path) : pluginsDev(params.template.path);
+export default function plugins({ isProd, template }: AikParams): Array<any> {
+  return isProd ? pluginsProd(template.path) : pluginsDev(template.path);
 }

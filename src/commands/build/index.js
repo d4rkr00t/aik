@@ -2,16 +2,14 @@
 import runWebpackBuilder from "./webpack-build";
 import createParams from "./../../utils/params";
 import { installAllModules, createPackageJson } from "../../utils/npm";
-import { updateFrameworkFlags } from "./../../utils/framework-detectors";
 
 /**
  * Aik build command
  */
-export default function aikBuild(input: string[], rawFlags: CLIFlags): Promise<*> {
+export default async function aikBuild(input: string[], flags: CLIFlags): Promise<*> {
   const [filename] = input;
-  const flags = updateFrameworkFlags(filename, rawFlags);
-  const params = createParams(filename, flags, "", true);
+  const params = await createParams({ filename, flags, isProd: true });
   createPackageJson(process.cwd());
   installAllModules(process.cwd());
-  return runWebpackBuilder(filename, flags, params);
+  return runWebpackBuilder(params);
 }

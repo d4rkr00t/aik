@@ -6,12 +6,11 @@ import resolveToCwd from "./../utils/resolve-to-cwd";
 /**
  * Output for production build.
  */
-export function outputProd(filename: string, flags: CLIFlags, params: AikParams): Output {
-  const base = typeof flags.base === "string" ? flags.base : "";
+export function outputProd({ base, dist, filename }: AikParams): Output {
   const publicPath = base.endsWith("/") ? base : base + "/";
 
   return {
-    path: resolveToCwd(params.dist.short),
+    path: resolveToCwd(dist.short),
     filename: `${path.basename(filename, ".js")}.[hash:8].js`,
     publicPath
   };
@@ -31,6 +30,6 @@ export function outputDev(filename: string): Output {
 /**
  * Setups output section of webpack config.
  */
-export default function output(filename: string, flags: CLIFlags, params: AikParams): Output {
-  return params.isProd ? outputProd(filename, flags, params) : outputDev(filename);
+export default function output(params: AikParams): Output {
+  return params.isProd ? outputProd(params) : outputDev(params.filename);
 }

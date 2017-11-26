@@ -26,22 +26,18 @@ export function removeDist(distPath: string): Promise<*> {
 /**
  * Builds project using webpack.
  */
-export default async function runWebpackBuilder(
-  filename: string,
-  flags: CLIFlags,
-  params: AikParams
-): Promise<*> {
+export default async function runWebpackBuilder(params: AikParams): Promise<*> {
   try {
-    fs.statSync(filename);
+    fs.statSync(params.filename);
   } catch (error) {
-    print(fileDoesNotExistMsg(filename), /* clear console */ true);
+    print(fileDoesNotExistMsg(params.filename), /* clear console */ true);
     return;
   }
 
-  const config = webpackConfigBuilder(filename, flags, params);
+  const config = webpackConfigBuilder(params);
   const compiler = webpack(config);
 
-  print(builderBanner(filename, flags, params), /* clear console */ true);
+  print(builderBanner(params), /* clear console */ true);
   print(addTopSpace(builderRemovingDistMsg(params.dist.path)));
 
   await removeDist(params.dist.path);
@@ -53,21 +49,14 @@ export default async function runWebpackBuilder(
       const json = stats.toJson({}, true);
 
       if (err || stats.hasErrors()) {
-        print(
-          builderErrorMsg(err || json.errors),
-          /* clear console */ true,
-          /* add sep */ true
-        );
+        print(builderErrorMsg(err || json.errors), /* clear console */ true, /* add sep */ true);
 
         return reject();
       }
 
       const buildDuration: number = stats.endTime - stats.startTime;
       const assets: BuildStatAsset[] = json.assets.map(item => {
-        const content: string = fs.readFileSync(
-          path.join(params.dist.path, item.name),
-          "utf-8"
-        );
+        const content: string = fs.readFileSync(path.join(params.dist.path, item.name), "utf-8");
         return {
           name: item.name,
           size: item.size / 1024,
