@@ -5,8 +5,8 @@ import { resolveModuleToCwd } from "./../utils/npm";
 type Aliases = { [string]: string };
 const aliases: Aliases = {};
 
-export default function createAliases(filename: string, flags: CLIFlags): Aliases {
-  if (flags.react) {
+export default function createAliases({ framework, filename }: AikParams): Aliases {
+  if (framework === "react") {
     return Object.assign({}, aliases, {
       aikReactEntryPoint: resolveToCwd(filename),
       react: resolveModuleToCwd("react"),

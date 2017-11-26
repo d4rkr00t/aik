@@ -139,25 +139,22 @@ export function installingModuleMsg(moduleName: string): string[] {
  *
  */
 
-export function devServerBanner(filename: string, flags: CLIFlags, params: AikParams): string[] {
-  const serverUrl = `http://${flags.host}:${flags.port}`;
+export function devServerBanner({ host, port, oldPort, ngrok, filename, template }: AikParams): string[] {
+  const serverUrl = `http://${host}:${port}`;
   const msg: string[] = [
     chalk.bold(
-      `> Open ${chalk.yellow(serverUrl)}` +
-        (params.ngrok ? ` or ${chalk.yellow(params.ngrok)} ${chalk.grey("[ngrok]")}` : "")
+      `> Open ${chalk.yellow(serverUrl)}` + (ngrok ? ` or ${chalk.yellow(ngrok)} ${chalk.grey("[ngrok]")}` : "")
     )
   ];
 
-  if (flags.oldPort) {
-    msg.push(
-      `${chalk.bold("> Port changed")} ${redBadge(flags.oldPort.toString())} → ${greenBadge(flags.port.toString())}`
-    );
+  if (oldPort) {
+    msg.push(`${chalk.bold("> Port changed")} ${redBadge(oldPort.toString())} → ${greenBadge(port.toString())}`);
   }
 
-  msg.push("", chalk.magenta("Entry point:     ") + filename);
+  msg.push("", chalk.magenta("Entry point: ") + filename);
 
-  if (params.template.short) {
-    msg.push(chalk.magenta("Custom template: ") + params.template.short);
+  if (template.short) {
+    msg.push(chalk.magenta("Template:    ") + template.short);
   }
 
   return msg;
@@ -167,13 +164,8 @@ export function devServerInvalidBuildMsg(): string[] {
   return [waitBadge() + " " + chalk.blue("Compiling...")];
 }
 
-export function devServerCompiledSuccessfullyMsg(
-  filename: string,
-  flags: CLIFlags,
-  params: AikParams,
-  buildDuration: number
-): string[] {
-  const msg = devServerBanner(filename, flags, params);
+export function devServerCompiledSuccessfullyMsg(params: AikParams, buildDuration: number): string[] {
+  const msg = devServerBanner(params);
   msg.unshift("");
   msg.unshift(doneBadge() + " " + chalk.green(`Compiled successfully in ${buildDuration}ms!`));
   return msg;
@@ -183,13 +175,8 @@ export function devServerFailedToCompileMsg(): string[] {
   return [errorBadge() + " " + chalk.red("Failed to compile.")];
 }
 
-export function devServerCompiledWithWarningsMsg(
-  filename: string,
-  flags: CLIFlags,
-  params: AikParams,
-  buildDuration: number
-): string[] {
-  const msg = devServerBanner(filename, flags, params);
+export function devServerCompiledWithWarningsMsg(params: AikParams, buildDuration: number): string[] {
+  const msg = devServerBanner(params);
   msg.unshift("");
   msg.unshift(warningBadge() + " " + chalk.yellow(`Compiled with warnings in ${buildDuration}ms.`));
   msg.push("", separator());
@@ -222,14 +209,16 @@ export function devServerModuleDoesntExists(module: string, filename: string): s
   ];
 }
 
-export function devServerFrameworkDetectedRestartMsg(framework: string): string[] {
-  return [
-    warningBadge() + " " + chalk.yellow(`Usage of '${framework}' detected.`),
-    "",
-    `Restarting ${chalk.yellow('"webpack-dev-server"')}...`,
-    "",
-    "Please be patient and wait until restart completes, otherwise some changes might not be tracked."
-  ];
+export function devServerFrameworkDetectedRestartMsg(framework: Framework): string[] {
+  return framework
+    ? [
+        warningBadge() + " " + chalk.yellow(`Usage of '${framework}' detected.`),
+        "",
+        `Restarting ${chalk.yellow('"webpack-dev-server"')}...`,
+        "",
+        "Please be patient and wait until restart completes, otherwise some changes might not be tracked."
+      ]
+    : [];
 }
 
 export function devServerReactRequired(): string[] {
@@ -250,15 +239,14 @@ export function devServerReactRequired(): string[] {
  *
  */
 
-export function builderBanner(filename: string, flags: CLIFlags, params: AikParams): string[] {
+export function builderBanner({ filename, template, base }: AikParams): string[] {
   const msg = [waitBadge() + " " + chalk.blue("Building..."), "", chalk.magenta("Entry point:     ") + filename];
 
-  if (params.template.short) {
-    msg.push(chalk.magenta("Custom template: ") + params.template.short);
+  if (template.short) {
+    msg.push(chalk.magenta("Custom template: ") + template.short);
   }
 
-  const base = flags.base;
-  if (base && typeof base === "string") {
+  if (base) {
     msg.push(chalk.magenta("Base path:       ") + base);
   }
 

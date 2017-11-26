@@ -12,8 +12,17 @@ declare type CLIFlags = {
   version: boolean
 };
 
+declare type Framework = null | "react";
+
 declare type AikParams = {
+  filename: string,
   isProd: boolean,
+  open: boolean,
+  framework: Framework,
+  base: string,
+  port: string | number,
+  oldPort?: string | number,
+  host: string,
   ngrok: string,
   template: {
     path: string,
@@ -23,10 +32,6 @@ declare type AikParams = {
     path: string,
     short: string
   }
-};
-
-declare type FrameworkFlags = {
-  react?: boolean
 };
 
 declare type NgrokUrl = string | false;

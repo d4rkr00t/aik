@@ -10,26 +10,18 @@ import { rules } from "./rules";
 /**
  * Generates config for webpack.
  */
-export default function webpackConfigBuilder(
-  filename: string,
-  flags: CLIFlags,
-  params: AikParams
-): WebPackConfig {
+export default function webpackConfigBuilder(params: AikParams): WebPackConfig {
   return {
-    entry: entry(filename, flags, params),
-    output: output(filename, flags, params),
+    entry: entry(params),
+    output: output(params),
     devtool: !params.isProd && "cheap-module-source-map",
     plugins: plugins(params),
     bail: params.isProd,
-    module: { rules: rules(flags, params) },
+    module: { rules: rules(params) },
     resolve: {
-      alias: aliases(filename, flags),
+      alias: aliases(params),
       extensions: [".js", ".jsx", ".json"],
-      modules: [
-        path.dirname(path.resolve(process.cwd(), filename)),
-        "web_modules",
-        "node_modules"
-      ]
+      modules: [path.dirname(path.resolve(process.cwd(), params.filename)), "web_modules", "node_modules"]
     }
   };
 }

@@ -5,11 +5,7 @@ import fs from "fs";
 import * as babylon from "babylon";
 import isReact from "./react";
 
-export default function detectFramework(filename: string, flags: CLIFlags): FrameworkFlags {
-  if (flags.react) {
-    return {};
-  }
-
+export function detectFramework(filename: string): Framework {
   const filepath = path.join(process.cwd(), filename);
   const fileContent = fs.readFileSync(filepath, "utf8");
   const ast = babylon.parse(fileContent, {
@@ -35,20 +31,8 @@ export default function detectFramework(filename: string, flags: CLIFlags): Fram
   });
 
   if (isReact(ast)) {
-    return { react: true };
-  }
-
-  return {};
-}
-
-export function updateFrameworkFlags(filename: string, flags: CLIFlags): CLIFlags {
-  return Object.assign({}, flags, detectFramework(filename, flags));
-}
-
-export function getFrameworkNameFromFlags(flags: CLIFlags): string {
-  if (flags.react) {
     return "react";
   }
 
-  return "none";
+  return null;
 }

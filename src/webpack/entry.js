@@ -6,8 +6,8 @@ import resolveToCwd from "./../utils/resolve-to-cwd";
 /**
  * Return whether custom entry points for supported frameworks or path to provided file.
  */
-export function getEntryPointPath(filename: string, flags: CLIFlags): string {
-  if (flags.react) {
+export function getEntryPointPath({ filename, framework }: { filename: string, framework: Framework }): string {
+  if (framework === "react") {
     return require.resolve("./assets/react-entry-point.js");
   }
 
@@ -28,25 +28,24 @@ export function buildEntryName(filename: string): string {
 /**
  * Entry for production build.
  */
-export function entryProd(filename: string, flags: CLIFlags): Entry {
+export function entryProd({ filename, framework }: AikParams): Entry {
   const entryName = buildEntryName(filename);
   return {
-    [entryName]: [getEntryPointPath(filename, flags)]
+    [entryName]: [getEntryPointPath({ filename, framework })]
   };
 }
 
 /**
  * Entry for dev server.
  */
-export function entryDev(filename: string, flags: CLIFlags): Entry {
+export function entryDev({ filename, framework, host, port }: AikParams): Entry {
   const entryName = buildEntryName(filename);
-  const host = flags.host === "::" ? "localhost" : flags.host;
 
   return {
     [entryName]: [
-      `${require.resolve("webpack-dev-server/client")}?http://${host}:${flags.port}/`,
+      `${require.resolve("webpack-dev-server/client")}?http://${host}:${port}/`,
       require.resolve("webpack/hot/dev-server"),
-      getEntryPointPath(filename, flags)
+      getEntryPointPath({ filename, framework })
     ]
   };
 }
@@ -54,10 +53,6 @@ export function entryDev(filename: string, flags: CLIFlags): Entry {
 /**
  * Setups entry part of webpack config.
  */
-export default function entry(
-  filename: string,
-  flags: CLIFlags,
-  params: AikParams
-): Entry {
-  return params.isProd ? entryProd(filename, flags) : entryDev(filename, flags);
+export default function entry(params: AikParams): Entry {
+  return params.isProd ? entryProd(params) : entryDev(params);
 }
