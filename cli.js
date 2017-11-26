@@ -6,10 +6,8 @@ require("babel-polyfill");
 
 const meow = require("meow");
 const chalk = require("chalk");
-const insight = require("./lib/analytics");
-const aikDevServer = require("./lib/commands/dev-server").default;
-const aikBuild = require("./lib/commands/build").default;
-const flagDeprecationWarnings = require("./lib/deprecation").default;
+const aik = require("./lib");
+const insight = aik.analytics;
 const cli = meow(
   {
     help: [
@@ -51,17 +49,17 @@ const cli = meow(
 const input = cli.input || [];
 const flags = cli.flags || {};
 
-flagDeprecationWarnings(flags, () => {
+aik.deprecation.flagDeprecationWarnings(flags, () => {
   insight.askPermission(() => {
     if (!input.length) {
       insight.track([], input, flags);
       console.log(cli.help); // eslint-disable-line
     } else if (flags.build) {
       insight.track(["build"], input, flags);
-      aikBuild(input, flags).catch(err => err && console.error(chalk.red(err))); // eslint-disable-line
+      aik.build(input, flags).catch(err => err && console.error(chalk.red(err))); // eslint-disable-line
     } else {
       insight.track(["dev-server"], input, flags);
-      aikDevServer(input, flags).catch(
+      aik.devServer(input, flags).catch(
         // eslint-disable-next-line
         err => err && console.error(chalk.red(err.stack))
       );

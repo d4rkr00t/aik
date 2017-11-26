@@ -1,6 +1,7 @@
 /* @flow */
 import chalk from "chalk";
-export default function flagDeprecationWarnings(flags: CLIFlags, callback: () => {}) {
+
+export function flagDeprecationWarnings(flags: CLIFlags, callback: () => {}) {
   if (flags.react) {
     // eslint-disable-next-line
     console.log(
