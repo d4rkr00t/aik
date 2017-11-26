@@ -1,7 +1,18 @@
+<br/>
+<br/>
+<br/>
 <div align="center">
-  <img src="/assets/aik.png" alt="aik" width="250" align="center">
+  <img src="/assets/aik.png" alt="aik" width="350" align="center">
 </div>
-<big><h1 align="center">Aik</h1></big>
+<br/>
+<br/>
+<br/>
+<br/>
+<div align="center">
+  <img src="/assets/hero-image.png" alt="aik hero image" align="center">
+</div>
+<br/>
+<br/>
 <p align="center"><big>
 Frontend Playground
 </big></p>
@@ -26,6 +37,8 @@ Frontend Playground
     <img src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg" alt="Commitizen Friendly">
   </a>
 </p>
+<br/>
+<br/>
 
 ## Quick Start
 
@@ -40,8 +53,9 @@ aik index.js -o
 
 ## Objectives
 
-This project aims to help to prototype fast and not supposed to be a part of any production-ready system.
-If you want solutions which are better for production use you can take a look at the [alternatives](#alternatives) list down below.
+This project aims to help to prototype faster and not supposed to be a part of any production-ready system. If you want
+solutions that are better for production use case you can take a look at the [alternatives](#alternatives) section down
+below.
 
 Aik's main goal is to be open for any JavaScript framework or a library, even though it has extra features for React.
 
@@ -109,30 +123,33 @@ Start playing around with new ideas is as simple as running a single command in 
 aik index.js
 ```
 
-Moreover:
-* Creating an entry point if it doesn't exist.
-* Choosing server port automatically if a default one is in use.
-* Showing an error overlay, so you don't have to look at your terminal window.
+Moreover, Aik:
+
+* Creates an entry point if it doesn't exist.
+* Chooses server port automatically if default one is in use.
+* Shows an error overlay, so you don't have to look at your terminal at all.
 
 ### NPM Modules
 
-In order to simplify work with npm modules Aik takes care of:
+For simplifying work with npm modules Aik takes care of:
 
-#### Automatically installing npm modules
+#### Automatic installing npm modules
 
-Just add require or import statement in the JavaScript file and you are ready to go (thanks to [npm install webpack plugin](https://github.com/ericclemmons/npm-install-webpack-plugin)).
+Just add a require or an import statement in a JavaScript file and you are ready to go (thanks to
+[npm install webpack plugin](https://github.com/ericclemmons/npm-install-webpack-plugin)).
 
 ```js
-import react from 'react';
-import ReactDOM from 'react-dom';
+import react from "react";
+import ReactDOM from "react-dom";
 ```
 
 #### Pre-installing NPM Modules
 
-If a project contains `package.json`, Aik will automatically pre-install npm modules defined in it
-if needed before trying to compile an entry point.
+If a project contains `package.json`, Aik will automatically pre-install npm modules defined in it, before trying to
+compile an entry point.
 
 ### Relative Module Paths
+
 Let's assume such project structure:
 
 ```
@@ -150,18 +167,18 @@ And if you want to import comp2.js from comp1.js you can do it using both these 
 // comp1.js
 
 // Import relative to the index.js
-import comp2 from 'components/comp2/comp2';
+import comp2 from "components/comp2/comp2";
 
 // Or import relative to comp1.js
-import comp2 from '../comp2/comp2';
+import comp2 from "../comp2/comp2";
 ```
 
 Choose the way you prefer the most.
 
 ### Custom templates
 
-By default, Aik uses built-in into the "[html-webpack-plugin](https://github.com/ampedandwired/html-webpack-plugin)" template,
-but it's easy to create your own. Just add an HTML file with the same name as the JavaScript file.
+By default, Aik uses built-in into the "[html-webpack-plugin](https://github.com/ampedandwired/html-webpack-plugin)"
+template, but it's easy to create your own. Just add an HTML file with the same name as the JavaScript file.
 
 ```
 aik-test/
@@ -169,18 +186,21 @@ aik-test/
 └── index.html
 ```
 
-**Important:** Do not add script tag with src to the JavaScript file (in the example above to index.js) Aik will do it automatically.
+**Important:** Do not add script tag with src to the JavaScript file (in the example above to index.js) Aik will do it
+automatically.
 
 ### Hot reload
 
-Aik sets up hot reloading for CSS and with an extra option '-r' for React components using @gaeron's [react-hot-loader](https://github.com/gaearon/react-hot-loader).
+Aik sets up hot reloading for CSS and React components using @gaeron's
+[react-hot-loader](https://github.com/gaearon/react-hot-loader).
 
 ```sh
 aik index.js -r # option for enabling react hot loading
 ```
 
 #### Important
-##### !!!! Since version 0.13 hot reload for react works only with react 15.4+ !!!!**
+
+##### !!!! Since version 0.13 hot reload for react works only with react 15.4+ !!!!\**
 
 With older version you will get an error:
 
@@ -189,14 +209,18 @@ Error: Cannot resolve module 'react-dom/lib/ReactMount'
 ```
 
 * Releated commit: [203ad3a](https://github.com/d4rkr00t/aik/commit/203ad3a5b9f6cb65090dfd2ef9e0994e8eed240a)
-* Issue in react-hot-loader: [gaearon/react-hot-loader#417](https://github.com/gaearon/react-hot-loader/issues/417#issuecomment-261548082)
+* Issue in react-hot-loader:
+  [gaearon/react-hot-loader#417](https://github.com/gaearon/react-hot-loader/issues/417#issuecomment-261548082)
 * Issue/Discussion about react-hot-loader + aik: [d4rkr00t/aik#132](https://github.com/d4rkr00t/aik/issues/132)
 
 #### React Hot Loader 3
 
-Aik uses [react-hot-loader@3](https://github.com/gaearon/react-hot-loader/tree/next) which requires some additional wiring. In order to hide this additional complexity Aik wraps main react component of your application in RHL compatible wrapper, but to do so you need to use [Quick Commands](#quick-commands) feature otherwise hot loading won't work.
+Aik uses [react-hot-loader@3](https://github.com/gaearon/react-hot-loader/tree/next) which requires some additional
+wiring. In order to hide this additional complexity Aik wraps main react component of your application in RHL compatible
+wrapper, but to do so you need to use [Quick Commands](#quick-commands) feature otherwise hot loading won't work.
 
-Also, you can manually wrap your component in react-hot-loader wrapper as described in [Migration to 3.0](https://github.com/gaearon/react-hot-loader/tree/master/docs#migration-to-30) guide.
+Also, you can manually wrap your component in react-hot-loader wrapper as described in
+[Migration to 3.0](https://github.com/gaearon/react-hot-loader/tree/master/docs#migration-to-30) guide.
 
 ### Quick Commands
 
@@ -204,15 +228,14 @@ For some frameworks Aik provides additional support in the way of quick commands
 
 #### React
 
-In order to use quick commands feature with react and enable hot loading entry point of an application should export react component:
+In order to use quick command for react and enable hot loading – entry point of an application should export react
+component:
 
 ```js
 import React from "react";
 
 export default function App() {
-  return (
-    <div>My React App.</div>
-  );
+  return <div>My React App.</div>;
 }
 ```
 
@@ -222,19 +245,24 @@ Also, you need to run aik with `-r` flag:
 aik index.js -r
 ```
 
-This will wrap react component in RHL compatible wrapper enabling hot reloading for react components and also mounts component to an element with id `app`.
+This will wrap react component in RHL compatible wrapper enabling hot reloading for react components and also mounts
+component to an element with id `app`.
 
 #### Important
+
 ##### If you are using this feature you need to use `-r` flag when you want to `--build` your app.
 
 ### Latest and greatest technologies for frontend development
 
-There are (an opinionated) set of technologies that will help you prototype faster. Aik uses [preset-env](http://babeljs.io/docs/plugins/preset-env/) for babel which contains all yearly presets.
-And also you don't have to worry about all these messy prefixes in CSS because there is an autoprefixer which will do it for you.
-Moreover, there is a little bit of syntactic sugar over CSS provided by PostCSS and PreCSS.
+There are (an opinionated) set of technologies that will help you prototype faster. Aik uses
+[preset-env](http://babeljs.io/docs/plugins/preset-env/) for babel which contains all yearly presets. And also you don't
+have to worry about all these messy prefixes in CSS because there is an autoprefixer which will do it for you. Moreover,
+there is a little bit of syntactic sugar over CSS provided by PostCSS and PreCSS.
 
-* Modern javascript with [Babel](https://babeljs.io/) using [Env](http://babeljs.io/docs/plugins/preset-env/) and [React](http://babeljs.io/docs/plugins/preset-react/) presets
-* [PostCSS](https://github.com/postcss/postcss) with [Autoprefixer](https://github.com/postcss/autoprefixer) and [PreCSS](https://github.com/jonathantneal/precss)
+* Modern javascript with [Babel](https://babeljs.io/) using [Env](http://babeljs.io/docs/plugins/preset-env/) and
+  [React](http://babeljs.io/docs/plugins/preset-react/) presets
+* [PostCSS](https://github.com/postcss/postcss) with [Autoprefixer](https://github.com/postcss/autoprefixer) and
+  [PreCSS](https://github.com/jonathantneal/precss)
 
 ### Linting
 
@@ -249,14 +277,15 @@ Aik comes with set up linters. Nothing annoying about code style, only rules whi
 aik index.js --build
 ```
 
-Produces minimized build for production usage. It's easy to publish prototype to GitHub pages, Surge, or wherever you want.
-Important that assets urls are relative to the root:
+Produces minimized build for production usage. It's easy to publish prototype to GitHub pages, Surge, or wherever you
+want. Important that assets urls are relative to the root:
 
 ```html
 <script type="text/javascript" src="/index.c699c867.js"></script></body>
 ```
 
-If you want to host build in sub directory (e.g. https://my-web-site.com/sub-dir/) you should run Aik with the '--base' flag:
+If you want to host build in sub directory (e.g. https://my-web-site.com/sub-dir/) you should run Aik with the '--base'
+flag:
 
 ```sh
 aik index.js --build --base "/my-sub-folder"
@@ -270,7 +299,8 @@ Now assets urls are relative to specified base path:
 
 ### Expose web server to the real world
 
-Optionally, by providing '-n' flag you can expose web server to the real world using "[Ngrok](https://github.com/bubenshchykov/ngrok)".
+Optionally, by providing '-n' flag you can expose web server to the real world using
+"[Ngrok](https://github.com/bubenshchykov/ngrok)".
 
 ```sh
 aik index.js -n # option for enabling ngrok
@@ -292,6 +322,7 @@ More examples [here](/docs/messages.md).
 
 ## Other resources
 
+* Video from SydJS Talk: ["Aik - Painless Prototyping"](https://www.youtube.com/watch?v=KnaX7MXJdao)
 * Slides for SydJS talk: ["Aik – Painless Prototyping"](http://sysoev.org/talks/aik/)
 
 ## Alternatives
@@ -321,10 +352,11 @@ Stanislav Sysoev d4rkr00t@gmail.com https://github.com/d4rkr00t/aik
 
 ## Contributing
 
-Contributions are highly welcome! This repo is commitizen friendly — please read about it [here](http://commitizen.github.io/cz-cli/).
+Contributions are highly welcome! This repo is commitizen friendly — please read about it
+[here](http://commitizen.github.io/cz-cli/).
 
 **I'll appreciate any grammatical or spelling corrections as I'm not a native speaker.**
 
 ## License
 
-- **MIT** : http://opensource.org/licenses/MIT
+* **MIT** : http://opensource.org/licenses/MIT
