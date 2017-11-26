@@ -5,3 +5,4 @@
 .*/node_modules/.*
 .*/test/.*
 .*/template/.*
+.*/tests/heavy/examples/.*
