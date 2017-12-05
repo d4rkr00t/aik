@@ -1,31 +1,71 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Build Messages #builderBanner .babelrc clashing 1`] = `
+" WAIT  Building...
+
+Entry point: ./src/index.js
+Template:    index.html
+Base path:   /subfolder/
+
+Custom .babelrc
+ ├─ path:    /user/xxx/project/.babelrc
+ ├─ presets: babel-preset-react
+ └─ plugins: babel-plugin-syntax-decorators
+
+ WARNING  Clashing settings in .babelrc:
+
+Aik has following presets/plugins enabled by default and in order to prevent inconsistency
+and unexpected behaviours Aik will ignore clashing settings from the custom babelrc.
+
+Clashing presets:
+ – babel-preset-env
+
+Clashing plugins:
+ – babel-plugin-transform-object-rest-spread
+"
+`;
+
 exports[`Build Messages #builderBanner all flags and params 1`] = `
 " WAIT  Building...
 
-Entry point:     ./src/index.js
-Custom template: index.html
-Base path:       /subfolder/"
+Entry point: ./src/index.js
+Template:    index.html
+Base path:   /subfolder/
+
+Custom .babelrc
+ ├─ path:    /user/xxx/project/.babelrc
+ ├─ presets: babel-preset-react
+ └─ plugins: babel-plugin-syntax-decorators"
 `;
 
 exports[`Build Messages #builderBanner basic 1`] = `
 " WAIT  Building...
 
-Entry point:     ./src/index.js"
+Entry point: ./src/index.js"
 `;
 
 exports[`Build Messages #builderBanner no base 1`] = `
 " WAIT  Building...
 
-Entry point:     ./src/index.js
-Custom template: index.html"
+Entry point: ./src/index.js
+Template:    index.html
+
+Custom .babelrc
+ ├─ path:    /user/xxx/project/.babelrc
+ ├─ presets: babel-preset-react
+ └─ plugins: babel-plugin-syntax-decorators"
 `;
 
 exports[`Build Messages #builderBanner no template 1`] = `
 " WAIT  Building...
 
-Entry point:     ./src/index.js
-Base path:       /subfolder/"
+Entry point: ./src/index.js
+Base path:   /subfolder/
+
+Custom .babelrc
+ ├─ path:    /user/xxx/project/.babelrc
+ ├─ presets: babel-preset-react
+ └─ plugins: babel-plugin-syntax-decorators"
 `;
 
 exports[`Build Messages #builderErrorMsg? Custom Error message 1`] = `
@@ -69,6 +109,15 @@ index.1027be30.css: 0.67kb, 0.31kb gzip
 index.html:         0.34kb, 0.24kb gzip"
 `;
 
+exports[`Common Messages #configParsingError 1`] = `
+" ERROR  Error parsing \\".babelrc\\"
+
+.babelrc path:
+ > /user/xxx/project/.babelrc
+
+Unexpect character ';'"
+`;
+
 exports[`Common Messages #eslintExtraWarningMsg 1`] = `
 "You may use special comments to disable some warnings.
 Use // eslint-disable-next-line to ignore the next line.
@@ -101,12 +150,42 @@ In order to make subsequent builds more predictable Aik needs to create one.
  WAIT  Creating package.json..."
 `;
 
+exports[`Dev Server Messages #devServerBanner .babelrc clashing 1`] = `
+"> Open http://localhost:3334 or http://43kd92j3h.ngrok.com [ngrok]
+> Port changed  3333  →  3334 
+
+Entry point: ./src/index.js
+Template:    index.html
+
+Custom .babelrc
+ ├─ path:    /user/xxx/project/.babelrc
+ ├─ presets: babel-preset-react
+ └─ plugins: babel-plugin-syntax-decorators
+
+ WARNING  Clashing settings in .babelrc:
+
+Aik has following presets/plugins enabled by default and in order to prevent inconsistency
+and unexpected behaviours Aik will ignore clashing settings from the custom babelrc.
+
+Clashing presets:
+ – babel-preset-env
+
+Clashing plugins:
+ – babel-plugin-transform-object-rest-spread
+"
+`;
+
 exports[`Dev Server Messages #devServerBanner all flags enabled 1`] = `
 "> Open http://localhost:3334 or http://43kd92j3h.ngrok.com [ngrok]
 > Port changed  3333  →  3334 
 
 Entry point: ./src/index.js
-Template:    index.html"
+Template:    index.html
+
+Custom .babelrc
+ ├─ path:    /user/xxx/project/.babelrc
+ ├─ presets: babel-preset-react
+ └─ plugins: babel-plugin-syntax-decorators"
 `;
 
 exports[`Dev Server Messages #devServerBanner no ngrok 1`] = `
@@ -114,21 +193,36 @@ exports[`Dev Server Messages #devServerBanner no ngrok 1`] = `
 > Port changed  3333  →  3334 
 
 Entry point: ./src/index.js
-Template:    index.html"
+Template:    index.html
+
+Custom .babelrc
+ ├─ path:    /user/xxx/project/.babelrc
+ ├─ presets: babel-preset-react
+ └─ plugins: babel-plugin-syntax-decorators"
 `;
 
 exports[`Dev Server Messages #devServerBanner no old port 1`] = `
 "> Open http://localhost:3334 or http://43kd92j3h.ngrok.com [ngrok]
 
 Entry point: ./src/index.js
-Template:    index.html"
+Template:    index.html
+
+Custom .babelrc
+ ├─ path:    /user/xxx/project/.babelrc
+ ├─ presets: babel-preset-react
+ └─ plugins: babel-plugin-syntax-decorators"
 `;
 
 exports[`Dev Server Messages #devServerBanner no template 1`] = `
 "> Open http://localhost:3334 or http://43kd92j3h.ngrok.com [ngrok]
 > Port changed  3333  →  3334 
 
-Entry point: ./src/index.js"
+Entry point: ./src/index.js
+
+Custom .babelrc
+ ├─ path:    /user/xxx/project/.babelrc
+ ├─ presets: babel-preset-react
+ └─ plugins: babel-plugin-syntax-decorators"
 `;
 
 exports[`Dev Server Messages #devServerCompiledSuccessfullyMsg 1`] = `
@@ -138,7 +232,12 @@ exports[`Dev Server Messages #devServerCompiledSuccessfullyMsg 1`] = `
 > Port changed  3333  →  3334 
 
 Entry point: ./src/index.js
-Template:    index.html"
+Template:    index.html
+
+Custom .babelrc
+ ├─ path:    /user/xxx/project/.babelrc
+ ├─ presets: babel-preset-react
+ └─ plugins: babel-plugin-syntax-decorators"
 `;
 
 exports[`Dev Server Messages #devServerCompiledWithWarningsMsg 1`] = `
@@ -149,6 +248,11 @@ exports[`Dev Server Messages #devServerCompiledWithWarningsMsg 1`] = `
 
 Entry point: ./src/index.js
 Template:    index.html
+
+Custom .babelrc
+ ├─ path:    /user/xxx/project/.babelrc
+ ├─ presets: babel-preset-react
+ └─ plugins: babel-plugin-syntax-decorators
 
 ---------"
 `;

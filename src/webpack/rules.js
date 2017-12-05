@@ -1,4 +1,5 @@
 /* @flow */
+
 import path from "path";
 import ExtractTextPlugin from "extract-text-webpack-plugin";
 import autoprefixer from "autoprefixer";
@@ -8,7 +9,7 @@ import postcssPartialImport from "postcss-partial-import";
 /**
  * Creates loader for JavaScript files and add some extra features for dev server, like hot reloading.
  */
-export function createJSLoader({ framework, isProd }: AikParams): any[] {
+export function createJSLoader({ framework, isProd, babelrc }: AikParams): any[] {
   const presets = [
     [
       require.resolve("babel-preset-env"),
@@ -17,12 +18,12 @@ export function createJSLoader({ framework, isProd }: AikParams): any[] {
         modules: false
       }
     ]
-  ];
+  ].concat(babelrc.config.presets || []);
 
   const plugins = [
     [require.resolve("babel-plugin-transform-object-rest-spread"), { useBuiltIns: true }],
     require.resolve("babel-plugin-transform-class-properties")
-  ];
+  ].concat(babelrc.config.plugins || []);
 
   if (framework === "react") {
     presets.push(require.resolve("babel-preset-react"));
@@ -32,7 +33,7 @@ export function createJSLoader({ framework, isProd }: AikParams): any[] {
   const jsLoaders: { loader: string, query?: any }[] = [
     {
       loader: require.resolve("babel-loader"),
-      query: { presets, plugins }
+      query: { presets, plugins, babelrc: false }
     }
   ];
 

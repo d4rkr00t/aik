@@ -2,6 +2,7 @@
 
 import chalk from "chalk";
 import { formatMessages } from "./error-helpers";
+import { getExtName as getBabelExtName } from "./babelrc";
 
 /**
  * Moves current line to the most top of console.
@@ -133,13 +134,32 @@ export function installingModuleMsg(moduleName: string): string[] {
   return [`Installing module "${chalk.yellow(moduleName)}" ...`];
 }
 
+export function configParsingError({
+  configName,
+  configPath,
+  error
+}: {
+  configName: string,
+  configPath: string,
+  error: Error
+}): Array<string> {
+  return [
+    errorBadge() + " " + chalk.red(`Error parsing "${configName}"`),
+    "",
+    `${chalk.yellow(configName + " path:")}`,
+    ` > ${configPath}`,
+    "",
+    error.stack || error.message
+  ];
+}
+
 /**
  *
  * Dev Server Messages
  *
  */
 
-export function devServerBanner({ host, port, oldPort, ngrok, filename, template }: AikParams): string[] {
+export function devServerBanner({ host, port, oldPort, ngrok, filename, template, babelrc }: AikParams): string[] {
   const serverUrl = `http://${host}:${port}`;
   const msg: string[] = [
     chalk.bold(
@@ -155,6 +175,14 @@ export function devServerBanner({ host, port, oldPort, ngrok, filename, template
 
   if (template.short) {
     msg.push(chalk.magenta("Template:    ") + template.short);
+  }
+
+  if (babelrc.path) {
+    msg.push(...addTopSpace(babelrcBanner({ babelrc })));
+  }
+
+  if (babelrc.clashing.presets.length || babelrc.clashing.plugins.length) {
+    msg.push(...addTopSpace(babelrcClashnigMsg({ babelrc })));
   }
 
   return msg;
@@ -239,15 +267,23 @@ export function devServerReactRequired(): string[] {
  *
  */
 
-export function builderBanner({ filename, template, base }: AikParams): string[] {
-  const msg = [waitBadge() + " " + chalk.blue("Building..."), "", chalk.magenta("Entry point:     ") + filename];
+export function builderBanner({ filename, template, base, babelrc }: AikParams): string[] {
+  const msg = [waitBadge() + " " + chalk.blue("Building..."), "", chalk.magenta("Entry point: ") + filename];
 
   if (template.short) {
-    msg.push(chalk.magenta("Custom template: ") + template.short);
+    msg.push(chalk.magenta("Template:    ") + template.short);
   }
 
   if (base) {
-    msg.push(chalk.magenta("Base path:       ") + base);
+    msg.push(chalk.magenta("Base path:   ") + base);
+  }
+
+  if (babelrc.path) {
+    msg.push(...addTopSpace(babelrcBanner({ babelrc })));
+  }
+
+  if (babelrc.clashing.presets.length || babelrc.clashing.plugins.length) {
+    msg.push(...addTopSpace(babelrcClashnigMsg({ babelrc })));
   }
 
   return msg;
@@ -289,5 +325,66 @@ export function builderSuccessMsg(distShortName: string, buildStats: BuildStats)
         ].join(" ");
       })
       .join("\n")
+  ];
+}
+
+/**
+ *
+ *
+ * Babelrc messages
+ *
+ *
+ */
+
+export function babelrcBanner({ babelrc }: { babelrc: Babelrc }): Array<string> {
+  const group = (name: string, list: Array<string>, prefix: string, isLast: boolean) =>
+    list.length
+      ? [` ${isLast ? "└─" : "├─"} ${name}: ${chalk.dim(list.map(ext => getBabelExtName({ ext, prefix })).join(", "))}`]
+      : [];
+
+  return [
+    chalk.magenta("Custom .babelrc"),
+    ` ├─ path:    ${chalk.dim(babelrc.path)}`,
+    ...group("presets", babelrc.names.presets, "babel-preset-", !babelrc.names.plugins.length),
+    ...group("plugins", babelrc.names.plugins, "babel-plugin-", true)
+  ];
+}
+
+export function babelrcCannotResolveError(
+  babelrc: string,
+  presets: Array<string>,
+  plugins: Array<string>
+): Array<string> {
+  const group = (name: string, list: Array<string>) =>
+    list.length
+      ? [chalk.magenta(name), ...list.map(item => ` – ${item}   ${chalk.dim("[ npm i " + item + " ]")}`), ""]
+      : [];
+
+  return [
+    errorBadge() + " " + chalk.red("Error parsing .babelrc – cannot resolve some presets/plugins:"),
+    "",
+    `${chalk.yellow(".babelrc path:")}`,
+    ` > ${babelrc}`,
+    "",
+    ...group("Presets:", presets),
+    ...group("Plugins:", plugins),
+    chalk.bold(`Try to install them using npm / yarn:`),
+    ` > npm install --save-dev ${presets.concat(plugins).join(" ")}`,
+    ` > yarn add ${presets.concat(plugins).join(" ")}`
+  ];
+}
+
+export function babelrcClashnigMsg({ babelrc }: { babelrc: Babelrc }): Array<string> {
+  const group = (name: string, list: Array<string>) =>
+    list.length ? [chalk.magenta(name), ...list.map(item => ` – ${item}`), ""] : [];
+
+  return [
+    warningBadge() + " " + chalk.yellow("Clashing settings in .babelrc:"),
+    "",
+    chalk.bold(`Aik has following presets/plugins enabled by default and in order to prevent inconsistency`),
+    chalk.bold(`and unexpected behaviours Aik will ignore clashing settings from the custom babelrc.`),
+    "",
+    ...group("Clashing presets:", babelrc.clashing.presets),
+    ...group("Clashing plugins:", babelrc.clashing.plugins)
   ];
 }

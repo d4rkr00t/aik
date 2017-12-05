@@ -49,6 +49,15 @@ const cli = meow(
 const input = cli.input || [];
 const flags = cli.flags || {};
 
+const errorHandler = err => {
+  if (err.formattedMessage) {
+    aik.print(err.formattedMessage, /* clear */ true);
+  } else {
+    // eslint-disable-next-line
+    console.log(chalk.red(err.stack || err));
+  }
+};
+
 aik.deprecation.flagDeprecationWarnings(flags, () => {
   insight.askPermission(() => {
     if (!input.length) {
@@ -56,13 +65,10 @@ aik.deprecation.flagDeprecationWarnings(flags, () => {
       console.log(cli.help); // eslint-disable-line
     } else if (flags.build) {
       insight.track(["build"], input, flags);
-      aik.build(input, flags).catch(err => err && console.error(chalk.red(err))); // eslint-disable-line
+      aik.build(input, flags).catch(errorHandler);
     } else {
       insight.track(["dev-server"], input, flags);
-      aik.devServer(input, flags).catch(
-        // eslint-disable-next-line
-        err => err && console.error(chalk.red(err.stack))
-      );
+      aik.devServer(input, flags).catch(errorHandler);
     }
   });
 });

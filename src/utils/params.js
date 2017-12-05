@@ -2,6 +2,7 @@
 
 import path from "path";
 import getTemplatePath from "./get-template-path";
+import { getBabelrc } from "./babelrc";
 import { detectFramework } from "./framework-detectors";
 import detectPort from "./detect-port";
 import createNgrokTunnel from "./ngrok";
@@ -40,6 +41,7 @@ export default async function createParams({
   const port = await updatePort(flags.port || 4444, host);
   const framework = flags.react ? "react" : detectFramework(filename);
   const ngrok = flags.ngrok && !isProd && (await createNgrokTunnel({ port: port.port, host }));
+  const babelrc = getBabelrc(filename);
 
   const params: AikParams = {
     filename,
@@ -54,6 +56,8 @@ export default async function createParams({
     host,
     port: port.port,
     oldPort: port.oldPort,
+
+    babelrc,
 
     template: {
       path: template,

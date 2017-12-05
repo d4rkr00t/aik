@@ -128,7 +128,7 @@ export function onInvalidate(
       /* clear console */ true,
       /* add sep */ true
     );
-    createWebpackDevServer(params, reject);
+    createWebpackDevServer(updatedParams, reject);
     return;
   }
 
