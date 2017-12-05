@@ -13,12 +13,29 @@ declare type CLIFlags = {
 };
 
 declare type Framework = null | "react";
+declare type BabelExt = string | [string, any];
+declare type Babelrc = {
+  path: string,
+  config: {
+    presets: Array<BabelExt>,
+    plugins: Array<BabelExt>
+  },
+  clashing: {
+    presets: Array<string>,
+    plugins: Array<string>
+  },
+  names: {
+    presets: Array<string>,
+    plugins: Array<string>
+  }
+};
 
 declare type AikParams = {
   filename: string,
   isProd: boolean,
   open: boolean,
   framework: Framework,
+  babelrc: Babelrc,
   base: string,
   port: string | number,
   oldPort?: string | number,
