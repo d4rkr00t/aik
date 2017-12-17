@@ -16,6 +16,10 @@
 
 ![aik dev server port changed](/assets/dev-port-changed.png)
 
+### Dev Server With Custom Babelrc
+
+![aik dev server with custom babelrc](/assets/dev-babelrc.png)
+
 ### Build Started
 
 ![aik build started](/assets/build.png)
