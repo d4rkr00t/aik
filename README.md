@@ -70,8 +70,9 @@ Aik's main goal is to be open for any JavaScript framework or a library, even th
   * [NPM Modules](#npm-modules)
   * [Relative Module Paths](#relative-module-paths)
   * [Custom templates](#custom-templates)
-  * [Hot reload](#hot-reload)
-  * [Quick Commands](#quick-commands)
+  * [Frameworks Support](#frameworks-support)
+    * [Framework Autodetection](#framework-autodetection)
+    * [React](#react)
   * [Latest and greatest technologies for frontend development](#latest-and-greatest-technologies-for-frontend-development)
   * [Linting](#linting)
   * [Production ready build](#production-ready-build)
@@ -94,14 +95,13 @@ Options
   -u, --base        Base path with which URLs in build begins
   -p, --port        Web server port. [Default: 8080]
   -h, --host        Web server host. [Default: localhost]
-  -r, --react       Enables react hot loader.
   -n, --ngrok       Exposes server to the real world by ngrok.
   -o, --open        Opens web server URL in the default browser.
   -v, --version     Shows version.
   --help            Shows help.
 
 Examples
-  $ aik filename.js --port 3000 -n -r
+  $ aik filename.js --port 3000 -n
   Runs aik web server on 3000 port with ngrok and react hot loader
 
   $ aik filename.js --build
@@ -189,47 +189,22 @@ aik-test/
 **Important:** Do not add script tag with src to the JavaScript file (in the example above to index.js) Aik will do it
 automatically.
 
-### Hot reload
+### Frameworks Support
 
-Aik sets up hot reloading for CSS and React components using @gaeron's
-[react-hot-loader](https://github.com/gaearon/react-hot-loader).
+#### Framework Autodetection
 
-```sh
-aik index.js -r # option for enabling react hot loading
+Aik parses an entry point in order to figure out framework that is being used in an application.
+It's done by analyzing imports e.g. `import React from 'react';` will trigger react support.
+Also it's possible to manually specify framework if an entry point doesn't provide any clues
+by just adding a comment on top of the file:
+
+```js
+// aik-mode: react
 ```
-
-#### Important
-
-##### !!!! Since version 0.13 hot reload for react works only with react 15.4+ !!!!\**
-
-With older version you will get an error:
-
-```sh
-Error: Cannot resolve module 'react-dom/lib/ReactMount'
-```
-
-* Releated commit: [203ad3a](https://github.com/d4rkr00t/aik/commit/203ad3a5b9f6cb65090dfd2ef9e0994e8eed240a)
-* Issue in react-hot-loader:
-  [gaearon/react-hot-loader#417](https://github.com/gaearon/react-hot-loader/issues/417#issuecomment-261548082)
-* Issue/Discussion about react-hot-loader + aik: [d4rkr00t/aik#132](https://github.com/d4rkr00t/aik/issues/132)
-
-#### React Hot Loader 3
-
-Aik uses [react-hot-loader@3](https://github.com/gaearon/react-hot-loader/tree/next) which requires some additional
-wiring. In order to hide this additional complexity Aik wraps main react component of your application in RHL compatible
-wrapper, but to do so you need to use [Quick Commands](#quick-commands) feature otherwise hot loading won't work.
-
-Also, you can manually wrap your component in react-hot-loader wrapper as described in
-[Migration to 3.0](https://github.com/gaearon/react-hot-loader/tree/master/docs#migration-to-30) guide.
-
-### Quick Commands
-
-For some frameworks Aik provides additional support in the way of quick commands:
 
 #### React
 
-In order to use quick command for react and enable hot loading – entry point of an application should export react
-component:
+In order to enable hot loading and hot module replacement – an entry point of an application should export default a react component:
 
 ```js
 import React from "react";
@@ -239,18 +214,11 @@ export default function App() {
 }
 ```
 
-Also, you need to run aik with `-r` flag:
+This will wrap react component in an RHL compatible wrapper enabling hot reloading for react components and also mounts
+component to an element with id = `app`.
 
-```sh
-aik index.js -r
-```
-
-This will wrap react component in RHL compatible wrapper enabling hot reloading for react components and also mounts
-component to an element with id `app`.
-
-#### Important
-
-##### If you are using this feature you need to use `-r` flag when you want to `--build` your app.
+Also, you can manually wrap your component in react-hot-loader wrapper as described in
+[Migration to 3.0](https://github.com/gaearon/react-hot-loader/tree/master/docs#migration-to-30) guide.
 
 ### Latest and greatest technologies for frontend development
 
