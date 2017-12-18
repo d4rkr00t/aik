@@ -232,6 +232,12 @@ there is a little bit of syntactic sugar over CSS provided by PostCSS and PreCSS
 * [PostCSS](https://github.com/postcss/postcss) with [Autoprefixer](https://github.com/postcss/autoprefixer) and
   [PreCSS](https://github.com/jonathantneal/precss)
 
+#### Cutom .babelrc files
+
+If there is a .babelrc file in a project Aik will use it automatically.
+That allows for better customization of a build as well as adds an ability to experiment with latest, experimental, features
+that are not yet enabled in Aik by default.
+
 ### Linting
 
 Aik comes with set up linters. Nothing annoying about code style, only rules which help you find potential errors.
