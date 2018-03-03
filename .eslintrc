@@ -11,9 +11,7 @@
     "sourceType": "module"
   },
 
-  "plugins": [
-    "flowtype"
-  ],
+  "plugins": ["flowtype"],
 
   "extends": [
     // https://github.com/gajus/eslint-plugin-flowtype#configuration
@@ -23,7 +21,8 @@
 
   "globals": {
     "expect": true,
-    "gemini": true
+    "beforeAll": true,
+    "jest": true
   },
 
   "rules": {
@@ -154,10 +153,13 @@
     "block-spacing": [2],
     "brace-style": [2, "1tbs", { "allowSingleLine": true }],
     "camelcase": [2, { "properties": "never" }],
-    "comma-spacing": [2, {
-      "before": false,
-      "after": true
-    }],
+    "comma-spacing": [
+      2,
+      {
+        "before": false,
+        "after": true
+      }
+    ],
     "comma-style": [2, "last"],
     "computed-property-spacing": [2, "never"],
     "consistent-this": [2, "_this"],
@@ -166,15 +168,21 @@
     "func-style": [0],
     "indent": [0],
     "jsx-quotes": [2, "prefer-double"],
-    "key-spacing": [2, {
-      "beforeColon": false,
-      "afterColon": true
-    }],
+    "key-spacing": [
+      2,
+      {
+        "beforeColon": false,
+        "afterColon": true
+      }
+    ],
     "keyword-spacing": [2],
     "linebreak-style": [2, "unix"],
-    "lines-around-comment": [2, {
-      "beforeBlockComment": true
-    }],
+    "lines-around-comment": [
+      2,
+      {
+        "beforeBlockComment": true
+      }
+    ],
     "max-depth": [2, 4],
     "max-nested-callbacks": [2, 4],
     "max-params": [0],
@@ -201,10 +209,13 @@
     "no-unneeded-ternary": [2],
     "no-whitespace-before-property": [2],
     "object-curly-spacing": [2, "always"],
-    "one-var": [2, {
-      "uninitialized": "always",
-      "initialized": "never"
-    }],
+    "one-var": [
+      2,
+      {
+        "uninitialized": "always",
+        "initialized": "never"
+      }
+    ],
     "one-var-declaration-per-line": [0],
     "operator-assignment": [0],
     "operator-linebreak": [0],
@@ -213,17 +224,23 @@
     "quotes": [0],
     "require-jsdoc": [0],
     "semi": [2, "always"],
-    "semi-spacing": [2, {
-      "before": false,
-      "after": true
-    }],
+    "semi-spacing": [
+      2,
+      {
+        "before": false,
+        "after": true
+      }
+    ],
     "sort-imports": [0],
     "sort-vars": [0],
     "space-before-blocks": [2, "always"],
-    "space-before-function-paren": [2, {
-      "anonymous": "never",
-      "named": "never"
-    }],
+    "space-before-function-paren": [
+      2,
+      {
+        "anonymous": "never",
+        "named": "never"
+      }
+    ],
     "space-in-parens": [2, "never"],
     "space-infix-ops": [2],
     "space-unary-ops": [2],

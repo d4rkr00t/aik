@@ -16,25 +16,6 @@ print_header() {
 }
 
 #
-# DEV SERVER
-#
-
-print_header "Thinkin in React -r"
-AIK_TEST=1 ./../../cli.js examples/thinking-in-react/src/index.js
-
-print_header "Thinkin in React -r -n -o"
-AIK_TEST=1 ./../../cli.js examples/thinking-in-react/src/index.js -n -o
-
-print_header "Simple Counter in Cycle.js"
-AIK_TEST=1 ./../../cli.js examples/simple-counter-cyclejs/src/index.js
-
-print_header "Simple Counter in Cycle.js -p"
-AIK_TEST=1 ./../../cli.js examples/simple-counter-cyclejs/src/index.js -p 3232
-
-print_header "TodoMVC Vue"
-AIK_TEST=1 ./../../cli.js examples/todomvc-vue/src/index.js
-
-#
 # BUILD
 #
 

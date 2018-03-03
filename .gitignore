@@ -5,7 +5,7 @@ _docs
 tests/heavy/*
 !tests/heavy/run.sh
 !tests/heavy/_package.json
-tests/visual-regression/reports
+tests/visual-regression/__image_snapshots__/__diff_output__
 packages
 lib
 
