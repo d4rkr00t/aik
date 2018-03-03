@@ -39,7 +39,6 @@ const cli = meow(
       u: "base",
       p: "port",
       h: "host",
-      r: "react",
       n: "ngrok",
       o: "open",
       v: "version"
