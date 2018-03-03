@@ -31,7 +31,7 @@ const cli = meow(
       "",
       "  $ aik filename.js --build",
       chalk.dim("  Builds filename.js for production use and saves the output to dist folder.")
-    ]
+    ].join("\n")
   },
   {
     alias: {
