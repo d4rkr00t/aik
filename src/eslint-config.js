@@ -49,7 +49,6 @@ module.exports = {
     "no-fallthrough": "warn",
     "no-global-assign": "warn",
     "no-implied-eval": "warn",
-    "no-invalid-this": "warn",
     "no-labels": "warn",
     "no-lone-blocks": "warn",
     "no-new-func": "warn",
@@ -71,9 +70,6 @@ module.exports = {
     "no-undef-init": "warn",
     "no-undef": "warn",
     "no-unused-vars": "warn",
-
-    // Stylistic Issues
-    "nonblock-statement-body-position": "warn",
 
     // ECMAScript 6
     "constructor-super": "warn",
