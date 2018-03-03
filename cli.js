@@ -2,6 +2,7 @@
 
 /* @flow */
 
+// Need that because of regenerator runtime
 require("babel-polyfill");
 
 const meow = require("meow");
