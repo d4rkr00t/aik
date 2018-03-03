@@ -17,9 +17,10 @@ import {
   devServerCompiledWithWarningsMsg,
   devServerFileDoesNotExistMsg,
   devServerRestartMsg,
-  devServerModuleDoesntExists,
   devServerFrameworkDetectedRestartMsg,
   devServerReactRequired,
+  devServerUsageOfNotInstalledModule,
+  devServerModuleNotFoundNpm,
   builderBanner,
   builderRemovingDistMsg,
   builderRunningBuildMsg,
@@ -240,8 +241,12 @@ describe("Dev Server Messages", () => {
     expect(print(devServerRestartMsg("react"))).toMatchSnapshot();
   });
 
-  test("#devServerModuleDoesntExists", () => {
-    expect(print(devServerModuleDoesntExists("react", filename))).toMatchSnapshot();
+  test("#devServerUsageOfNotInstalledModule", () => {
+    expect(print(devServerUsageOfNotInstalledModule("react", filename))).toMatchSnapshot();
+  });
+
+  test("#devServerModuleNotFoundNpm", () => {
+    expect(print(devServerModuleNotFoundNpm("react", filename))).toMatchSnapshot();
   });
 
   test("#devServerFrameworkDetectedRestartMsg", () => {

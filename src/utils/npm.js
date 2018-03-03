@@ -11,6 +11,7 @@ import {
   packageJsonHasNotBeenFound,
   foundPackageJson
 } from "./messages";
+import { AikError } from "./error";
 
 export function isModuleInstalled(moduleName: string): boolean {
   try {
@@ -32,9 +33,7 @@ export function hasPackageJson(cwd: string) {
 
 export function hasDependencies(cwd: string): boolean {
   try {
-    const packageJson = JSON.parse(
-      fs.readFileSync(path.join(cwd, "package.json"), "utf8")
-    );
+    const packageJson = JSON.parse(fs.readFileSync(path.join(cwd, "package.json"), "utf8"));
     return packageJson.dependencies || packageJson.devDependencies;
   } catch (error) {
     return false;
@@ -48,8 +47,15 @@ export function createPackageJson(cwd: string) {
 }
 
 export function installModule(moduleName: string) {
-  execSync(`npm install ${moduleName} --silent`, { cwd: process.cwd() });
   print(installingModuleMsg(moduleName));
+  try {
+    execSync(`npm install ${moduleName}`, {
+      cwd: process.cwd(),
+      stdio: "ignore"
+    });
+  } catch (e) {
+    throw new AikError(e.message, ["Module not found on npm!"]);
+  }
 }
 
 export function hasNodeModules(cwd: string) {
@@ -71,7 +77,5 @@ export function installAllModules(cwd: string) {
 }
 
 export function resolveModuleToCwd(moduleName: string) {
-  return path.dirname(
-    resolveModule.sync(moduleName, { basedir: process.cwd() })
-  );
+  return path.dirname(resolveModule.sync(moduleName, { basedir: process.cwd() }));
 }

@@ -138,7 +138,7 @@ accidentally updated versions of npm modules Aik will run \\"npm install\\" in c
  WAIT  Installing npm modules..."
 `;
 
-exports[`Common Messages #installingModuleMsg 1`] = `"Installing module \\"react\\" ..."`;
+exports[`Common Messages #installingModuleMsg 1`] = `"Installing module \\"react\\" from npm..."`;
 
 exports[`Common Messages #packageJsonHasNotBeenFound 1`] = `
 " WARNING  File \\"package.json\\" hasn't been found.
@@ -269,14 +269,10 @@ Please be patient and wait until restart completes, otherwise some changes might
 
 exports[`Dev Server Messages #devServerInvalidBuildMsg 1`] = `" WAIT  Compiling..."`;
 
-exports[`Dev Server Messages #devServerModuleDoesntExists 1`] = `
-" ERROR  Module doesn't exists.
+exports[`Dev Server Messages #devServerModuleNotFoundNpm 1`] = `
+" ERROR  Imported module 'react' hasn't been found on npm! [./src/index.js]
 
-Error in ./src/index.js
-
-Webpack tried to resolve module  react  which doesn't exist.
-
-Please try: npm install react"
+It's likely caused by a typo in the module name. Fix the module name and changes will be picked up automatically."
 `;
 
 exports[`Dev Server Messages #devServerReactRequired 1`] = `
@@ -293,4 +289,9 @@ exports[`Dev Server Messages #devServerRestartMsg 1`] = `
 Restarting of the \\"webpack-dev-server\\" is requried.
 
 Please be patient and wait until restart completes, otherwise some changes might not be tracked."
+`;
+
+exports[`Dev Server Messages #devServerUsageOfNotInstalledModule 1`] = `
+" WARNING  Imported module 'react' is not installed... [./src/index.js]
+"
 `;
