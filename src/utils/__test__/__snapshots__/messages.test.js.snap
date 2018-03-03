@@ -77,8 +77,6 @@ Some error message"
 exports[`Build Messages #builderErrorMsg? Syntax Error 1`] = `
 " ERROR  Failed to create a production build. Reason:
 
-Error:
-
 |  Syntax Error: Unexpected token (20:7)
 
 Where: ./thinking-in-react/src/components/product-table/product-table.js
@@ -272,13 +270,13 @@ Please be patient and wait until restart completes, otherwise some changes might
 exports[`Dev Server Messages #devServerInvalidBuildMsg 1`] = `" WAIT  Compiling..."`;
 
 exports[`Dev Server Messages #devServerModuleDoesntExists 1`] = `
-" ERROR  Module 'react' doesn't exists.
+" ERROR  Module doesn't exists.
 
 Error in ./src/index.js
 
 Webpack tried to resolve module  react  which doesn't exist.
 
-It's likely caused by a typo in the module name."
+Please try: npm install react"
 `;
 
 exports[`Dev Server Messages #devServerReactRequired 1`] = `

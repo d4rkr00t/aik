@@ -13,9 +13,7 @@ Where: ./thinking-in-react/src/components/product-table/product-table.js"
 `;
 
 exports[`#formatMessages Format Syntax Error 1`] = `
-"Error:
-
-|  Syntax Error: Unexpected token (20:7)
+"|  Syntax Error: Unexpected token (20:7)
 
 Where: ./thinking-in-react/src/components/product-table/product-table.js
 

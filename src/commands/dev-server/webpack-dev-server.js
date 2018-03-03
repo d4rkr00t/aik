@@ -72,7 +72,7 @@ export function onDone(params: AikParams, compiler: any, invalidate: Function, s
   const formattedErrors = formatMessages(json.errors);
 
   if (hasErrors) {
-    if (formattedErrors.filter(err => err.match("Cannot resolve module")).length) {
+    if (formattedErrors.filter(err => err.match("Module not found")).length) {
       invalidate(formattedErrors);
       testUtils();
       return;
@@ -141,12 +141,12 @@ export function onInvalidate(
   //
 
   const error = errors[0] || "";
-  const fileWithError = (error.match(/Error in (.+)\n/) || [])[1];
-  let moduleName = (error.match(/Module not found: Error: Cannot resolve module '(.+)'/) || [])[1];
+  const [, rawModuleName] = error.match(/Module not found: Error: Can't resolve '(.+)' in '(.+)'/) || [];
 
-  if (!moduleName) return;
+  if (!rawModuleName) return;
 
-  moduleName = moduleName.replace(/'/gim, "");
+  const moduleName = rawModuleName.replace(/'/gim, "");
+  const [fileWithError] = error.split("\n");
 
   try {
     server.close();

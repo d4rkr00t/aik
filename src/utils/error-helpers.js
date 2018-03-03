@@ -82,9 +82,7 @@ export function formatSyntaxError(message: string): string {
   );
   const snippet = messageByLine.filter(isFileSnippetLine).map(removeLinePadding.bind(null, padding));
 
-  return `${chalk.red("Error:")}
-
-${chalk.dim("|")}  ${error}
+  return `${chalk.dim("|")}  ${error}
 
 ${chalk.yellow("Where:")} ${filePath}
 

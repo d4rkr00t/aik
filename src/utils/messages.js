@@ -227,13 +227,13 @@ export function devServerRestartMsg(module: string): string[] {
 
 export function devServerModuleDoesntExists(module: string, filename: string): string[] {
   return [
-    errorBadge() + " " + chalk.red(`Module '${module}' doesn't exists.`),
+    errorBadge() + " " + chalk.red(`Module doesn't exists.`),
     "",
     `Error in ${chalk.yellow(filename)}`,
     "",
     `Webpack tried to resolve module ${yellowBadge(module)} which doesn't exist.`,
     "",
-    `It's likely caused by a ${chalk.yellow("typo")} in the module name.`
+    `Please try: ${chalk.green("npm install " + module.split("/")[0])}`
   ];
 }
 
