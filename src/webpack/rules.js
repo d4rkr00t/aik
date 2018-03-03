@@ -113,7 +113,7 @@ export function rules(params: AikParams): Loader[] {
     {
       test: /\.jsx?$/,
       enforce: "pre",
-      exclude: /(node_modules|bower_components|aik\/lib\/webpack)/,
+      exclude: /(node_modules|bower_components|aik\/lib\/webpack|\.min\.js)/,
       loader: require.resolve("eslint-loader"),
       options: {
         configFile: path.join(__dirname, "..", "eslint-config.js"),
@@ -122,7 +122,7 @@ export function rules(params: AikParams): Loader[] {
     },
     {
       test: /\.jsx?$/,
-      exclude: /(node_modules|bower_components)/,
+      exclude: /(node_modules|bower_components|\.min\.js)/,
       use: jsLoaders
     },
     {
