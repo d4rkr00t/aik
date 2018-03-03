@@ -126,10 +126,6 @@ export function rules(params: AikParams): Loader[] {
       use: jsLoaders
     },
     {
-      test: /\.json$/,
-      use: require.resolve("json-loader")
-    },
-    {
       test: /\.html$/,
       use: require.resolve("html-loader")
     },

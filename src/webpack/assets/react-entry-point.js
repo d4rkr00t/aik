@@ -1,5 +1,6 @@
 const React = require("react");
 const ReactDOM = require("react-dom");
+import { hot } from "react-hot-loader";
 
 function renderEntry(exported) {
   if (exported.default) {
@@ -11,7 +12,7 @@ function renderEntry(exported) {
   // type and props properties).
   var element;
   if (Object.prototype.toString.call(exported) === "[object Function]") {
-    element = React.createElement(exported);
+    element = React.createElement(hot(module)(exported));
   } else if (exported.type && exported.props) {
     element = exported;
   }
@@ -22,10 +23,3 @@ function renderEntry(exported) {
 }
 
 renderEntry(require("aikReactEntryPoint"));
-
-if (module.hot && process.env.NODE_ENV !== "production") {
-  // eslint-disable-next-line
-  module.hot.accept("aikReactEntryPoint", function() {
-    renderEntry(require("aikReactEntryPoint"));
-  });
-}

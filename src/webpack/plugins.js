@@ -3,7 +3,6 @@
 import path from "path";
 import webpack from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
-import NpmInstallPlugin from "npm-install-webpack2-plugin";
 import ExtractTextPlugin from "extract-text-webpack-plugin";
 import last from "../utils/last";
 
@@ -14,34 +13,13 @@ export function htmlWebpackPlugin(template: string | false) {
   });
 }
 
-export function npmInstallPlugin(options?: Object = {}) {
-  return new NpmInstallPlugin(Object.assign({ dev: true, peerDependencies: true }, options));
-}
-
 /**
  * Plugins for production build.
  */
 export function pluginsProd(template: string | false): Array<any> {
   return [
     new webpack.DefinePlugin({ "process.env.NODE_ENV": '"production"' }),
-    new webpack.optimize.ModuleConcatenationPlugin(),
     htmlWebpackPlugin(template),
-    npmInstallPlugin(),
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        screw_ie8: true,
-        warnings: false
-      },
-      mangle: {
-        screw_ie8: true
-      },
-      output: {
-        comments: false,
-        screw_ie8: true
-      }
-    }),
     new ExtractTextPlugin("[name].[contenthash:8].css")
   ];
 }
@@ -54,10 +32,7 @@ export function pluginsDev(template: string | false): Array<any> {
     new webpack.LoaderOptionsPlugin({ debug: true }),
     new webpack.DefinePlugin({ "process.env.NODE_ENV": '"development"' }),
     new webpack.HotModuleReplacementPlugin(),
-    htmlWebpackPlugin(template),
-    npmInstallPlugin({
-      quiet: true
-    })
+    htmlWebpackPlugin(template)
   ];
 }
 

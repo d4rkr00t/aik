@@ -22,7 +22,6 @@ export function outputProd({ base, dist, filename }: AikParams): Output {
 export function outputDev(filename: string): Output {
   return {
     path: path.join(process.cwd(), path.dirname(filename)),
-    pathinfo: true,
     filename: path.basename(filename)
   };
 }
