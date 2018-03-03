@@ -60,7 +60,6 @@
     "accessor-pairs": [2],
     "array-callback-return": [2],
     "block-scoped-var": [2],
-    "complexity": [1, 8],
     "consistent-return": [0],
     "curly": [2, "multi-line"],
     "default-case": [2],
