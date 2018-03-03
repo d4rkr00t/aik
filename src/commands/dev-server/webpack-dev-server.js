@@ -1,7 +1,6 @@
 /* @flow */
 
 import historyApiFallback from "connect-history-api-fallback";
-import resolveModule from "resolve";
 import webpack from "webpack";
 import WebpackDevServer from "webpack-dev-server";
 import webpackConfigBuilder from "./../../webpack/config-builder";
@@ -22,7 +21,8 @@ import {
   devServerFailedToCompileMsg,
   devServerCompiledWithWarningsMsg,
   devServerRestartMsg,
-  devServerModuleDoesntExists,
+  devServerUsageOfNotInstalledModule,
+  devServerModuleNotFoundNpm,
   devServerFrameworkDetectedRestartMsg,
   devServerReactRequired
 } from "./../../utils/messages";
@@ -135,26 +135,26 @@ export function onInvalidate(
   //
   // Module Not Found:
   //
-  // There are 2 possible behaviours for when module is not found:
-  // – If it's been installed and webpack doesn't see it, Aik just restarts webpack-dev-server
-  // – If it's not installed Aik prints an error message
-  //
 
   const error = errors[0] || "";
   const [, rawModuleName] = error.match(/Module not found: Error: Can't resolve '(.+)' in '(.+)'/) || [];
 
   if (!rawModuleName) return;
 
-  const moduleName = rawModuleName.replace(/'/gim, "");
+  const moduleName = rawModuleName.replace(/'/gim, "").split("/")[0];
   const [fileWithError] = error.split("\n");
 
-  try {
+  if (isModuleInstalled(moduleName)) {
     server.close();
-    resolveModule.sync(moduleName, { basedir: process.cwd() });
     print(devServerRestartMsg(moduleName), /* clear console */ true, /* add sep */ true);
     createWebpackDevServer(params, reject);
-  } catch (e) {
-    print(devServerModuleDoesntExists(moduleName, fileWithError), /* clear console */ true, /* add sep */ true);
+  } else {
+    print(devServerUsageOfNotInstalledModule(moduleName, fileWithError), /* clear console */ true, /* add sep */ true);
+    try {
+      installModule(moduleName);
+    } catch (e) {
+      print(addTopSpace(devServerModuleNotFoundNpm(moduleName, fileWithError)));
+    }
   }
 }
 

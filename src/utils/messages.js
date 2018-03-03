@@ -131,7 +131,7 @@ export function packageJsonHasNotBeenFound(): string[] {
 }
 
 export function installingModuleMsg(moduleName: string): string[] {
-  return [`Installing module "${chalk.yellow(moduleName)}" ...`];
+  return [`Installing module "${chalk.yellow(moduleName)}" from npm...`];
 }
 
 export function configParsingError({
@@ -225,15 +225,28 @@ export function devServerRestartMsg(module: string): string[] {
   ];
 }
 
-export function devServerModuleDoesntExists(module: string, filename: string): string[] {
+export function devServerUsageOfNotInstalledModule(module: string, filename: string): string[] {
   return [
-    errorBadge() + " " + chalk.red(`Module doesn't exists.`),
+    warningBadge() +
+      " " +
+      chalk.yellow(`Imported module '${chalk.bold(module)}' is not installed...`) +
+      " " +
+      chalk.dim(`[${filename}]`),
+    ""
+  ];
+}
+
+export function devServerModuleNotFoundNpm(module: string, filename: string): string[] {
+  return [
+    errorBadge() +
+      " " +
+      chalk.red(`Imported module '${chalk.bold(module)}' hasn't been found on npm!`) +
+      " " +
+      chalk.dim(`[${filename}]`),
     "",
-    `Error in ${chalk.yellow(filename)}`,
-    "",
-    `Webpack tried to resolve module ${yellowBadge(module)} which doesn't exist.`,
-    "",
-    `Please try: ${chalk.green("npm install " + module.split("/")[0])}`
+    `It's likely caused by a ${chalk.yellow("typo")} in the module name. Fix the ${chalk.yellow(
+      "module name"
+    )} and changes will be picked up ${chalk.yellow("automatically")}.`
   ];
 }
 

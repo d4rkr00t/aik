@@ -56,6 +56,7 @@ const errorHandler = err => {
     // eslint-disable-next-line
     console.log(chalk.red(err.stack || err));
   }
+  process.exit(1);
 };
 
 aik.deprecation.flagDeprecationWarnings(flags, () => {
