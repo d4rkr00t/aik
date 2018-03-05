@@ -41,9 +41,16 @@ export function isModuleNotFoundError(message: string): boolean {
 
 export function extractInfoFromModuleNotFoundError(message: string) {
   const [, rawModuleName] = message.match(/Module not found: Error: Can't resolve '(.+)' in '(.+)'/) || [];
-  const moduleName = (rawModuleName || "").replace(/'/gim, "").split("/")[0];
+  const moduleName = (rawModuleName || "").replace(/'/gim, "");
+  const cleanModuleName = moduleName.startsWith("@")
+    ? moduleName
+        .split("/")
+        .slice(0, 2)
+        .join("/")
+    : moduleName.split("/")[0];
+
   const [file] = message.split("\n");
-  return { moduleName, file };
+  return { moduleName: cleanModuleName, file };
 }
 
 export function findMessagesToFormat(messages: string[]): string[] {

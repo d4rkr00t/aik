@@ -34,4 +34,11 @@ describe("#extractInfoFromModuleNotFoundError", () => {
     expect(moduleName).toBe("barbarbar");
     expect(file.includes("module-not-found/index.js")).toBe(true);
   });
+
+  test("should be able to extract module name and file name if module name is a namespaced module", () => {
+    const stats = updateStatsMock("module-not-found-namespace");
+    const { moduleName, file } = extractInfoFromModuleNotFoundError(stats.errors[0]);
+    expect(moduleName).toBe("@namespace/barbarbar");
+    expect(file.includes("module-not-found-namespace/index.js")).toBe(true);
+  });
 });
