@@ -1,29 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#formatMessages Format ESLint Warnings 1`] = `
-" 5:16  warning  React.createClass is deprecated since React 15.5.0, use the npm module create-react-class instead  react/no-deprecated
-40:11  warning  No duplicate props allowed                                                                         react/jsx-no-duplicate-props
+"2:3   warning  Unexpected console statement                  no-console
+3:27  warning  'item' is assigned a value but never used     no-unused-vars
+3:32  warning  Expected to return a value in arrow function  array-callback-return
 
-Where: ./thinking-in-react/src/components/filtered-product-table/filtered-product-table.js
-
-
-16:11  warning  No duplicate props allowed  react/jsx-no-duplicate-props
-
-Where: ./thinking-in-react/src/components/product-table/product-table.js"
+Where: ./__fixtures__/webpack-stats/eslint-warning/index.js"
 `;
 
 exports[`#formatMessages Format Syntax Error 1`] = `
-"|  Syntax Error: Unexpected token (20:7)
+"|  Syntax Error: Unexpected token (2:10)
 
-Where: ./thinking-in-react/src/components/product-table/product-table.js
+Where: ./__fixtures__/webpack-stats/syntax-error/index.js
 
-  18 |   return (
-  19 |     <div className=\\"productTable\\">
-> 20 |       <<table>
-     |        ^
-  21 |         <thead>
-  22 |           <tr>
-  23 |             <th>Name</th>"
+  1 | module.exports = () => {
+> 2 |   return <<div>1</div>;
+    |           ^
+  3 | }
+  4 | "
 `;
 
 exports[`#formatMessages Format Webpack Warnings 1`] = `""`;

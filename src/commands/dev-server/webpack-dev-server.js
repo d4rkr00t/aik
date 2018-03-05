@@ -6,7 +6,7 @@ import WebpackDevServer from "webpack-dev-server";
 import webpackConfigBuilder from "./../../webpack/config-builder";
 import testUtils from "./../../utils/test-utils";
 import { detectFramework } from "./../../utils/framework-detectors";
-import { formatMessages } from "./../../utils/error-helpers";
+import { formatMessages, isModuleNotFoundError, extractInfoFromModuleNotFoundError } from "./../../utils/error-helpers";
 import {
   print,
   addTopSpace,
@@ -137,12 +137,12 @@ export function onInvalidate(
   //
 
   const error = errors[0] || "";
-  const [, rawModuleName] = error.match(/Module not found: Error: Can't resolve '(.+)' in '(.+)'/) || [];
 
-  if (!rawModuleName) return;
+  if (!isModuleNotFoundError(error)) return;
 
-  const moduleName = rawModuleName.replace(/'/gim, "").split("/")[0];
-  const [fileWithError] = error.split("\n");
+  const { moduleName, file: fileWithError } = extractInfoFromModuleNotFoundError(error);
+
+  if (!moduleName) return;
 
   if (isModuleInstalled(moduleName)) {
     server.close();

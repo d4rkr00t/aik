@@ -77,17 +77,15 @@ Some error message"
 exports[`Build Messages #builderErrorMsg? Syntax Error 1`] = `
 " ERROR  Failed to create a production build. Reason:
 
-|  Syntax Error: Unexpected token (20:7)
+|  Syntax Error: Unexpected token (2:10)
 
-Where: ./thinking-in-react/src/components/product-table/product-table.js
+Where: ./__fixtures__/webpack-stats/syntax-error/index.js
 
-  18 |   return (
-  19 |     <div className=\\"productTable\\">
-> 20 |       <<table>
-     |        ^
-  21 |         <thead>
-  22 |           <tr>
-  23 |             <th>Name</th>"
+  1 | module.exports = () => {
+> 2 |   return <<div>1</div>;
+    |           ^
+  3 | }
+  4 | "
 `;
 
 exports[`Build Messages #builderRemovingDistMsg 1`] = `"Removing folder: ./dist"`;
@@ -95,16 +93,15 @@ exports[`Build Messages #builderRemovingDistMsg 1`] = `"Removing folder: ./dist"
 exports[`Build Messages #builderRunningBuildMsg 1`] = `"Running webpack production build..."`;
 
 exports[`Build Messages #builderSuccessMsg 1`] = `
-" DONE  in 3892ms
+" DONE  in 100ms
 
 Aik has successfully generated a bundle in the \\"./dist\\" folder!
 The bundle is optimized and ready to be deployed to production.
 
  ASSETS 
 
-index.2b2f089a.js:  22.90kb, 7.33kb gzip
-index.1027be30.css: 0.67kb, 0.31kb gzip
-index.html:         0.34kb, 0.24kb gzip"
+main.js:    4.57kb, 1.33kb gzip
+index.html: 0.18kb, 0.15kb gzip"
 `;
 
 exports[`Common Messages #configParsingError 1`] = `

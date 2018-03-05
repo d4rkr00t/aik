@@ -1,7 +1,7 @@
+import path from "path";
 import stripAnsi from "strip-ansi";
 
-import syntaxErrorMock from "./mock-data/syntax-error.json";
-import buildStatsMock from "./mock-data/build-stats.json";
+import { updateStatsMock } from "../../test-helpers/update-stats-mock";
 
 import {
   eslintExtraWarningMsg,
@@ -32,6 +32,7 @@ import {
   joinWithSeparator,
   joinWithSpace
 } from "../messages";
+import { createBuildStats } from "../../commands/build/webpack-build";
 
 const print = msg => {
   // console.log(msg.join("\n"));
@@ -311,12 +312,18 @@ describe("Build Messages", () => {
     });
 
     test("Syntax Error", () => {
-      expect(print(builderErrorMsg(syntaxErrorMock))).toMatchSnapshot();
+      expect(print(builderErrorMsg(updateStatsMock("syntax-error").errors))).toMatchSnapshot();
     });
   });
 
   test("#builderSuccessMsg", () => {
-    expect(print(builderSuccessMsg("./dist", buildStatsMock))).toMatchSnapshot();
+    const stats = updateStatsMock("successful-build");
+    const buildStats = createBuildStats(
+      path.join(process.cwd(), "__fixtures__", "webpack-stats", "successful-build"),
+      stats
+    );
+    buildStats.buildDuration = 100;
+    expect(print(builderSuccessMsg("./dist", buildStats))).toMatchSnapshot();
   });
 });
 
