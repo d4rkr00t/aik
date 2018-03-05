@@ -8,9 +8,9 @@
 
 ![aik dev server warning](/assets/dev-warning.png)
 
-### Dev Server Error
+### Syntax Error
 
-![aik dev server error](/assets/dev-error.png)
+![aik dev server error](/assets/syntax-error.png)
 
 ### Dev Server Port Changed
 
@@ -27,10 +27,6 @@
 ### Build Successfully Finished
 
 ![aik build success](/assets/build-success.png)
-
-### Build Error
-
-![aik build error](/assets/build-error.png)
 
 ### Create File Prompt
 
