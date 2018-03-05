@@ -1,6 +1,5 @@
 /* @flow */
 
-import path from "path";
 import aliases from "./aliases";
 import entry from "./entry";
 import output from "./output";
@@ -21,8 +20,7 @@ export default function webpackConfigBuilder(params: AikParams): WebPackConfig {
     module: { rules: rules(params) },
     resolve: {
       alias: aliases(params),
-      extensions: [".wasm", ".mjs", ".js", ".jsx", ".json"],
-      modules: [path.dirname(path.resolve(process.cwd(), params.filename)), "web_modules", "node_modules"]
+      extensions: [".wasm", ".mjs", ".js", ".jsx", ".json"]
     }
   };
 }
