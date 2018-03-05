@@ -35,6 +35,17 @@ export function isPrebuildFileWarning(message: string): boolean {
   return !!message.match("This seems to be a pre-built javascript file");
 }
 
+export function isModuleNotFoundError(message: string): boolean {
+  return !!message.match(/Module not found: Error: Can't resolve/);
+}
+
+export function extractInfoFromModuleNotFoundError(message: string) {
+  const [, rawModuleName] = message.match(/Module not found: Error: Can't resolve '(.+)' in '(.+)'/) || [];
+  const moduleName = (rawModuleName || "").replace(/'/gim, "").split("/")[0];
+  const [file] = message.split("\n");
+  return { moduleName, file };
+}
+
 export function findMessagesToFormat(messages: string[]): string[] {
   return messages.filter(message => {
     if (isEslintParseError(message)) {
@@ -73,7 +84,8 @@ export function removeLinePadding(padding: number, line: string): string {
  * Formats "Syntax Error" message.
  */
 export function formatSyntaxError(message: string): string {
-  const messageByLine = message.split("\n");
+  // Ignore BabelLoaderErrors and just use webpack syntax error
+  const messageByLine = message.split("BabelLoaderError")[0].split("\n");
   const padding = getLinePadding(messageByLine[0]);
   const filePath = removeLinePadding(padding, messageByLine[0]);
   const error = removeLinePadding(

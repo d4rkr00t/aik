@@ -5,9 +5,11 @@ _docs
 tests/heavy/*
 !tests/heavy/run.sh
 !tests/heavy/_package.json
-tests/visual-regression/__image_snapshots__/__diff_output__
 packages
 lib
+__fixtures__/webpack-stats/**/main.js
+__fixtures__/webpack-stats/**/stats.json
+tests/visual-regression/__image_snapshots__/__diff_output__/*
 
 # Logs
 logs

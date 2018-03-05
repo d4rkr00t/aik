@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#createBuildStata should create build stats from webpack stats json 1`] = `
+Array [
+  Object {
+    "name": "main.js",
+    "size": 4.568359375,
+    "sizeGz": 1.333984375,
+  },
+  Object {
+    "name": "index.html",
+    "size": 0.17578125,
+    "sizeGz": 0.146484375,
+  },
+]
+`;

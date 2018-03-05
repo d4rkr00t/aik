@@ -23,6 +23,20 @@ export function removeDist(distPath: string): Promise<*> {
   return new Promise(resolve => fs.remove(distPath, resolve));
 }
 
+export function createBuildStats(dist: string, stats: any) {
+  const buildDuration: number = stats.time;
+  const assets: BuildStatAsset[] = stats.assets.map(item => {
+    const content: string = fs.readFileSync(path.join(dist, item.name), "utf-8");
+    return {
+      name: item.name,
+      size: item.size / 1024,
+      sizeGz: gzipSize.sync(content) / 1024
+    };
+  });
+
+  return { buildDuration, assets };
+}
+
 /**
  * Builds project using webpack.
  */
@@ -54,15 +68,7 @@ export default async function runWebpackBuilder(params: AikParams): Promise<*> {
         return reject();
       }
 
-      const buildDuration: number = stats.endTime - stats.startTime;
-      const assets: BuildStatAsset[] = json.assets.map(item => {
-        const content: string = fs.readFileSync(path.join(params.dist.path, item.name), "utf-8");
-        return {
-          name: item.name,
-          size: item.size / 1024,
-          sizeGz: gzipSize.sync(content) / 1024
-        };
-      });
+      const { buildDuration, assets } = createBuildStats(params.dist.path, json);
 
       print(
         builderSuccessMsg(params.dist.short, { buildDuration, assets }),

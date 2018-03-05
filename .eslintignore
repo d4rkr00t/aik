@@ -4,3 +4,4 @@ lib/
 assets/
 flow-typed/
 **/__test__/mock-data
+__fixtures__/webpack-stats/syntax-error/index.js
