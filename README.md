@@ -40,6 +40,10 @@ Frontend Playground
 <br/>
 <br/>
 
+This project aims to help to prototype faster and not supposed to be a part of any production-ready system. If you want
+solutions that are better for production use case you can take a look at the [alternatives](#alternatives) section down
+below.
+
 ## Quick Start
 
 ```sh
@@ -47,28 +51,22 @@ npm i -g aik # install using npm cli
 yarn global add aik # or install using yarn
 
 aik index.js -o
+
+# or using npm's npx
+
+npx aik index.js
 ```
 
 ![aik quick start](/assets/dev.png)
 
-## Objectives
-
-This project aims to help to prototype faster and not supposed to be a part of any production-ready system. If you want
-solutions that are better for production use case you can take a look at the [alternatives](#alternatives) section down
-below.
-
-Aik's main goal is to be open for any JavaScript framework or a library, even though it has extra features for React.
-
 ## Table of Content
 
 * [Quick Start](#quick-start)
-* [Objectives](#objectives)
 * [Usage](#usage)
 * [Examples](#examples)
 * [Features](#features)
   * [Run web server with JavaScript file](#run-web-server-with-javascript-file)
   * [NPM Modules](#npm-modules)
-  * [Relative Module Paths](#relative-module-paths)
   * [Custom templates](#custom-templates)
   * [Frameworks Support](#frameworks-support)
     * [Framework Autodetection](#framework-autodetection)
@@ -117,7 +115,7 @@ Examples
 
 ### Run web server with a JavaScript file
 
-Start playing around with new ideas is as simple as running a single command in your terminal:
+To start experimenting with new ideas is as simple as running a single command in your terminal:
 
 ```sh
 aik index.js
@@ -133,10 +131,9 @@ Moreover, Aik:
 
 For simplifying work with npm modules Aik takes care of:
 
-#### Automatic installing npm modules
+#### Automatic installation of npm modules
 
-Just add a require or an import statement in a JavaScript file and you are ready to go (thanks to
-[npm install webpack plugin](https://github.com/ericclemmons/npm-install-webpack-plugin)).
+Just add a require or an import statement in a JavaScript file and you are ready to go.
 
 ```js
 import react from "react";
@@ -145,35 +142,8 @@ import ReactDOM from "react-dom";
 
 #### Pre-installing NPM Modules
 
-If a project contains `package.json`, Aik will automatically pre-install npm modules defined in it, before trying to
+If there is a `package.json` file, Aik will automatically pre-install npm modules defined in it, before trying to
 compile an entry point.
-
-### Relative Module Paths
-
-Let's assume such project structure:
-
-```
-├── index.js
-└── components
-    ├── comp1
-        └── comp1.js
-    └── comp2
-        └── comp2.js
-```
-
-And if you want to import comp2.js from comp1.js you can do it using both these ways:
-
-```js
-// comp1.js
-
-// Import relative to the index.js
-import comp2 from "components/comp2/comp2";
-
-// Or import relative to comp1.js
-import comp2 from "../comp2/comp2";
-```
-
-Choose the way you prefer the most.
 
 ### Custom templates
 
@@ -218,7 +188,7 @@ This will wrap react component in an RHL compatible wrapper enabling hot reloadi
 component to an element with id = `app`.
 
 Also, you can manually wrap your component in react-hot-loader wrapper as described in
-[Migration to 3.0](https://github.com/gaearon/react-hot-loader/tree/master/docs#migration-to-30) guide.
+[RHL's readme](https://github.com/gaearon/react-hot-loader/#migrating-from-create-react-app).
 
 ### Latest and greatest technologies for frontend development
 
@@ -251,21 +221,21 @@ Aik comes with set up linters. Nothing annoying about code style, only rules whi
 aik index.js --build
 ```
 
-Produces minimized build for production usage. It's easy to publish prototype to GitHub pages, Surge, or wherever you
+Build command produces optimized for production use bundle. This makes it easy to publish prototype to GitHub pages, Surge, Now or wherever you
 want. Important that assets urls are relative to the root:
 
 ```html
 <script type="text/javascript" src="/index.c699c867.js"></script></body>
 ```
 
-If you want to host build in sub directory (e.g. https://my-web-site.com/sub-dir/) you should run Aik with the '--base'
+If you want to host a build in a sub directory (e.g. https://my-web-site.com/sub-dir/) you should run Aik with the '--base'
 flag:
 
 ```sh
 aik index.js --build --base "/my-sub-folder"
 ```
 
-Now assets urls are relative to specified base path:
+Now assets urls are relative to a specified base path:
 
 ```html
 <script type="text/javascript" src="/my-sub-folder/index.c699c867.js"></script></body>
@@ -318,7 +288,7 @@ More examples [here](/docs/messages.md).
 
 ## Author
 
-Stanislav Sysoev d4rkr00t@gmail.com https://github.com/d4rkr00t/aik
+Stanislav Sysoev d4rkr00t@gmail.com https://sysoev.org
 
 ## Contributors
 
