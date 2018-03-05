@@ -16,7 +16,7 @@ export async function updatePort(
 ): Promise<{ port: string | number, oldPort?: string | number }> {
   const newPort = await detectPort(parseInt(port, 10), host);
 
-  if (port !== newPort) {
+  if (parseInt(port, 10) !== newPort) {
     return { oldPort: port, port: newPort };
   }
 
