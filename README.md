@@ -256,7 +256,7 @@ Highly inspired by create-react-app and some other places.
 
 #### Dev Server Error
 
-![aik dev server error](/assets/dev-error.png)
+![aik dev server error](/assets/syntax-error.png)
 
 #### Build Successfully Finished
 
