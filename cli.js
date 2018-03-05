@@ -5,6 +5,9 @@
 // Need that because of regenerator runtime
 require("babel-polyfill");
 
+// $FlowFixMe
+process.noDeprecation = true; // Suppress webpack deprecation warnings
+
 const meow = require("meow");
 const chalk = require("chalk");
 const aik = require("./lib");
