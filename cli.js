@@ -11,7 +11,6 @@ process.noDeprecation = true; // Suppress webpack deprecation warnings
 const meow = require("meow");
 const chalk = require("chalk");
 const aik = require("./lib");
-const insight = aik.analytics;
 const cli = meow({
   help: [
     chalk.green("Usage"),
@@ -80,16 +79,11 @@ const errorHandler = err => {
 };
 
 aik.deprecation.flagDeprecationWarnings(flags, () => {
-  insight.askPermission(() => {
-    if (!input.length) {
-      insight.track([], input, flags);
-      console.log(cli.help); // eslint-disable-line
-    } else if (flags.build) {
-      insight.track(["build"], input, flags);
-      aik.build(input, flags).catch(errorHandler);
-    } else {
-      insight.track(["dev-server"], input, flags);
-      aik.devServer(input, flags).catch(errorHandler);
-    }
-  });
+  if (!input.length) {
+    console.log(cli.help); // eslint-disable-line
+  } else if (flags.build) {
+    aik.build(input, flags).catch(errorHandler);
+  } else {
+    aik.devServer(input, flags).catch(errorHandler);
+  }
 });
