@@ -6,3 +6,4 @@
 .*/test/.*
 .*/template/.*
 .*/tests/heavy/examples/.*
+.*/**/*.json
